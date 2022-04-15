@@ -11,13 +11,12 @@ import MensCycleScreen from "./screens/MensCycleScreen";
 
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
-import IndexCal from "./screens/IndexCal";
-import PasswordCheck from "./screens/PasswordCheck";
-import IndexCircle from "./screens/IndexCircle";
-import MonasChoosePwScreen from "./screens/MonasChoosePWScreen";
-import MonasChangePwScreen from "./screens/MonasChangePWScreen";
-import MonasPasswordCheck from "./screens/MonasPasswordCheck";
-import MonasMensCycleScreen from "./screens/MonasMensCycleScreen";
+import AboutUsScreen from "./screens/AboutUsScreen";
+import MensCycleChangeScreen from "./screens/MensCycleChangeScreen";
+import InfoWOButtScreen from "./screens/InfoWOButtScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Tabs from "./Navigation/tabs";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -25,11 +24,14 @@ import MonasMensCycleScreen from "./screens/MonasMensCycleScreen";
  *
  * @returns
  */
+
+const Tab = createMaterialTopTabNavigator();
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <MonasMensCycleScreen />
-    </View>
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
   );
 }
 
@@ -41,15 +43,18 @@ const styles = StyleSheet.create({
 });
 
 /**
-<<<<<<< HEAD
  * Just Commentary Dump to test diff Screens with their props.
+ * 
  *  <MensCycleScreen title= "Weiter"/>
  *  <LogoScreen title='Press Me'/>
+ * <AddEntryScreen/>
  * <NotificationScreen/>
+ * <AboutUsScreen header="Über uns" />
+ *  <MensCycleChangeScreen header="Menstruations- und Zykluslänge ändern" title="ändern"/>
  * <InfoTextScreen header="Hallo!" title="Weiter"/>
  * <ChoosePwScreen title="Weiter"/>
- *  <CalendarScreen
-        header="Wann hattest du deine letzte Menstruation?"
+ * <InfoWOButtScreen header="Did you know.." />
+ *   <CalendarScreen
         title="Weiter"
       />
  * <ChangePWScreen title="ändern"/>

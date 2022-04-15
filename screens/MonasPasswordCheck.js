@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Pressable,
+  Text,
+  TextInput,
+} from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
 import AddButton from "../components/AddButton";
-import { getMyStuff } from "../Database/CreateDatabase";
-import { storeMyStuff } from "../Database/CreateDatabase";
-
+import { getMyStuff } from "../database/CreateDatabase";
+import { storeMyStuff } from "../database/CreateDatabase";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -21,28 +28,32 @@ import { storeMyStuff } from "../Database/CreateDatabase";
  * @param {} props
  * @returns
  */
- const passwordScreenCheck=async(password , givenPassword)=>{
-  if(password==givenPassword){
-
-      //Hier weiterleitung einfügen, ich hab doch keine Ahnung von Navigation help
-      {Alert.alert("Richtig! Jetzt solltest du eigentlich weitergeleitet werden")}
-  }else{
-      {Alert.alert("Passwort ungültig")}
+const passwordScreenCheck = async (password, givenPassword) => {
+  if (password == givenPassword) {
+    //Hier weiterleitung einfügen, ich hab doch keine Ahnung von Navigation help
+    {
+      Alert.alert(
+        "Richtig! Jetzt solltest du eigentlich weitergeleitet werden"
+      );
+    }
+  } else {
+    {
+      Alert.alert("Passwort ungültig");
+    }
   }
-}
+};
 
 const MonasPasswordCheck = (props) => {
+  storeMyStuff("passwordKey", 1234); //Das hier muss raus sobald es wirklich ein altes Passwort gibt
 
-  storeMyStuff('passwordKey',1234);                 //Das hier muss raus sobald es wirklich ein altes Passwort gibt
-  
-  const [givenPassword, setGivenPassword]= useState();
-  const [oldPassword, setOldPassword]= useState();
- 
-  const [text3, setText3] = useState('');
-  
-  getMyStuff('passwordKey').then((returnedValue)=>{
+  const [givenPassword, setGivenPassword] = useState();
+  const [oldPassword, setOldPassword] = useState();
+
+  const [text3, setText3] = useState("");
+
+  getMyStuff("passwordKey").then((returnedValue) => {
     setOldPassword(JSON.parse(returnedValue));
-  })
+  });
   return (
     <View style={styles.imageBox}>
       <View>
@@ -52,12 +63,11 @@ const MonasPasswordCheck = (props) => {
         </View>
         <Input title="Passwort" />
         <TextInput
-          style={{height: 60}}
+          style={{ height: 60 }}
           placeholder="Passwort"
-          onChangeText={text => setGivenPassword(text)}
+          onChangeText={(text) => setGivenPassword(text)}
           defaultValue={text3}
-      />
-   
+        />
       </View>
 
       <View style={styles.button}>

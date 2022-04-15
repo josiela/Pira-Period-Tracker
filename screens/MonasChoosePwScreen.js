@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Pressable,
+  Text,
+  TextInput,
+} from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
 import AddButton from "../components/AddButton";
-import storeMyStuff from "../Database/CreateDatabase";
+import storeMyStuff from "../database/CreateDatabase";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -21,20 +29,22 @@ import storeMyStuff from "../Database/CreateDatabase";
  */
 
 //Das hier checkt erst, ob die Passwörter gleich sind, und speichert dann mit der storeMyStuff aus CreateDatabase das Passwort unter dem Key "passwordKey"
-const checkPasswords=async(firstPassword1, secondPassword1)=>{
-    if(firstPassword1==secondPassword1){
-        {Alert.alert("Vielen Dank! Dein Passwort wurde gespeichert ")}
-        storeMyStuff('passwordKey',firstPassword1);
-    }else{
-        {Alert.alert("Passwörter sind nicht gleich")}
+const checkPasswords = async (firstPassword1, secondPassword1) => {
+  if (firstPassword1 == secondPassword1) {
+    {
+      Alert.alert("Vielen Dank! Dein Passwort wurde gespeichert ");
     }
-}
-
+    storeMyStuff("passwordKey", firstPassword1);
+  } else {
+    {
+      Alert.alert("Passwörter sind nicht gleich");
+    }
+  }
+};
 
 const MonasChoosePwScreen = (props) => {
-
-const [firstPassword1, setFirstPassword1]=useState(0);
-const [secondPassword1, setSecondPassword1]=useState(0);
+  const [firstPassword1, setFirstPassword1] = useState(0);
+  const [secondPassword1, setSecondPassword1] = useState(0);
   return (
     <View style={styles.imageBox}>
       <View>
@@ -42,15 +52,15 @@ const [secondPassword1, setSecondPassword1]=useState(0);
         <View style={styles.title}>
           <Text style={styles.text2}>{content.start7}</Text>
         </View>
-        <Input title="Passwort" value={firstPassword1}/>
-        <Input title="Wiederholen" value={secondPassword1}/>
-      
+        <Input title="Passwort" value={firstPassword1} />
+        <Input title="Wiederholen" value={secondPassword1} />
       </View>
 
       <View style={styles.button}>
         <Pressable
           style={styles.button1}
-          onPress={()=>checkPasswords(firstPassword1, secondPassword1)}>
+          onPress={() => checkPasswords(firstPassword1, secondPassword1)}
+        >
           <Text style={styles.text}>{props.title}</Text>
         </Pressable>
       </View>

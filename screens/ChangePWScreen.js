@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, Pressable, Text } from "react-native";
+import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
@@ -8,36 +8,32 @@ import * as content from "../constants/texts";
 /**
  *  ChangePWScreen!
  *  takes the UILogo & Input Component.
- *  to change Password with some describing Text.
- * 
- * ToDo Styling
  *
- *
+  *
  * @param {} props
  * @returns
  */
 
+
 const ChangePWScreen = (props) => {
   return (
-    <View style={styles.container}>
-      <UILogo src="lock" />
-      
-      <Text style={styles.title}>{content.pin1}</Text>
-      
-      <Text style={styles.text3}>{content.Passwort}</Text>
-      
-      <View style={styles.inputBox}>
-      <Input title={content.pin2} />
-      <Input title={content.pin3} />
-      <Input title={content.pin4} />
+    <View style={styles.imageBox}>
+      <View>
+        <UILogo src="lock" />
+        <View style={styles.title}>
+          <Text style={styles.text2}>{content.pin1}</Text>
+        </View>
+        <Input title={content.pin2}/>
+        <Input title={content.pin3}/>
+        <Input title={content.pin4}/>
       </View>
 
-      <View style={styles.buttonBox}>
+      <View style={styles.button}>
         <Pressable
-          style={styles.buttonDesign}
+          style={styles.button1}
           onPress={() => Alert.alert(content.changeCheck)}
         >
-          <Text style={styles.textButton}>{props.title}</Text>
+          <Text style={styles.text}>{props.title}</Text>
         </Pressable>
       </View>
     </View>
@@ -45,46 +41,36 @@ const ChangePWScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  imageBox: {
     flex: 1,
     flexDirection: "column",
-    paddingHorizontal: 40,
+    paddingHorizontal: 60,
     paddingVertical: 80,
     justifyContent: "space-between",
   },
-
-  titleBox: {
+  title: {
     color: colors.mainG,
+    marginTop: 40,
     fontSize: 32,
     lineHeight: 36,
   },
-
-  inputBox:{
-    
-  },
-
-  title: {
-    color: colors.accBlue,
-    fontSize: 20,
-  },
-
-  text3: {
-    color: colors.mainG,
-    fontSize: 16,
-  },
-
-  //Button Styles
-  buttonBox: {
+  button: {
     elevation: 5,
     alignItems: "center",
   },
-  textButton: {
+  text: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
-  buttonDesign: {
+
+  text2: {
+    color: colors.mainG,
+    fontSize: 20,
+  },
+
+  button1: {
     borderRadius: 8,
     height: 40,
     width: 80,

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, Pressable, Text } from "react-native";
+import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
+import AddButton from "../components/AddButton";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -13,8 +14,6 @@ import * as content from "../constants/texts";
  * ToDo: Navigation Bar
  * may find another solution for the marked Dates, it's just a dummy rn
  * also find a way to get the input outta it but that's prob. a diff issue
- * 
- * STYLE <3
  *
  * @param {} props
  * @returns
@@ -22,30 +21,33 @@ import * as content from "../constants/texts";
 
 const ChoosePwScreen = (props) => {
   return (
-    <View style={styles.container}>
-      <UILogo src="lock" />
-      <View style={styles.title}>
-        <Text style={styles.text}>{content.start7}</Text>
-        <View style={styles.inputBox}>
-          <Input title="Passwort" />
-          <Input title="Wiederholen" />
+    <View style={styles.imageBox}>
+      <View>
+        <UILogo src="gear" />
+        <View style={styles.title}>
+          <Text style={styles.text2}>{content.start7}</Text>
         </View>
+        <Input title="Passwort" />
+        <Input title="Wiederholen" />
       </View>
 
-      <View style={styles.buttonBox}>
+      <View style={styles.button}>
         <Pressable
-          style={styles.buttonDesign}
+          style={styles.button1}
           onPress={() => Alert.alert("am pressed omg")}
         >
-          <Text style={styles.textButton}>{props.title}</Text>
+          <Text style={styles.text}>{props.title}</Text>
         </Pressable>
       </View>
     </View>
   );
 };
+//quick reminder: Button gehört zum Navigation Component. Touchable Opacity wär noch cool.
+//https://www.skptricks.com/2018/11/react-native-responsive-image-scale-to-fit-example.html
+//Der button hat irgendwann seine default width vergessen wtf..
 
 const styles = StyleSheet.create({
-  container: {
+  imageBox: {
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 60,
@@ -58,27 +60,23 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 36,
   },
-
-  inputBox: {},
-
-  text: {
-    color: colors.mainG,
-    fontSize: 20,
-  },
-
-  //Button Styles
-  buttonBox: {
+  button: {
     elevation: 5,
     alignItems: "center",
   },
-  textButton: {
+  text: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
 
-  buttonDesign: {
+  text2: {
+    color: colors.mainG,
+    fontSize: 20,
+  },
+
+  button1: {
     borderRadius: 8,
     height: 40,
     width: 80,

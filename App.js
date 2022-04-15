@@ -11,10 +11,13 @@ import MensCycleScreen from "./screens/MensCycleScreen";
 
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
-import AboutUsScreen from "./screens/AboutUsScreen";
-import MensCycleChangeScreen from "./screens/MensCycleChangeScreen";
-import InfoWOButtScreen from "./screens/InfoWOButtScreen";
-
+import IndexCal from "./screens/IndexCal";
+import PasswordCheck  from "./screens/PasswordCheck";
+import IndexCircle  from "./screens/IndexCircle";
+import MonasChoosePwScreen from "./screens/MonasChoosePWScreen";
+import MonasChangePwScreen from "./screens/MonasChangePWScreen";
+import MonasPasswordCheck from "./screens/MonasPasswordCheck";
+import MonasMensCycleScreen from "./screens/MonasMensCycleScreen";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -24,9 +27,9 @@ import InfoWOButtScreen from "./screens/InfoWOButtScreen";
  */
 export default function App() {
   return (
-      <View style={styles.container}>
-        <ChangePWScreen title="ändern"/>
-      </View>
+    <View style={styles.container}>
+      <MonasMensCycleScreen/>
+    </View>
   );
 }
 
@@ -38,19 +41,16 @@ const styles = StyleSheet.create({
 });
 
 /**
+<<<<<<< HEAD
  * Just Commentary Dump to test diff Screens with their props.
- *
  *  <MensCycleScreen title= "Weiter"/>
  *  <LogoScreen title='Press Me'/>
- * <AddEntryScreen/>
  * <NotificationScreen/>
- * <AboutUsScreen header="Über uns" />
- *  <MensCycleChangeScreen header="Menstruations- und Zykluslänge ändern" title="ändern"/>
  * <InfoTextScreen header="Hallo!" title="Weiter"/>
  * <ChoosePwScreen title="Weiter"/>
- * <InfoWOButtScreen header="Did you know.." />
- *   <CalendarScreen
- title="Weiter"
- />
+ *  <CalendarScreen
+        header="Wann hattest du deine letzte Menstruation?"
+        title="Weiter"
+      />
  * <ChangePWScreen title="ändern"/>
  */

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
 import colors from "../constants/colors";
-import { Calendar } from "react-native-calendars";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
-import * as content from "../constants/texts";
 /**
  * This is the Calendar Screen for Starters.
  * It holds the "When you had your last mens?" Question ft. the
@@ -71,7 +70,7 @@ const CalendarScreen = (props) => {
   return (
     //props.header is given when calling the Screen
     <View style={styles.container}>
-      <Text style={styles.title}>{content.start6}</Text>
+      <Text style={styles.title}>{props.header}</Text>
 
       <Calendar
         onDayPress={(day) => {
@@ -84,12 +83,12 @@ const CalendarScreen = (props) => {
           calendarBackground: colors.mainLG,
         }}
       />
-      <View style={styles.buttonBox}>
+      <View style={styles.button}>
         <Pressable
-          style={styles.buttonDesign}
+          style={styles.button1}
           onPress={() => Alert.alert("am pressed omg")}
         >
-          <Text style={styles.textButton}>{props.title}</Text>
+          <Text style={styles.text}>{props.title}</Text>
         </Pressable>
       </View>
     </View>
@@ -111,18 +110,17 @@ const styles = StyleSheet.create({
     lineHeight: 36,
   },
 
-  //Button Styles
-  buttonBox: {
+  button: {
     margin: 50,
     elevation: 5,
   },
-  textButton: {
+  text: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
-  buttonDesign: {
+  button1: {
     borderRadius: 8,
     height: 40,
     elevation: 3,

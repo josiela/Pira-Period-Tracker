@@ -44,3 +44,7 @@ export const au1='Wir sind ein kleines Team aus Studierenden. Als Menstruierende
 //explained
 export const why1= 'Warum bescreibende Bezeichnungen?'
 export const why2='Im Gegensatz zu beschreibenden Bezeichnungen schließen Bezeichnungen wie “Frau” viele Menschen aus, die trotzdem menstruieren. Bspw. nicht-binäre afab Personen oder trans Männer. Es gibt cis Frauen, die bspw. aufgrund von Krankheit nicht menstruieren oder trans Frauen, die es auch nicht tun.'
+
+
+//Database Stuff
+export const checkPasswordText='Bitte gib dein Passwort ein'

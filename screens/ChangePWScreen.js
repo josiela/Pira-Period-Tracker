@@ -19,6 +19,7 @@ import * as content from "../constants/texts";
  * @returns
  */
 
+
 const ChangePWScreen = (props) => {
 
 
@@ -72,12 +73,12 @@ const ChangePWScreen = (props) => {
       <Input title={content.pin4} onChangeText={numberInputHandler} value={enteredValue}/>
       </View>
 
-      <View style={styles.buttonBox}>
+      <View style={styles.button}>
         <Pressable
           style={styles.buttonDesign}
           onPress={confirmInputHandler}
         >
-          <Text style={styles.textButton}>{props.title}</Text>
+          <Text style={styles.text}>{props.title}</Text>
         </Pressable>
       </View>
     </View>
@@ -86,46 +87,36 @@ const ChangePWScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  imageBox: {
     flex: 1,
     flexDirection: "column",
-    paddingHorizontal: 40,
+    paddingHorizontal: 60,
     paddingVertical: 80,
     justifyContent: "space-between",
   },
-
-  titleBox: {
+  title: {
     color: colors.mainG,
+    marginTop: 40,
     fontSize: 32,
     lineHeight: 36,
   },
-
-  inputBox:{
-    
-  },
-
-  title: {
-    color: colors.accBlue,
-    fontSize: 20,
-  },
-
-  text3: {
-    color: colors.mainG,
-    fontSize: 16,
-  },
-
-  //Button Styles
-  buttonBox: {
+  button: {
     elevation: 5,
     alignItems: "center",
   },
-  textButton: {
+  text: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
-  buttonDesign: {
+
+  text2: {
+    color: colors.mainG,
+    fontSize: 20,
+  },
+
+  button1: {
     borderRadius: 8,
     height: 40,
     width: 80,

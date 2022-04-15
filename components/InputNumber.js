@@ -35,7 +35,7 @@ const InputNumber = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-   
+    height: 300,
     width: "80%",
     //justifyContent: "center",
   },

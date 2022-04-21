@@ -6,13 +6,13 @@ import InfoTextScreen from "./screens/InfoTextScreen";
 import LogoScreen from "./screens/LogoScreen";
 import ChoosePwScreen from "./screens/ChoosePwScreen";
 import CalendarScreen from "./screens/CalendarScreen";
-import NotificationScreen from "./screens/NotificationScreen";
 import MensCycleScreen from "./screens/MensCycleScreen";
-
+import SettingsScreen from "./screens/SettingsScreen";
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
 import IndexCal from "./screens/IndexCal";
 import IndexCircle from "./screens/IndexCircle";
+import LoginPWScreen from "./screens/LoginPWScreen";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -21,9 +21,10 @@ import IndexCircle from "./screens/IndexCircle";
  * @returns
  */
 export default function App() {
+ // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   return (
     <View style={styles.container}>
-      <IndexCal />
+      <LoginPWScreen/>
     </View>
   );
 }

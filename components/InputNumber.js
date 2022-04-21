@@ -12,6 +12,11 @@ import colors from "../constants/colors";
  */
 const InputNumber = (props) => {
 
+  const [enteredText, setNumber]= useState('');
+
+  const inputNumberHandler = enteredText =>{
+    setNumber(enteredText);
+  }
 
   return (
     <View style={styles.container}>
@@ -21,6 +26,8 @@ const InputNumber = (props) => {
         placeholder="Menstruationslänge"
         placeholderTextColor={colors.primBlue}
         maxLength={2}
+        onChangeText={ml => setText(ml)}
+        defaultValue={null}
       />
       <TextInput
         style={styles.input}
@@ -28,6 +35,8 @@ const InputNumber = (props) => {
         placeholder="Zykluslänge"
         placeholderTextColor={colors.primBlue}
         maxLength={3}
+        onChangeText={zl => setText(zl)}
+        defaultValue={null}
       />
     </View>
   );
@@ -35,7 +44,7 @@ const InputNumber = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+   
     width: "80%",
     //justifyContent: "center",
   },

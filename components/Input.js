@@ -16,15 +16,21 @@ import colors from "../constants/colors";
  * @returns Component
  */
 const Input = (props) => {
+
+
   return (
     <View style={styles.container}>
       <TextInput
+       {...props}
         style={styles.input}
         secureTextEntry={true}
+        autoCapitalize="none"
+        autoCorrect={false}
         keyboardType = 'numeric'
         placeholder={props.title}
         placeholderTextColor={colors.primBlue}
         maxLength={8}
+      
       />
     </View>
   );
@@ -40,7 +46,6 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
     width: 200,
-    height: 50,
     fontSize: 16,
   },
 });

@@ -17,25 +17,15 @@ import colors from "../constants/colors";
 const SettingsScreen = (props) => {
   const settingsOptions = [
     { title: "Passwort ändern", subTitle: null, onPress: () => {} },
-    {
-      title: "Menstruationslänge & Zykluslänge",
-      subTitle: "fml",
-      onPress: () => {
-        console.log("Pressed");
-      },
-    },
+    { title: "Menstruationslänge & Zykluslänge", subTitle: "fml", onPress: () => {} },
     { title: "Über uns", subTitle: null, onPress: () => {} },
     { title: "Info", subTitle: null, onPress: () => {} },
-    {
-      title: "Daten löschen",
-      subTitle: null,
-      onPress: () => props.navigation.navigate("InfoTextScreen"),
-    },
+    { title: "Daten löschen", subTitle: null, onPress: ()=> {console.log("I h8 the world!")}}
   ];
   return (
     <View>
       <Text style={styles.title}>Einstellungen</Text>
-      <Settings settingsOptions={settingsOptions} />
+      <Settings settingsOptions={settingsOptions}/>
     </View>
   );
 };
@@ -49,3 +39,6 @@ const styles = StyleSheet.create({
 });
 
 export default SettingsScreen;
+
+
+

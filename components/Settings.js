@@ -17,25 +17,24 @@ import colors from "../constants/colors";
  */
 const Settings = ({ settingsOptions }) => {
   return (
-    <ScrollView>
+    <View>
       {settingsOptions.map(({ title, subTitle, onPress }, index) => (
-        <TouchableOpacity key={title}>
+        <TouchableOpacity key={title} onPress={onPress}>
           <View style={styles.container}>
             <Text style={styles.text}>{title}</Text>
             {subTitle && <Text style={styles.subtext}>{subTitle}</Text>}
           </View>
         </TouchableOpacity>
       ))}
-    </ScrollView>
+    </View>
   );
 };
 
 
 const styles = StyleSheet.create({
   container: {
-    height: "60%",
-    width: "80%",
     paddingTop: 20,
+  
   },
 
   text: {
@@ -44,7 +43,6 @@ const styles = StyleSheet.create({
   },
   subtext: {
     color: colors.mainBlk,
-
     fontSize: 16,
     paddingTop: 5,
   },

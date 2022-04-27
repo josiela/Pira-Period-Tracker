@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import colors from "./constants/colors";
 import InfoTextScreen from "./screens/InfoTextScreen";
 import LogoScreen from "./screens/LogoScreen";
@@ -20,12 +20,103 @@ import LoginPWScreen from "./screens/LoginPWScreen";
  *
  * @returns
  */
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
+const Tab = createMaterialTopTabNavigator();
+import { NavigationContainer } from "@react-navigation/native";
+
 export default function App() {
- // let content = <LoginPWScreen onSavePin={selectedNumber} />;
+  // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   return (
-    <View style={styles.container}>
-      <LoginPWScreen/>
-    </View>
+    <NavigationContainer>
+      {/* Rest of your app code */}
+      <Tab.Navigator
+        style={{ backgroundColor: colors.mainLG }}
+        tabBarPosition={"bottom"}
+        screenOptions={{
+          tabBarStyle: { backgroundColor: colors.mainLG },
+          tabBarShowLabel: false,
+          tabBarIndicatorStyle: {
+            backgroundColor: "transparent",
+          },
+          tabBarIconStyle: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          },
+          tabBarItemStyle: {
+            //color of item-object
+            backgroundColor: "transparent",
+            width: 30,
+            paddingHorizontal: 1,
+          },
+          tabBarContentContainerStyle: {
+            //total backgroundcolor of bar
+            backgroundColor: "transparent",
+            justifyContent: "center",
+          },
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={IndexCal}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View
+                style={{
+                  height: 10,
+                  width: 10,
+                  borderRadius: 10,
+                  backgroundColor: focused ? "#493d8a" : "#748c94",
+                }}
+              />
+            ),
+            tabBarIconStyle: {
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View
+                style={{
+                  height: 10,
+                  width: 10,
+                  borderRadius: 10,
+                  backgroundColor: focused ? "#493d8a" : "#748c94",
+                }}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Seite3"
+          component={ChoosePwScreen}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View
+                style={{
+                  height: 10,
+                  width: 10,
+                  borderRadius: 10,
+                  backgroundColor: focused ? "#493d8a" : "#748c94",
+                }}
+              />
+            ),
+            tabBarIconStyle: {
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "center",
+            },
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 

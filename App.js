@@ -17,6 +17,7 @@ import IndexCircle from "./screens/IndexCircle";
 import MonasChangePwScreen from "./screens/MonasChangePWScreen";
 import MonasPasswordCheck from "./screens/MonasPasswordCheck";
 import MonasMensCycleScreen from "./screens/MonasMensCycleScreen";
+import LoginPWScreen from "./screens/LoginPWScreen";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -27,7 +28,7 @@ import MonasMensCycleScreen from "./screens/MonasMensCycleScreen";
 export default function App() {
   return (
     <View style={styles.container}>
-      <MonasMensCycleScreen />
+      <LoginPWScreen />
     </View>
   );
 }

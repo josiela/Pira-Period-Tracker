@@ -19,6 +19,7 @@ const Input = (props) => {
   return (
     <View style={styles.container}>
       <TextInput
+        {...props}
         style={styles.input}
         secureTextEntry={true}
         keyboardType = 'numeric'

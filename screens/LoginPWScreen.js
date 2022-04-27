@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import Input from "../components/Input";
 import colors from "../constants/colors";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {storeMyStringStuff, getMyStringStuff, getMyObjectStuff, removeMyStuff,getAllKeys} from "../database/CreateDatabase";
 /**
  * The Screen we forgot about.
  * Login PW Screen
@@ -27,6 +29,7 @@ import colors from "../constants/colors";
 const LoginPWScreen = (props) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [selectedNumber, setSelectedNumber] = useState();
+  const [databaseNumber, setDatabaseNumber] = useState("");
   const [confirmed, setConfirmed] = useState(false);
 
   //validates Numbers only
@@ -41,20 +44,33 @@ const LoginPWScreen = (props) => {
   };
 
   //confirms that a number was entered, else it throws an insult
-  const confirmInputHandler = () => {
+  const confirmInputHandler = async() => {
     const chosenPin = parseInt(enteredValue);
     if (isNaN(chosenPin)) {
-      console.log("Fuck you");
+      Alert.alert("Das Passwort muss mindestens eine Ziffer enthalten");
       resetInputHandler;
+      
 
-      return;
+    }else{
+      setConfirmed(true);
+      setSelectedNumber(chosenPin);
+      storeMyStringStuff('@password',JSON.stringify(chosenPin));
+      setEnteredValue("");
+      Keyboard.dismiss(); 
     }
-    setConfirmed(true);
-    setSelectedNumber(chosenPin);
-    setEnteredValue("");
-    Keyboard.dismiss();
   };
 
+  //Shit to prove the database works
+  const getPWfromDBHandler = async() => {
+    await getMyStringStuff('@password').then((value)=>{
+      console.log("first"+value);
+      setDatabaseNumber(value);
+    });
+    
+   
+  };
+
+  
   //if pressed and confirmed selectedNumber holds the PIN
   if (confirmed) {
     console.log(selectedNumber + ".. here ye go");
@@ -79,8 +95,14 @@ const LoginPWScreen = (props) => {
         </View>
         <View style={styles.buttonBox}>
           <Pressable style={styles.buttonDesign} onPress={confirmInputHandler}>
-            <Text style={styles.textButton}>{props.title}</Text>
+            <Text style={styles.textButton}>{"Passwort speichern"}</Text>
           </Pressable>
+          <Pressable style={styles.buttonDesign} onPress={getPWfromDBHandler}>
+            <Text style={styles.textButton}>{"Gespeichertes Aufrufen"}</Text>
+          </Pressable>
+          <View style={styles.textBox}>
+             <Text style={styles.text2}>{databaseNumber}</Text>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>

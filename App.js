@@ -12,9 +12,11 @@ import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
 import IndexCircle from "./screens/IndexCircle";
 import LoginPWScreen from "./screens/LoginPWScreen";
-import SwipeNavigation from "./components/SwipeNavigation";
+import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import "react-native-gesture-handler";
+
+const Stack = createNativeStackNavigator();
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -36,7 +38,7 @@ export default function App() {
   // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   return (
     <NavigationContainer>
-      <SwipeNavigation></SwipeNavigation>
+      <StackNavigation></StackNavigation>
     </NavigationContainer>
   );
 }

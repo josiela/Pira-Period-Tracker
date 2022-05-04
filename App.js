@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import colors from "./constants/colors";
 import InfoTextScreen from "./screens/InfoTextScreen";
 import LogoScreen from "./screens/LogoScreen";
@@ -10,9 +10,11 @@ import MensCycleScreen from "./screens/MensCycleScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
-import IndexCal from "./screens/IndexCal";
 import IndexCircle from "./screens/IndexCircle";
 import LoginPWScreen from "./screens/LoginPWScreen";
+import SwipeNavigation from "./components/SwipeNavigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -20,12 +22,22 @@ import LoginPWScreen from "./screens/LoginPWScreen";
  *
  * @returns
  */
+
+//-----HOW THE SWIPE NAVIGATION MUST BE STRUCTURED------//
+/*
+Swipenavigation must be nested in <NavigationContainer>. That container HAS TO BE in App.js, don't ask me why but
+it doesnt want it in the SwipeNavigationContainer
+<NavigationContainer>
+  <SwipeNavigation></SwipeNavigation>
+</NavigationContainer>
+*/
+
 export default function App() {
- // let content = <LoginPWScreen onSavePin={selectedNumber} />;
+  // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   return (
-    <View style={styles.container}>
-      <LoginPWScreen/>
-    </View>
+    <NavigationContainer>
+      <SwipeNavigation></SwipeNavigation>
+    </NavigationContainer>
   );
 }
 

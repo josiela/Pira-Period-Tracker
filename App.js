@@ -28,7 +28,7 @@ import LoginPWScreen from "./screens/LoginPWScreen";
 export default function App() {
   return (
     <View style={styles.container}>
-      <LoginPWScreen />
+      <MonasPasswordCheck />
     </View>
   );
 }

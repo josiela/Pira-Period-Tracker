@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import Input from "../components/Input";
 import colors from "../constants/colors";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {storeMyStringStuff, getMyStringStuff, getMyObjectStuff, removeMyStuff,getAllKeys} from "../database/CreateDatabase";
 /**
  * The Screen we forgot about.

@@ -10,9 +10,11 @@ import MensCycleScreen from "./screens/MensCycleScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
-import IndexCal from "./screens/IndexCal";
 import IndexCircle from "./screens/IndexCircle";
 import LoginPWScreen from "./screens/LoginPWScreen";
+import SwipeNavigation from "./components/SwipeNavigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -20,102 +22,21 @@ import LoginPWScreen from "./screens/LoginPWScreen";
  *
  * @returns
  */
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-const Tab = createMaterialTopTabNavigator();
-import { NavigationContainer } from "@react-navigation/native";
+//-----HOW THE SWIPE NAVIGATION MUST BE STRUCTURED------//
+/*
+Swipenavigation must be nested in <NavigationContainer>. That container HAS TO BE in App.js, don't ask me why but
+it doesnt want it in the SwipeNavigationContainer
+<NavigationContainer>
+  <SwipeNavigation></SwipeNavigation>
+</NavigationContainer>
+*/
 
 export default function App() {
   // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   return (
     <NavigationContainer>
-      {/* Rest of your app code */}
-      <Tab.Navigator
-        style={{ backgroundColor: colors.mainLG }}
-        tabBarPosition={"bottom"}
-        screenOptions={{
-          tabBarStyle: { backgroundColor: colors.mainLG },
-          tabBarShowLabel: false,
-          tabBarIndicatorStyle: {
-            backgroundColor: "transparent",
-          },
-          tabBarIconStyle: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          },
-          tabBarItemStyle: {
-            //color of item-object
-            backgroundColor: "transparent",
-            width: 30,
-            paddingHorizontal: 1,
-          },
-          tabBarContentContainerStyle: {
-            //total backgroundcolor of bar
-            backgroundColor: "transparent",
-            justifyContent: "center",
-          },
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={IndexCal}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  height: 10,
-                  width: 10,
-                  borderRadius: 10,
-                  backgroundColor: focused ? "#493d8a" : "#748c94",
-                }}
-              />
-            ),
-            tabBarIconStyle: {
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  height: 10,
-                  width: 10,
-                  borderRadius: 10,
-                  backgroundColor: focused ? "#493d8a" : "#748c94",
-                }}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Seite3"
-          component={ChoosePwScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  height: 10,
-                  width: 10,
-                  borderRadius: 10,
-                  backgroundColor: focused ? "#493d8a" : "#748c94",
-                }}
-              />
-            ),
-            tabBarIconStyle: {
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "center",
-            },
-          }}
-        />
-      </Tab.Navigator>
+      <SwipeNavigation></SwipeNavigation>
     </NavigationContainer>
   );
 }

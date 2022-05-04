@@ -34,7 +34,7 @@ const ChoosePwScreen = (props) => {
       <View style={styles.button}>
         <Pressable
           style={styles.button1}
-          onPress={() => Alert.alert("am pressed omg")}
+          onPress={() => props.navigation.navigate("Next page")}
         >
           <Text style={styles.text}>{props.title}</Text>
         </Pressable>

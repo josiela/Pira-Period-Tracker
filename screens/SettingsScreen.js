@@ -20,14 +20,16 @@ const SettingsScreen = (props) => {
     {
       title: "Menstruationslänge & Zykluslänge",
       subTitle: "fml",
-      onPress: () => {},
+      onPress: () => {
+        console.log("Pressed");
+      },
     },
     { title: "Über uns", subTitle: null, onPress: () => {} },
     { title: "Info", subTitle: null, onPress: () => {} },
     {
       title: "Daten löschen",
       subTitle: null,
-      onPress: () => Alert.alert("ABSOLUTE DESTRUCTION "),
+      onPress: () => props.navigation.navigate("InfoTextScreen"),
     },
   ];
   return (

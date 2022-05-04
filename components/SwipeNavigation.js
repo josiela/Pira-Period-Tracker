@@ -4,7 +4,6 @@ import colors from "../constants/colors";
 import IndexCal from "../screens/IndexCal";
 import SettingsScreen from "../screens/SettingsScreen";
 import ChoosePwScreen from "../screens/ChoosePwScreen";
-import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 const Tab = createMaterialTopTabNavigator();

@@ -13,8 +13,8 @@ import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
 import AddButton from "../components/AddButton";
-import { getMyStuff } from "../database/CreateDatabase";
-import { storeMyStuff } from "../database/CreateDatabase";
+import {storeMyStringStuff, getMyStringStuff, getMyObjectStuff, removeMyStuff,getAllKeys} from "../database/CreateDatabase";
+
 
 /**
  *  ChoosePwScreen for Starters!
@@ -44,16 +44,28 @@ const passwordScreenCheck = async (password, givenPassword) => {
 };
 
 const MonasPasswordCheck = (props) => {
-  storeMyStuff("passwordKey", 1234); //Das hier muss raus sobald es wirklich ein altes Passwort gibt
+  //storeMyStuff("passwordKey", 1234); //Das hier muss raus sobald es wirklich ein altes Passwort gibt
 
   const [givenPassword, setGivenPassword] = useState();
   const [oldPassword, setOldPassword] = useState();
+  
+  const [databaseNumber, setDatabaseNumber] = useState("");
 
   const [text3, setText3] = useState("");
 
-  getMyStuff("passwordKey").then((returnedValue) => {
-    setOldPassword(JSON.parse(returnedValue));
-  });
+  //getMyStuff("passwordKey").then((returnedValue) => {
+    //setOldPassword(JSON.parse(returnedValue));
+  //});
+
+  const getPWfromDBHandler = async() => {
+    await getMyStringStuff('@password').then((value)=>{
+      console.log("first"+value);
+      setDatabaseNumber(value);
+    });
+    
+   
+  };
+
   return (
     <View style={styles.imageBox}>
       <View>
@@ -69,11 +81,14 @@ const MonasPasswordCheck = (props) => {
           defaultValue={text3}
         />
       </View>
+      <View style={styles.textBox}>
+             <Text style={styles.text2}>{databaseNumber}</Text>
+          </View>
 
       <View style={styles.button}>
         <Pressable
           style={styles.button1}
-          onPress={() => passwordScreenCheck(oldPassword, givenPassword)}
+          onPress={getPWfromDBHandler}
         >
           <Text style={styles.text}>{props.title}</Text>
         </Pressable>

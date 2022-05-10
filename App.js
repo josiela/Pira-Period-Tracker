@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import colors from "./constants/colors";
 import InfoTextScreen from "./screens/InfoTextScreen";
@@ -12,11 +12,12 @@ import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
 import IndexCircle from "./screens/IndexCircle";
 import LoginPWScreen from "./screens/LoginPWScreen";
-import StackNavigation from "./components/Navigation/StackNavigation";
+import SwipeNavigation from "./components/SwipeNavigation";
 import { NavigationContainer } from "@react-navigation/native";
-import "react-native-gesture-handler";
-
-const Stack = createNativeStackNavigator();
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+//OnBoarding
+import OnBoarding from "./components/Navigation/OnBoarding";
+import AboutUsScreen from "./screens/AboutUsScreen";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -33,12 +34,26 @@ it doesnt want it in the SwipeNavigationContainer
   <SwipeNavigation></SwipeNavigation>
 </NavigationContainer>
 */
+const slides = [LogoScreen, AboutUsScreen, InfoTextScreen, MensCycleScreen];
 
 export default function App() {
+  const [showHomePage, setShowHomePage] = useState(false);
+  const updateOnBoarding = () => {
+    console.log("Du bist ganz oben angekommen!");
+    setShowHomePage(true);
+  };
   // let content = <LoginPWScreen onSavePin={selectedNumber} />;
+  if (!showHomePage) {
+    return (
+      <NavigationContainer>
+        <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
+      </NavigationContainer>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <StackNavigation></StackNavigation>
+      <SwipeNavigation></SwipeNavigation>
     </NavigationContainer>
   );
 }

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Pressable } from "react-native";
-import colors from "../constants/colors";
 import SwipeNavigation from "../SwipeNavigation";
 import InfoTextScreen from "../../screens/InfoTextScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

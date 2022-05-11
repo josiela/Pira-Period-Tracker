@@ -53,7 +53,7 @@ export default function App() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <MonasPasswordCheck />
     </View>
   );

@@ -24,7 +24,7 @@ export default function App() {
  // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   return (
     <View style={styles.container}>
-      <LoginPWScreen/>
+      <ChoosePwScreen/>
     </View>
   );
 }

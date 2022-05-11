@@ -18,6 +18,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
+import MonasPasswordCheck from "./screens/MonasPasswordCheck";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -52,9 +53,9 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <SwipeNavigation></SwipeNavigation>
-    </NavigationContainer>
+    <View>
+      <MonasPasswordCheck />
+    </View>
   );
 }
 

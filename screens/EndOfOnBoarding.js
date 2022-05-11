@@ -9,9 +9,6 @@ Here the transition to the start page is handled (at the moment by a button clic
 This communicates to <OnBoarding>, and from there on to App.js via props
 */
 const EndOfOnBoarding = (props) => {
-  handeClick = () => {
-    console.log("EndOfBoarding");
-  };
 
   // onPress triggers the updateState function in OnBoarding
   return (

@@ -6,7 +6,7 @@ import UILogo from "./UILogo";
 const AddButton = (props) => {
   return (
     <View>
-      <Pressable onPress={() => console.log("pressed")}>
+      <Pressable onPress={() => console.log("pressed " + props.selectedDay)}>
         <UILogo src={props.icon} styleType={props.sizeStyle} />
       </Pressable>
     </View>

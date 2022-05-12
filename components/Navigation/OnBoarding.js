@@ -16,10 +16,6 @@ The functionality is the same as from the SwipeNavigation.
 const Tab = createMaterialTopTabNavigator();
 
 const OnBoarding = (props) => {
-  updateState = () => {
-    props.updateOnBoarding;
-  };
-
   return (
     <Tab.Navigator
       style={{ backgroundColor: colors.mainLG }}

@@ -7,6 +7,7 @@ import LogoScreen from "./screens/LogoScreen";
 import ChoosePwScreen from "./screens/ChoosePwScreen";
 import CalendarScreen from "./screens/CalendarScreen";
 import MensCycleScreen from "./screens/MensCycleScreen";
+import EntryScreen from "./screens/EntryScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
@@ -18,7 +19,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
-import MonasPasswordCheck from "./screens/MonasPasswordCheck";
+import MonasChangePwScreen from "./screens/MonasPasswordCheck";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -54,7 +55,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <MonasPasswordCheck />
+      <EntryScreen/>
     </View>
   );
 }

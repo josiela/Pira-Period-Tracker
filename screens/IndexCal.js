@@ -21,6 +21,16 @@ const IndexCal = (props) => {
       endingDay: true,
       textColor: "white",
     },
+    "2022-05-03": {
+      color: "#F08080",
+      startingDay: true,
+      textColor: "white",
+    },
+    "2022-05-07": {
+      color: "#F08080",
+      endingDay: true,
+      textColor: "white",
+    },
   };
 
   function setDay(day) {

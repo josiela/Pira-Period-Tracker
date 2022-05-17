@@ -34,7 +34,13 @@ it doesnt want it in the SwipeNavigationContainer
   <SwipeNavigation></SwipeNavigation>
 </NavigationContainer>
 */
-const slides = [LogoScreen, AboutUsScreen, InfoTextScreen, MensCycleScreen];
+const slides = [
+  LogoScreen,
+  AboutUsScreen,
+  ChangePWScreen,
+  InfoTextScreen,
+  MensCycleScreen,
+];
 
 export default function App() {
   const [showHomePage, setShowHomePage] = useState(false);

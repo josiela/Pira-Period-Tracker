@@ -14,6 +14,7 @@ import * as content from "../constants/texts";
  * ToDo Styling
  *
  * ToDo Logik, checks old and new Input and fetches it from the database.
+ * 
  *
  * @param {} props
  * @returns
@@ -22,7 +23,9 @@ import * as content from "../constants/texts";
 const ChangePWScreen = (props) => {
 
 
-  const [enteredValue, setEnteredValue] = useState("");
+  const [enteredValue, setEnteredValue] = useState();
+  const [confirmValue, setConfirmValue] = useState();
+  const [confirmConfirmNumber, setConfirmConfirmNumber] = useState();
   const [selectedNumber, setSelectedNumber] = useState();
   const [confirmed, setConfirmed] = useState(false);
 
@@ -31,28 +34,57 @@ const ChangePWScreen = (props) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
   };
 
+  const confirmValueHandler = (inputText)=>{
+    setConfirmValue(inputText.replace(/[^0-9]/g, ""));
+  };
+
+  const confirmConfirmNumberHandler =(inputText)=>{
+    setConfirmConfirmNumber(inputText.replace(/[^0-9]/g, ""));
+  };
+
+
   //resets the Input in case nothing of worth was given
   const resetInputHandler = () => {
-    setEnteredValue("");
+    setEnteredValue('');
+    setConfirmValue('');
+    setSelectedNumber('');
+    setConfirmConfirmNumber('');
     setConfirmed(false);
   };
 
-  //confirms that a number was entered, else it throws an insult
+  /**
+   * confirms that a number was entered. Checks if the oldPin and the oldPinCheck (dummy Variable - soon to be Databased) is the same and 
+   * if chosenPin0 and chosenPin1 matches. If so it confirms the Input and it's a yay you I guess.
+   */
   const confirmInputHandler = () => {
-    const chosenPin = parseInt(enteredValue);
-    if (isNaN(chosenPin)) {
+    console.log("clicked")
+    const oldPin = parseInt(enteredValue);
+    const oldPinCheck = 1234;
+    const chosenPin0 = parseInt(confirmValue);
+    const chosenPin1 = parseInt(confirmConfirmNumber);
+    if (isNaN(chosenPin0 || chosenPin1)) {
       console.log("Fuck you");
       resetInputHandler;
-
-      return;
     }
-    setConfirmed(true);
-    setSelectedNumber(chosenPin);
-    setEnteredValue("");
-    Keyboard.dismiss();
+    if (oldPin == oldPinCheck && chosenPin0 == chosenPin1){
+    //if (chosenPin0 == chosenPin1){
+      const chosenPin = chosenPin0;
+      console.log("IT IS SAAAME")
+      setConfirmed(true);
+      setSelectedNumber(chosenPin);
+      setEnteredValue('');
+      setConfirmValue('');
+      setConfirmConfirmNumber('');
+      Keyboard.dismiss();
+    }
+    else {
+      console.log("you failed to enter yer fkn pw")
+      resetInputHandler();
+      setConfirmed(false);
+    }
   };
 
-  //if pressed and confirmed selectedNumber holds the PIN
+  //if pressed and confirmed selectedNumber holds the renewed PIN
   if (confirmed) {
     console.log(selectedNumber + ".. here ye go");
   }
@@ -66,10 +98,10 @@ const ChangePWScreen = (props) => {
       
       <Text style={styles.text3}>{content.Passwort}</Text>
       
-      <View style={styles.inputBox}>
+      <View>
       <Input title={content.pin2} onChangeText={numberInputHandler} value={enteredValue}/>
-      <Input title={content.pin3} onChangeText={numberInputHandler} value={enteredValue}/>
-      <Input title={content.pin4} onChangeText={numberInputHandler} value={enteredValue}/>
+      <Input title={content.pin3} onChangeText={confirmValueHandler} value={confirmValue}/>
+      <Input title={content.pin4} onChangeText={confirmConfirmNumberHandler} value={confirmConfirmNumber}/>
       </View>
 
       <View style={styles.buttonBox}>
@@ -100,9 +132,6 @@ const styles = StyleSheet.create({
     lineHeight: 36,
   },
 
-  inputBox:{
-    
-  },
 
   title: {
     color: colors.accBlue,

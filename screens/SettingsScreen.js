@@ -1,7 +1,9 @@
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
 import Settings from "../components/Settings";
 import colors from "../constants/colors";
+import ChangePWScreen from "./ChangePWScreen";
 
 //evtl als subtitle die aktuelle Einstellung eingeben
 
@@ -16,11 +18,11 @@ import colors from "../constants/colors";
 
 const SettingsScreen = (props) => {
   const settingsOptions = [
-    { title: "Passwort ändern", subTitle: null, onPress: () => {} },
+    { title: "Passwort ändern", subTitle: null, onPress:()=> {}},
     { title: "Menstruationslänge & Zykluslänge", subTitle: "fml", onPress: () => {} },
     { title: "Über uns", subTitle: null, onPress: () => {} },
     { title: "Info", subTitle: null, onPress: () => {} },
-    { title: "Daten löschen", subTitle: null, onPress: ()=> {console.log("I h8 the world!")}}
+    { title: "Daten löschen", subTitle: null, onPress: ()=> {console.log("Total Destruction!")}}
   ];
   return (
     <View>

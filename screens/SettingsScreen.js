@@ -1,10 +1,10 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
 import Settings from "../components/Settings";
 import colors from "../constants/colors";
-import ChangePWScreen from "./ChangePWScreen";
-
+import StackNavigation from "../components/Navigation/StackNavigation";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //evtl als subtitle die aktuelle Einstellung eingeben
 
 /**
@@ -18,10 +18,10 @@ import ChangePWScreen from "./ChangePWScreen";
 
 const SettingsScreen = (props) => {
   const settingsOptions = [
-    { title: "Passwort ändern", subTitle: null, onPress:()=> {}},
-    { title: "Menstruationslänge & Zykluslänge", subTitle: "fml", onPress: () => {} },
-    { title: "Über uns", subTitle: null, onPress: () => {} },
-    { title: "Info", subTitle: null, onPress: () => {} },
+    { title: "Passwort ändern", subTitle: null, onPress:()=> navigation.navigate('ChangePW')},
+    { title: "Menstruationslänge & Zykluslänge", subTitle: "fml", onPress: () => props.navigation.navigate("MensundZyklus") },
+    { title: "Über uns", subTitle: null, onPress: () => props.navigation.navigate("AboutUs") },
+    { title: "Info", subTitle: null, onPress: () => props.navigation.navigate("Info") },
     { title: "Daten löschen", subTitle: null, onPress: ()=> {console.log("Total Destruction!")}}
   ];
   return (

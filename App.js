@@ -18,6 +18,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
+import MensCycleChangeScreen from "./screens/MensCycleChangeScreen";
+import InfoWOButtScreen from "./screens/InfoWOButtScreen";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*

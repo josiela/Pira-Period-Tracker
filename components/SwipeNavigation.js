@@ -5,6 +5,9 @@ import IndexCal from "../screens/IndexCal";
 import SettingsScreen from "../screens/SettingsScreen";
 import ChoosePwScreen from "../screens/ChoosePwScreen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import StackNavigation from "../components/Navigation/StackNavigation.js"
+import SettingStack from "./Navigation/SettingStack";
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -13,7 +16,7 @@ const SwipeNavigation = (props) => {
     <Tab.Navigator
       style={{ backgroundColor: colors.mainLG }}
       tabBarPosition={"bottom"}
-      initialRouteName="Settings"
+      initialRouteName="Calendar"
       screenOptions={{
         tabBarStyle: { backgroundColor: colors.mainLG },
         tabBarShowLabel: false,
@@ -38,9 +41,10 @@ const SwipeNavigation = (props) => {
         },
       }}
     >
+      
       <Tab.Screen
-        name="Home"
-        component={IndexCal}
+        name="Settings"
+        component={SettingStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -59,9 +63,9 @@ const SwipeNavigation = (props) => {
           },
         }}
       />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
+   <Tab.Screen
+        name="Calendar"
+        component={IndexCal}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -73,6 +77,7 @@ const SwipeNavigation = (props) => {
               }}
             />
           ),
+         
         }}
       />
       <Tab.Screen

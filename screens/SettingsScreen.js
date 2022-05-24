@@ -18,16 +18,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const SettingsScreen = (props) => {
   const settingsOptions = [
-    { title: "Passwort ändern", subTitle: null, onPress:()=> navigation.navigate('ChangePW')},
+    { title: "Passwort ändern", subTitle: null, onPress:()=> props.navigation.navigate('ChangePW')},
     { title: "Menstruationslänge & Zykluslänge", subTitle: "fml", onPress: () => props.navigation.navigate("MensundZyklus") },
     { title: "Über uns", subTitle: null, onPress: () => props.navigation.navigate("AboutUs") },
     { title: "Info", subTitle: null, onPress: () => props.navigation.navigate("Info") },
     { title: "Daten löschen", subTitle: null, onPress: ()=> {console.log("Total Destruction!")}}
   ];
+
+  
   return (
     <View>
       <Text style={styles.title}>Einstellungen</Text>
+      
       <Settings settingsOptions={settingsOptions}/>
+      
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import colors from "./constants/colors";
 import InfoTextScreen from "./screens/InfoTextScreen";
@@ -18,6 +18,11 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
+import {
+  storeMyStringStuff,
+  getMyStringStuff,
+} from "./database/CreateDatabase";
+import { getDefaultLocale } from "react-native-calendars/src/services";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -34,22 +39,47 @@ it doesnt want it in the SwipeNavigationContainer
   <SwipeNavigation></SwipeNavigation>
 </NavigationContainer>
 */
-const slides = [
-  LogoScreen,
-  AboutUsScreen,
-  ChangePWScreen,
-  InfoTextScreen,
-  MensCycleScreen,
-];
+//-----------------------------------------------------//
 
 export default function App() {
-  const [showHomePage, setShowHomePage] = useState(false);
+  // default value true for showing onboarding
+  const [openOnBoarding, setOpenOnboarding] = useState("true");
+
+  // wird durch das leere array nur ein einziges Mal ausgeführt
+  useEffect(async () => {
+    // Wert wird aus Datenbank geholt
+    // ob Onboarding angezeigt werden soll oder nicht
+
+    // falls OnBoarding wieder gebraucht wird folgende Zeilen einkommentieren:
+    /*
+    (async function () {
+      // wir setzen den DB Wert entsprechend unserem neuen openOnBoarding Wert
+      await storeMyStringStuff("@onboardingValue", openOnBoarding);
+    })();
+    */
+    (async function () {
+      let datadata = await getMyStringStuff("@onboardingValue");
+      // openOnBoarding wird diesem Wert entsprechend gesetzt
+      setOpenOnboarding(datadata);
+    })();
+  }, []);
+
+  useEffect(() => {
+    // wird ausgeführt sobald sich unser openOnBoarding Wert verändert
+    // das kann nur geschehen, wenn am Ende der OnBoarding Seiten auf den Button geklickt wird
+    (async function () {
+      // wir setzen den DB Wert entsprechend unserem neuen openOnBoarding Wert
+      await storeMyStringStuff("@onboardingValue", openOnBoarding);
+    })();
+  }, [openOnBoarding]);
+
   const updateOnBoarding = () => {
-    console.log("Du bist ganz oben angekommen!");
-    setShowHomePage(true);
+    // Nach klicken des Button wird der OpenOnBoarding Wert auf false gesetzt
+    setOpenOnboarding("false");
   };
-  // let content = <LoginPWScreen onSavePin={selectedNumber} />;
-  if (!showHomePage) {
+
+  // abhängig von unserem openOnBoarding Wert wird die OnBoarding Navigation gezeigt
+  if (openOnBoarding == "true") {
     return (
       <NavigationContainer>
         <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
@@ -70,18 +100,3 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-
-/**
-<<<<<<< HEAD
- * Just Commentary Dump to test diff Screens with their props.
- *  <MensCycleScreen title= "Weiter"/>
- *  <LogoScreen title='Press Me'/>
- * <NotificationScreen/>
- * <InfoTextScreen header="Hallo!" title="Weiter"/>
- * <ChoosePwScreen title="Weiter"/>
- *  <CalendarScreen
-        header="Wann hattest du deine letzte Menstruation?"
-        title="Weiter"
-      />
- * <ChangePWScreen title="ändern"/>
- */

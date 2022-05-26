@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect , useState } from "react";
 import {
   View,
   StyleSheet,
@@ -46,30 +46,39 @@ import {storeMyStringStuff, getMyStringStuff, getMyObjectStuff, removeMyStuff,ge
     />
   );
 }
-
+let opacityFace=0.2;
 
 
 const EntryScreen = (props) => {
-  const [blood, setBlood] = useState(0);
-  const [pain, setPain] = useState(0);
-  const [mood, setMood] = useState(0);
+  let firstEntry= new Entry(1,2 ,3,4,"Nichts Sonderliches");
+  let [entryArray, setEntryArray]=useState([firstEntry])
+  let [proveArray, setproveArray]=useState([firstEntry])
+  let [anzuzeigenderEntry, setanzuzeigendenEntry]=useState(1);
+  
+  
+  const [blood, setBlood] = useState("");
+  const [pain, setPain] = useState("");
+  const [mood, setMood] = useState("");
   const [date, setDate]=useState(2000.01);
   const [notes, setNotes] = useState("Nix besonderes, bisschen Wärmekissen dies das");
 
 
   const createNewEntry= async() => {
-    let stringPassword= JSON.stringify(date);
 
     //Wenn es schon nen Eintrag gibt, den erst löschen
-    if( getMyObjectStuff(stringPassword)!=undefined){
-      removeMyStuff(stringPassword);
-    }
-    const entry = new Entry(date, pain, mood, blood, notes);
-    await storeMyStuff(stringPassword,entry); 
-    console.log(entry.mood);
+     if(entryArray.find(entry => entry.date===date)){
+       console.log("Bereits ein Eintrag vorhanden")
+        entryArray= entryArray.filter(entry=> entry.date !==date);
+     }
+    let newEntry = new Entry(date, pain, mood, blood, notes);
+    setDate(date+1);                                            //--- eigentlich nicht richtug, gibt ja nur noch kein Date
+    entryArray.push(newEntry);                  //                  Push funktioniert nicht
+    setanzuzeigendenEntry(anzuzeigenderEntry+1);
 
-    const entry2= JSON.parse(getMyObjectStuff(stringPassword)); //<-   Diese line ist n problem, glaube er kommt mir dem objekt nicht klar?
-    //console.log("Beim geladenen ists:" +entry2.mood);
+    console.log(anzuzeigenderEntry + " "+entryArray[anzuzeigenderEntry].date);
+     removeMyStuff('@entryArrayKey');
+    storeMyStuff('@entryArrayKey',entryArray); 
+   
   };
 
 
@@ -117,11 +126,27 @@ const EntryScreen = (props) => {
    
   };
 
+  const handleFaceButtons = (number, obj)=> {
+    setMood(number);
+    opacityFace=0.8;
+    console.log(opacityFace);
+   
+  };
   
   //if pressed and confirmed selectedNumber holds the PIN
   if (confirmed) {
     console.log(selectedNumber + ".. here ye go");
   }
+
+  const getArray= async()=>{
+    await getMyStringStuff('@entryArrayKey').then((returnedValue)=>{
+      setEntryArray(JSON.parse(returnedValue));
+    })
+    
+  }
+  useEffect(() => {
+    getArray();
+  });
 // Old stuff ends------------------------------------------------------------------------------------------
   return (
     <TouchableWithoutFeedback
@@ -147,13 +172,13 @@ const EntryScreen = (props) => {
         <View style={styles.IconRowContainer}>
             <View style={styles.inputRow}>
             
-              <Pressable style={styles.iconBox} onPress={()=>setBlood(1) }>
+              <Pressable style={styles.iconBox} onPress={()=>setBlood("1") }>
                   <Image style={styles.icon} source={require("../assets/Blu1.png")} />
               </Pressable>
-              <Pressable style={styles.iconBox} onPress={()=>setBlood(2)}>
+              <Pressable style={styles.iconBox} onPress={()=>setBlood("2")}>
                   <Image style={styles.blod2} source={require("../assets/Blut2.png")} />
               </Pressable>
-              <Pressable style={styles.iconBox} onPress={()=>setBlood(3)}>
+              <Pressable style={styles.iconBox} onPress={()=>setBlood("3")}>
                   <Image style={styles.blod3} source={require("../assets/Blut3.png")} />
               </Pressable>
               
@@ -161,27 +186,27 @@ const EntryScreen = (props) => {
 
             
             <View style={styles.inputRow}>
-            <Pressable style={styles.iconBox} onPress={()=>setPain(1)}>
+            <Pressable style={styles.iconBox} onPress={()=>setPain("1")}>
                   <Image style={styles.clouds} source={require("../assets/Schmerz1.png")} />
               </Pressable>
-              <Pressable style={styles.iconBox} onPress={()=>setPain(2)}>
+              <Pressable style={styles.iconBox} onPress={()=>setPain("2")}>
                   <Image style={styles.clouds} source={require("../assets/Schmerz2.png")} />
               </Pressable>
-              <Pressable style={styles.iconBox} onPress={()=>setPain(3)}>
+              <Pressable style={styles.iconBox} onPress={()=> setPain("3")}>
                   <Image style={styles.clouds} source={require("../assets/Schmerz3.png")} />
               </Pressable>
             </View>
 
             <View style={styles.inputRow}>
              
-              <Pressable style={styles.iconBox} onPress={()=>setMood(1)}>
+              <Pressable style={styles.iconBox} onPress={()=>setMood("1")}>
                   <Image style={styles.faces} source={require("../assets/Stimmung1.png")} />
               </Pressable>
-              <Pressable style={styles.iconBox} onPress={()=>setMood(2)}>
+              <Pressable style={styles.iconBox} onPress={()=>setMood("2")}>
                   <Image style={styles.faces} source={require("../assets/Stimmung2.png")} />
               </Pressable>
-              <Pressable style={styles.iconBox} onPress={()=>setMood(3)}>
-                  <Image style={styles.faces} source={require("../assets/Stimmung3.png")} />
+              <Pressable style={styles.iconBox} onPress={()=>setMood("3")}>
+                  <Image style={styles.faces} onPress={()=>this.opacity=0.2} source={require("../assets/Stimmung3.png")} />
               </Pressable>
             </View>
             <View style={styles.button}>
@@ -199,7 +224,7 @@ const EntryScreen = (props) => {
           
         </View>
         <View style={styles.bigDownContainer}>
-        <Text style={styles.bigText2}>{"Notizen : "}</Text>
+        <Text style={styles.bigText2}>{"Notes"}</Text>
         <View style={styles.notesContainer}>
           <TextInput
                 style={styles.textInputStyle}
@@ -244,17 +269,20 @@ const styles = StyleSheet.create({
     height: "80%",
   },
   container3: {
+
     flexDirection: 'row',
     height: "10%",
     width: "100%",
    
   },
   bigDownContainer:{
+    
     alignSelf:"center",
-    height: "100%",
+    height: "80%",
     width:"90%",
   },
   notesContainer:{
+    
       width: "100%",
       alignSelf: "center",
       height: normalizeH(60),
@@ -271,6 +299,8 @@ const styles = StyleSheet.create({
     marginLeft:"0%",
   },
   bigTextContainer:{
+    
+    backgroundColor: colors.mainLG,
     flexDirection: 'column',
     width:"35%",
     height:"90%",
@@ -321,7 +351,6 @@ const styles = StyleSheet.create({
   },
   bigText2: {
     marginTop:"10%",
-    marginBottom:normalizeH(3),
     color: colors.accBlue,
     fontSize: normalize(20),
     lineHeight: normalize(30),
@@ -352,6 +381,7 @@ const styles = StyleSheet.create({
     width: normalize(36),
   },
   faces:{
+    
     height: normalize(50),
     width: normalize(48),
   },
@@ -361,7 +391,6 @@ const styles = StyleSheet.create({
     width: normalize(50),
   },
   TextInput:{
-    backgroundColor: colors.accBlue,
     height: normalizeH(10),
     margin: normalize(12),
     borderWidth: normalize(20),

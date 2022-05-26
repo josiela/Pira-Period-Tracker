@@ -36,6 +36,7 @@ export const getMyStringStuff=async (key)=>{
 export const getMyObjectStuff=(key)=>{
     try {
       const jsonValue =AsyncStorage.getItem(key)
+      console.log(jsonValue)
       return jsonValue != null ? JSON.parse(jsonValue) : null
     }catch(e){
         Error("My Object won't leave the Database");

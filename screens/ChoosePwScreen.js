@@ -5,6 +5,9 @@ import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
 import AddButton from "../components/AddButton";
+import { normalizeH } from "../constants/fontResponsive";
+import { normalize } from "../constants/fontResponsive";
+import InputNumber from "../components/InputNumber";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -18,73 +21,109 @@ import AddButton from "../components/AddButton";
  * @param {} props
  * @returns
  */
-
+//Auch hier: Aiden, hilfe die Variablen zu übernehmen um sie zu Speichern! 
+//Josie: kein-passwort knopf muss weiterleiten auf nächsten slide, ist das möglich?
 const ChoosePwScreen = (props) => {
   return (
-    <View style={styles.imageBox}>
-      <View>
-        <UILogo src="gear" />
-        <View style={styles.title}>
-          <Text style={styles.text2}>{content.start7}</Text>
-        </View>
-        <Input title="Passwort" />
-        <Input title="Wiederholen" />
+    <View style={styles.container}>
+      
+      <Image style={styles.logo} source={require("../assets/lock.png")} />
+
+      <View style={styles.textBox}>
+          <Text style={styles.text}>{content.Passwort}</Text>
       </View>
 
+        <Input title="Passwort" />
+        <Input title="Wiederholen" />
+ 
+
       <View style={styles.button}>
-        <Pressable
-          style={styles.button1}
-          onPress={() => props.navigation.navigate("Next page")}
-        >
-          <Text style={styles.text}>{props.title}</Text>
-        </Pressable>
-      </View>
+          <Pressable
+            style={styles.button1}
+            onPress={() => storeLengths()}
+           
+          >
+          <Text style={styles.textButton}>{"speichern"}</Text>
+          </Pressable>
+
+        </View>
+      
+        
+     
     </View>
   );
 };
-//quick reminder: Button gehört zum Navigation Component. Touchable Opacity wär noch cool.
-//https://www.skptricks.com/2018/11/react-native-responsive-image-scale-to-fit-example.html
-//Der button hat irgendwann seine default width vergessen wtf..
 
 const styles = StyleSheet.create({
-  imageBox: {
-    flex: 1,
+  container: {
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    alignItems: "center",
+    height: "100%",
     flexDirection: "column",
-    paddingHorizontal: 60,
-    paddingVertical: 80,
-    justifyContent: "space-between",
   },
   title: {
-    color: colors.mainG,
-    marginTop: 40,
+    color: colors.accBlue,
     fontSize: 32,
     lineHeight: 36,
+  }, textBox:{
+    marginTop: "14%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
   },
-  button: {
-    elevation: 5,
-    alignItems: "center",
-  },
+
   text: {
+    color: colors.mainG,
+    fontSize: 20,
+  },
+
+  //Button Styles:
+  textButton: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
 
-  text2: {
-    color: colors.mainG,
-    fontSize: 20,
+  buttonBox: {
+    margin: 50,
+    elevation: 5,
   },
 
-  button1: {
+  buttonDesign: {
     borderRadius: 8,
     height: 40,
-    width: 80,
     elevation: 3,
     backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+    alignSelf: "flex-start",
+   
+    marginTop:  "20%",
+    width: normalizeH(31),
+    height: normalizeH(35),
+  },
+    
+  button1: {
+    marginRight:"20%",
+    borderRadius: 8, 
+    marginTop:"10%",
+    height: normalize(40),
+    width: normalize(100),
+    elevation: 3,
+    backgroundColor: colors.accBlue,
+    alignItems: "center",
+    justifyContent: "center",
+  },button:{
+    
+    flexDirection: 'row',
+    width:"100%",
+     marginTop:"10%",
+    height: "100%",
+  }
 });
 
 export default ChoosePwScreen;

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
-
+import { normalizeH } from "../constants/fontResponsive";
+import * as content from "../constants/texts";
 import colors from "../constants/colors";
+import { normalize } from "../constants/fontResponsive";
 
 /* 
 This is an example page for the last page of the OnBoarding pages. 
@@ -13,9 +15,13 @@ const EndOfOnBoarding = (props) => {
   // onPress triggers the updateState function in OnBoarding
   return (
     <View style={styles.container}>
-      <View style={styles.button}>
+      <Text style={styles.title}>Geschafft</Text>
+      
+      <View style={styles.textBox}>
+        <Text style={styles.text}>{content.endOnb}</Text>
+      </View><View style={styles.button}>
         <Pressable style={styles.button1} onPress={props.updateState}>
-          <Text style={styles.text}>{props.title}</Text>
+          <Text style={styles.text2}>Einrichtung beenden</Text>
         </Pressable>
       </View>
     </View>
@@ -24,17 +30,33 @@ const EndOfOnBoarding = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "50%",
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    height: "100%",
+    width: "100%",
   },
   button: {
-    margin: 50,
+    marginTop: "50%",
     elevation: 5,
   },
+  textBox: {
+    marginTop: "26%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
+  },
+
   text: {
-    color: colors.mainLG,
-    fontSize: 16,
-    lineHeight: 21,
-    letterSpacing: 0.25,
+    
+    lineHeight: normalizeH(9),
+    color: colors.mainG,
+    fontSize: normalizeH(7),
+  },
+  text2: {
+    
+    lineHeight: normalizeH(9),
+   color: colors.mainLG,
+    fontSize: normalizeH(7),
   },
 
   button1: {
@@ -48,6 +70,11 @@ const styles = StyleSheet.create({
   logo: {
     width: 300,
     height: 200,
+  },  title: {
+    marginTop: "18%",
+    color: colors.accBlue,
+    fontSize: normalizeH(15),
+    lineHeight: normalizeH(22),
   },
 });
 

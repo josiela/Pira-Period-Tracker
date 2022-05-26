@@ -6,8 +6,11 @@ import LogoScreen from "../../screens/LogoScreen";
 import AboutUsScreen from "../../screens/AboutUsScreen";
 import InfoTextScreen from "../../screens/InfoTextScreen";
 import MensCycleScreen from "../../screens/MensCycleScreen";
+import MensCycleChangeScreen from "../../screens/MensCycleChangeScreen";
 import EndOfOnBoarding from "../../screens/EndOfOnBoarding";
-
+import CalendarScreen from "../../screens/CalendarScreen";
+import ChoosePWScreen from "../../screens/ChoosePwScreen";
+import NotificationScreen from "../../screens/NotificationScreen";
 /*
 This component holds the navigation for the OnBoarding page. 
 The functionality is the same as from the SwipeNavigation.
@@ -102,8 +105,72 @@ const OnBoarding = (props) => {
           },
         }}
       />
-      <Tab.Screen
+        <Tab.Screen
         name="4"
+        component={MensCycleChangeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: 10,
+                backgroundColor: focused ? "#493d8a" : "#748c94",
+              }}
+            />
+          ),
+        }}
+      />
+         <Tab.Screen
+        name="5"
+        component={CalendarScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: 10,
+                backgroundColor: focused ? "#493d8a" : "#748c94",
+              }}
+            />
+          ),
+        }}
+      />
+            <Tab.Screen
+        name="6"
+        component={ChoosePWScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: 10,
+                backgroundColor: focused ? "#493d8a" : "#748c94",
+              }}
+            />
+          ),
+        }}
+      />
+    <Tab.Screen
+        name="7"
+        component={NotificationScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: 10,
+                backgroundColor: focused ? "#493d8a" : "#748c94",
+              }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="9"
         children={() => (
           //updateState triggers the updateOnBoarding function one component higher (App.js)
           <EndOfOnBoarding updateState={props.updateOnBoarding} />

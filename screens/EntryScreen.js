@@ -206,7 +206,7 @@ const EntryScreen = (props) => {
                   <Image style={styles.faces} source={require("../assets/Stimmung2.png")} />
               </Pressable>
               <Pressable style={styles.iconBox} onPress={()=>setMood("3")}>
-                  <Image style={styles.faces} onPress={()=>this.opacity=0.2} source={require("../assets/Stimmung3.png")} />
+                  <Image style={styles.faces} onPress={()=>this.opacity=0.2} source={require("../assets/stimmung3.png")} />
               </Pressable>
             </View>
             <View style={styles.button}>

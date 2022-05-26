@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Alert, Pressable, Text, } from "react-native";
 import * as content from "../constants/texts";
+import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
@@ -18,22 +19,13 @@ import colors from "../constants/colors";
 const InfoTextScreen = (props) => {
   return (
     <View style={styles.container}>
-        <View>
-            <Text style={styles.title}>{props.header}</Text>
-        </View>
+       <Text style={styles.title}>{content.Datenschutz5}</Text>
         
         <View style={styles.textBox}>
         <Text style={styles.text2}>{content.Datenschutz4}</Text>
         </View>
 
-      <View style={styles.button}>
-        <Pressable
-          style={styles.button1}
-          onPress={() => Alert.alert("am pressed omg")}
-        >
-          <Text style={styles.text}>{props.title}</Text>
-        </Pressable>
-      </View>
+      
     </View>
   );
 };
@@ -43,15 +35,16 @@ const InfoTextScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
     height: "100%",
-    paddingTop: 50,
+    width: "100%",
   },
-  title:{
-      color: colors.accBlue,
-      fontSize: 32,
-      lineHeight: 36,
-    
+  title: {
+    marginTop: "18%",
+    color: colors.accBlue,
+    fontSize: normalizeH(15),
+    lineHeight: normalizeH(22),
   },
   button: {
     margin: 50,
@@ -64,14 +57,16 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
   },
   textBox:{
-      height: '60%',
-      width: '80%',
-      paddingTop: 20, 
+    marginTop: "10%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
   },
 
   text2:{
-      color: colors.mainG,
-      fontSize: 20, 
+    color: colors.mainG,
+    lineHeight: normalizeH(9),
+    fontSize: normalizeH(7),
   },
 
   button1: {

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import colors from "../constants/colors";
 import TextWSwitch from "../components/TextWSwitch";
+import { normalizeH } from "../constants/fontResponsive";
+
 
 
 /**
@@ -16,11 +18,14 @@ import TextWSwitch from "../components/TextWSwitch";
  * @param {} props
  * @returns
  */
-
+//Noch zu machen: Josie, kann man den switch größer machen?
+//Und verbinden mit der datenbank
 const NotificationScreen = (props) => {
   return (
     
+    
       <View style={styles.head}>
+          <Image style={styles.logo} source={require("../assets/Benachrichtigung.png")} />
         <Text style={styles.title}>Benachrichtigungen</Text>
         <View style={styles.container}>
         <TextWSwitch />
@@ -33,21 +38,28 @@ const NotificationScreen = (props) => {
 
 const styles = StyleSheet.create({
   head:{
-    flex: 1,
-    flexDirection: "column",
-    paddingHorizontal: 60,
-    paddingVertical: 80,
-    justifyContent: 'flex-start',
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    height: "100%",
+    width: "100%",
   },
   container: {
-  paddingVertical:20,
+    paddingVertical: normalizeH(20),
+   
+    height: "100%",
+    width: "100%",
   },
   title: {
+    marginTop: "18%",
     color: colors.accBlue,
-    marginTop: 40,
-    fontSize: 30,
-    lineHeight: 36,
-  },
+    fontSize: normalizeH(15),
+    lineHeight: normalizeH(22),
+  }, logo:{  
+  alignSelf: "flex-start", 
+  marginTop:  "20%",
+  width: normalizeH(63),
+  height: normalizeH(30),
+},
 });
 
 export default NotificationScreen;

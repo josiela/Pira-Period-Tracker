@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, Pressable, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, StyleSheet, Alert, Image, Pressable, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
-
+import {normalizeH } from "../constants/fontResponsive";
+import { normalize } from "react-native-elements";
 /**
  *  ChangePWScreen!
  *  takes the UILogo & Input Component.
@@ -59,72 +60,108 @@ const ChangePWScreen = (props) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={()=> {Keyboard.dismiss()}}>
     <View style={styles.container}>
-      <UILogo src="lock" />
       
-      <Text style={styles.title}>{content.pin1}</Text>
-      
-      <Text style={styles.text3}>{content.Passwort}</Text>
-      
-      <View style={styles.inputBox}>
+      <Image style={styles.logo} source={require("../assets/lock.png")} />
+
+     
+      <View style={styles.textBox}>
+        
+      <Text style={styles.title}>Passwort ändern</Text>
+          <Text style={styles.text}>{content.Passwort2}</Text>
+      </View>
+   
       <Input title={content.pin2} onChangeText={numberInputHandler} value={enteredValue}/>
       <Input title={content.pin3} onChangeText={numberInputHandler} value={enteredValue}/>
       <Input title={content.pin4} onChangeText={numberInputHandler} value={enteredValue}/>
-      </View>
-
+  
       <View style={styles.button}>
-        <Pressable
-          style={styles.buttonDesign}
-          onPress={confirmInputHandler}
-        >
-          <Text style={styles.text}>{props.title}</Text>
-        </Pressable>
-      </View>
+          <Pressable
+            style={styles.button1}
+            onPress={() => storeLengths()}
+           
+          >
+          <Text style={styles.textButton}>{"speichern"}</Text>
+          </Pressable>
+
+        </View>
+      
+        
+     
     </View>
-    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  imageBox: {
-    flex: 1,
+  container: {
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    alignItems: "center",
+    height: "100%",
     flexDirection: "column",
-    paddingHorizontal: 60,
-    paddingVertical: 80,
-    justifyContent: "space-between",
   },
   title: {
-    color: colors.mainG,
-    marginTop: 40,
+    color: colors.accBlue,
     fontSize: 32,
     lineHeight: 36,
+  }, textBox:{
+    marginTop: "14%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
   },
-  button: {
-    elevation: 5,
-    alignItems: "center",
-  },
+
   text: {
+    color: colors.mainG,
+    fontSize: 20,
+  },
+
+  //Button Styles:
+  textButton: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
 
-  text2: {
-    color: colors.mainG,
-    fontSize: 20,
+  buttonBox: {
+    margin: 50,
+    elevation: 5,
   },
 
-  button1: {
+  buttonDesign: {
     borderRadius: 8,
     height: 40,
-    width: 80,
     elevation: 3,
     backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+    alignSelf: "flex-start",
+   
+    marginTop:  "20%",
+    width: normalizeH(31),
+    height: normalizeH(35),
+  },
+    
+  button1: {
+    marginRight:"20%",
+    borderRadius: 8, 
+    marginTop:"10%",
+    height: normalize(40),
+    width: normalize(100),
+    elevation: 3,
+    backgroundColor: colors.accBlue,
+    alignItems: "center",
+    justifyContent: "center",
+  },button:{
+    
+    flexDirection: 'row',
+    width:"100%",
+     marginTop:"10%",
+    height: "100%",
+  }
 });
 
 export default ChangePWScreen;

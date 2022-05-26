@@ -16,6 +16,7 @@ import LoginPWScreen from "./screens/LoginPWScreen";
 import SwipeNavigation from "./components/SwipeNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import MonasPasswordCheck from "./screens/MonasPasswordCheck";
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
@@ -55,7 +56,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <LoginPerPassword/>
+      <MonasPasswordCheck/>
     </View>
   );
 }

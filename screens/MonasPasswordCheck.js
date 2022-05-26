@@ -8,6 +8,8 @@ import {
   Text,
   TextInput,
 } from "react-native";
+import { normalize } from "../constants/fontResponsive";
+import { normalizeH } from "../constants/fontResponsive";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
@@ -65,34 +67,37 @@ const MonasPasswordCheck = (props) => {
     
    
   };
+  const checkPassword = async() => {
+    
+    //Aiden, hier brauch ich das passwort hin, um es mit dem aus der db zu vergleichen
+   //if(databaseNumber === eingegebeneNumber){
+   //  weiterleiten}else {Fehlermeldung}
+   //}
+  };
+
 
   return (
     <View style={styles.imageBox}>
-      <View>
-        <UILogo src="gear" />
-        <View style={styles.title}>
-          <Text style={styles.text2}>{content.checkPasswordText}</Text>
-        </View>
+      
+      <Image style={styles.logo} source={require("../assets/bubble.jpg")} />
+      <View style= {styles.mainView}>
+      <Text style={styles.text2}>{content.checkPasswordText}</Text>
+      <View style={styles.inputView}>
         <Input title="Passwort" />
-        <TextInput
-          style={{ height: 60 }}
-          placeholder="Passwort"
-          onChangeText={(text) => setGivenPassword(text)}
-          defaultValue={text3}
-        />
       </View>
+     
       <View style={styles.textBox}>
              <Text style={styles.text2}>{databaseNumber}</Text>
           </View>
 
-      <View style={styles.button}>
         <Pressable
           style={styles.button1}
-          onPress={getPWfromDBHandler}
+          onPress={()=>checkPassword()}
         >
-          <Text style={styles.text}>{props.title}</Text>
+          <Text style={styles.text}>OK</Text>
         </Pressable>
       </View>
+ 
     </View>
   );
 };
@@ -102,22 +107,28 @@ const MonasPasswordCheck = (props) => {
 
 const styles = StyleSheet.create({
   imageBox: {
-    flex: 1,
-    flexDirection: "column",
-    paddingHorizontal: 60,
-    paddingVertical: 80,
-    justifyContent: "space-between",
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    height: "100%",
+    width: "100%",
+  },mainView:{
+    alignItems:"center",
+    marginTop:"20%",
+    width:"100%",
+    height:"70%",
   },
   title: {
     color: colors.mainG,
     marginTop: 40,
     fontSize: 32,
     lineHeight: 36,
+  },logo: {
+    alignSelf: "center",
+    marginTop:  "40%",
+    width: normalize(200),
+    height: normalizeH(70),
   },
-  button: {
-    elevation: 5,
-    alignItems: "center",
-  },
+
   text: {
     color: colors.mainLG,
     fontSize: 16,
@@ -127,17 +138,17 @@ const styles = StyleSheet.create({
 
   text2: {
     color: colors.mainG,
-    fontSize: 20,
+    fontSize: normalizeH(10),
   },
 
   button1: {
     borderRadius: 8,
-    height: 40,
-    width: 80,
-    elevation: 3,
+    height: normalizeH(15),
+    width: normalize(50),
     backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
+    marginTop:"10%",
   },
 });
 

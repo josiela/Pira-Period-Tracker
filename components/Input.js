@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
     width: 250,
-    height: 70,
+    height: 50,
     fontSize: normalizeH(8),
   },
 });

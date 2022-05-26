@@ -12,7 +12,8 @@ export const hey = 'Hallo!'
 
 // view Einstellungen
 export const Passwort = 'Möchtest du deine App mit einem Passwort schützen? \n\nDas ermöglicht dir, dass die Inhalte von Fremden nicht gesehen werden können, sollte beim Start der App das Passwort falsch eingegeben werden. '
-export const ZuM1 = 'Unsere Voraussagen basieren auf den von dir eingetragenen Daten. \nFalls du sie kennst, kannst du hier deine durchschnittlichen Zyklus- und Menstruationslänge machen.'
+export const Passwort2 = '\nEin Passwort ermöglicht dir, dass die Inhalte von Fremden nicht gesehen werden können, sollte beim Start der App das Passwort falsch eingegeben werden. '
+export const ZuM1 = 'Unsere Voraussagen basieren auf den von dir eingetragenen Daten. \nFalls du sie kennst, kannst du hier deine durchschnittlichen Zyklus- und Menstruationslänge eintragen.'
 export const ZuM2= 'Die Zyklus- und Menstruationslänge ist sehr individuell. Ein Zyklus beginnt mit dem 1. Tag der Menstruation und endet einen Tag vor der nächsten Menstruation. Ein “durchschnittlicher” 28 Tage Zyklus ist eher die Ausnahme, als die Regel. '
 export const ZuM3= '“Das einzig regelmäßige am Zyklus einer Menstruierenden Person, ist seine Unregelmäßigkeit.”'
 
@@ -50,4 +51,4 @@ export const why2='Im Gegensatz zu beschreibenden Bezeichnungen schließen Bezei
 export const endOnb= "Vielen Dank!\n\nAll deine Angaben sind gespeichert und werden verarbeitet. Wir wünschend dir viel Freude mit APPNAMEN EINFÜGEN. Wir freuen uns über Kritik und Anmerkungen, falls dir etwas auffallen sollte.";
 
 //Database Stuff
-export const checkPasswordText='Bitte gib dein Passwort ein'
+export const checkPasswordText='Wilkommen!'

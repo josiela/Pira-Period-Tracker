@@ -91,6 +91,10 @@ const ChoosePwScreen = (props) => {
       <Image style={styles.logo} source={require("../assets/lock.png")} />
 
       <View style={styles.textBox}>
+     
+        
+        <Text style={styles.title}>Passwort-Sicherung</Text>
+       
           <Text style={styles.text}>{content.Passwort}</Text>
       </View>
 
@@ -125,10 +129,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.accBlue,
-    fontSize: 32,
+    fontSize: normalizeH(10),
     lineHeight: 36,
+    marginBottom:"5%",
   }, textBox:{
-    marginTop: "14%",
+    marginTop: "10%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: 'flex-start',

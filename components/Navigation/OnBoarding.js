@@ -11,6 +11,7 @@ import EndOfOnBoarding from "../../screens/EndOfOnBoarding";
 import CalendarScreen from "../../screens/CalendarScreen";
 import ChoosePWScreen from "../../screens/ChoosePwScreen";
 import NotificationScreen from "../../screens/NotificationScreen";
+import InfoWOButtScreen from "../../screens/InfoWOButtScreen";
 /*
 This component holds the navigation for the OnBoarding page. 
 The functionality is the same as from the SwipeNavigation.
@@ -105,8 +106,29 @@ const OnBoarding = (props) => {
           },
         }}
       />
-        <Tab.Screen
+          <Tab.Screen
         name="4"
+        component={InfoWOButtScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: 10,
+                backgroundColor: focused ? "#493d8a" : "#748c94",
+              }}
+            />
+          ),
+          tabBarIconStyle: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          },
+        }}
+      />
+        <Tab.Screen
+        name="5"
         component={MensCycleChangeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -122,7 +144,7 @@ const OnBoarding = (props) => {
         }}
       />
          <Tab.Screen
-        name="5"
+        name="6"
         component={CalendarScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -138,7 +160,7 @@ const OnBoarding = (props) => {
         }}
       />
             <Tab.Screen
-        name="6"
+        name="7"
         component={ChoosePWScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -154,7 +176,7 @@ const OnBoarding = (props) => {
         }}
       />
     <Tab.Screen
-        name="7"
+        name="8"
         component={NotificationScreen}
         options={{
           tabBarIcon: ({ focused }) => (

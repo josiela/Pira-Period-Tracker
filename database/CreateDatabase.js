@@ -65,3 +65,9 @@ export const getAllKeys=async()=>{
     }
     console.log(keys)
 }
+
+//Deletes everything in the database 
+export const deleteAll=async()=>{
+    AsyncStorage.clear();
+    alert("Deine Daten wurden gelöscht");
+}

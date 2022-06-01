@@ -5,7 +5,7 @@ import {
   Alert,
   Pressable,
   Text,
-  Keyboard,
+  Image,
 } from "react-native";
 import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
@@ -38,6 +38,10 @@ const MensCycleChangeScreen = (props) => {
       <Image style={styles.logo} source={require("../assets/PeriodenundZykluslänge.png")} />
 
       <View style={styles.textBox}>
+      
+        
+        <Text style={styles.title}>Menstruartions- und Zykluslänge</Text>
+     
           <Text style={styles.text}>{content.ZuM1}</Text>
       </View>
       <InputNumber />
@@ -72,10 +76,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.accBlue,
-    fontSize: 32,
+    fontSize: normalizeH(10),
     lineHeight: 36,
+    marginBottom:"5%",
   }, textBox:{
-    marginTop: "14%",
+    marginTop: "10%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: 'flex-start',

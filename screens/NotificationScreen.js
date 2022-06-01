@@ -22,44 +22,67 @@ import { normalizeH } from "../constants/fontResponsive";
 //Und verbinden mit der datenbank
 const NotificationScreen = (props) => {
   return (
+    <View style={styles.container}>
+      
+      <Image style={styles.logo} source={require("../assets/Benachrichtigung.png")} />
+
     
-    
-      <View style={styles.head}>
-          <Image style={styles.logo} source={require("../assets/Benachrichtigung.png")} />
+      <View style={styles.textBox}>
+        
         <Text style={styles.title}>Benachrichtigungen</Text>
-        <View style={styles.container}>
+      </View>         
         <TextWSwitch />
-        </View>
+        
        
-      </View>
-  
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
+
   head:{
     paddingVertical: normalizeH(20),
     paddingHorizontal: "7%",
     height: "100%",
     width: "100%",
-  },
-  container: {
+  },container: {
     paddingVertical: normalizeH(20),
-   
+    paddingHorizontal: "7%",
+    alignItems: "center",
     height: "100%",
-    width: "100%",
+    flexDirection: "column",
   },
   title: {
-    marginTop: "18%",
     color: colors.accBlue,
-    fontSize: normalizeH(15),
-    lineHeight: normalizeH(22),
-  }, logo:{  
-  alignSelf: "flex-start", 
-  marginTop:  "20%",
-  width: normalizeH(63),
-  height: normalizeH(30),
-},
+    fontSize: normalizeH(10),
+    lineHeight: 36,
+    marginBottom:"10%",
+
+  }, textBox:{
+    marginTop: "8%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
+  },
+
+  text: {
+    color: colors.mainG,
+    fontSize: 20,
+  },
+
+
+
+  logo: {
+    alignSelf: "flex-start",
+   
+    marginTop:  "30%",
+    width: normalizeH(51),
+    height: normalizeH(25),
+  },
+    
+
+ 
+ 
 });
 
 export default NotificationScreen;

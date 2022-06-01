@@ -13,16 +13,49 @@ import colors from "../constants/colors";
  * @returns 
  */
 const MensCycleScreen = (props) => {
+
+  const [enteredMens, setMens] = useState();
+  const [enteredCycle, setCycle] = useState();
+
+  const mensHandler = (inputText) => {
+    setMens(inputText.replace(/[^0-9]/g, ""));
+  };
+
+  const cycleHandler = (inputText) => {
+    setCycle(inputText.replace(/[^0-9]/g, ""));
+  };
+
+  const inputHandler = () => {
+    console.log("gotcha");
+    const mens = parseInt(enteredMens);
+    const cycle = parseInt(enteredCycle);
+    console.log("mens " + mens + " cycle " + cycle);
+    setMens("");
+    setCycle("");
+    Keyboard.dismiss();
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/bubble.jpg")} />
       <Text style={styles.textH}>{content.start5}</Text>
-      <InputNumber/>
+       <InputNumber
+        title="Menstruationslänge"
+        onChangeText={mensHandler}
+        value={enteredMens}
+      />
+
+      <InputNumber
+        title="Zykluslänge"
+        onChangeText={cycleHandler}
+        value={enteredCycle}
+      />
+
 
       <View style={styles.button}>
         <Pressable
           style={styles.button1}
-          onPress={() => Alert.alert("am pressed omg")}
+          onPress={inputHandler}
         >
           <Text style={styles.text}>{props.title}</Text>
         </Pressable>

@@ -13,11 +13,14 @@ import ChangePWScreen from "./screens/ChangePWScreen";
 import IndexCircle from "./screens/IndexCircle";
 import LoginPWScreen from "./screens/LoginPWScreen";
 import SwipeNavigation from "./components/SwipeNavigation";
+import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
+import MensCycleChangeScreen from "./screens/MensCycleChangeScreen";
+import InfoWOButtScreen from "./screens/InfoWOButtScreen";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*
@@ -50,16 +53,20 @@ export default function App() {
   };
   // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   if (!showHomePage) {
+   
     return (
       <NavigationContainer>
         <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
+        
       </NavigationContainer>
+      
     );
   }
 
+  console.log("im done with this");
   return (
     <NavigationContainer>
-      <SwipeNavigation></SwipeNavigation>
+    <StackNavigation/>
     </NavigationContainer>
   );
 }

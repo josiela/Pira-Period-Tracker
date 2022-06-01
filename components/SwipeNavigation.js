@@ -4,6 +4,7 @@ import colors from "../constants/colors";
 import IndexCal from "../screens/IndexCal";
 import SettingsScreen from "../screens/SettingsScreen";
 import ChoosePwScreen from "../screens/ChoosePwScreen";
+import MonasPasswordCheck from "../screens/MonasPasswordCheck";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import StackNavigation from "../components/Navigation/StackNavigation.js"
 import SettingStack from "./Navigation/SettingStack";

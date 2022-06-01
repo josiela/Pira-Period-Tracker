@@ -7,6 +7,7 @@ import LogoScreen from "./screens/LogoScreen";
 import ChoosePwScreen from "./screens/ChoosePwScreen";
 import CalendarScreen from "./screens/CalendarScreen";
 import MensCycleScreen from "./screens/MensCycleScreen";
+import EntryScreen from "./screens/EntryScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import * as content from "./constants/texts";
 import ChangePWScreen from "./screens/ChangePWScreen";
@@ -16,11 +17,13 @@ import SwipeNavigation from "./components/SwipeNavigation";
 import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import MonasPasswordCheck from "./screens/MonasPasswordCheck";
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
 import MensCycleChangeScreen from "./screens/MensCycleChangeScreen";
 import InfoWOButtScreen from "./screens/InfoWOButtScreen";
+import MonasChangePwScreen from "./screens/MonasPasswordCheck";
 /**
  * The MASTER APP.
  * We can do it! *peptalk*

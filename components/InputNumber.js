@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import colors from "../constants/colors";
+import { normalizeH } from "../constants/fontResponsive";
 
 /**
  * Input Component 
@@ -29,16 +30,18 @@ const InputNumber = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
+    height: 300,
+    width: "100%",
     //justifyContent: "center",
   },
 
   input: {
+    marginTop:"10%",
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
-    width: 200,
-    height: 50,
-    fontSize: 16,
+    width: 250,
+    height: 70,
+    fontSize: normalizeH(8),
   },
 });
 

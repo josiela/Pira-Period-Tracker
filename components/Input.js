@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import colors from "../constants/colors";
+import { normalizeH } from "../constants/fontResponsive";
 
 /**
  * Password Input Component
@@ -38,15 +39,16 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
-    justifyContent: "center",
+    width: "100%",
   },
 
   input: {
+    marginTop:"10%",
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
-    width: 200,
-    fontSize: 16,
+    width: 250,
+    height: 50,
+    fontSize: normalizeH(8),
   },
 });
 

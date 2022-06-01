@@ -10,7 +10,9 @@ import {
 import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
-/**
+import { normalize } from "../constants/fontResponsive";
+import { storeMyStuff, getMyObjectStuff } from "../database/CreateDatabase";
+import { normalizeH } from "../constants/fontResponsive";/**
  * InputScreen for Mens and Cycle Length CHANGE
  *
  * Style I suppose..
@@ -18,73 +20,71 @@ import colors from "../constants/colors";
  * @param {*} props
  * @returns
  */
+
+//Nextstep: Aiden, ich brauch die Variablen aus den Inputs auch hier so, dass ich sie in die DB stecken kann:)
+
 const MensCycleChangeScreen = (props) => {
-  const [enteredMens, setMens] = useState();
-  const [enteredCycle, setCycle] = useState();
+  const [mensLength, setMensLength] = useState(7);
+  const [cyclusLength, setCyclusLength] = useState(28);
 
-  const mensHandler = (inputText) => {
-    setMens(inputText.replace(/[^0-9]/g, ""));
+  const storeLengths = async() => {
+    await storeMyStuff('@mensLength',mensLength);
+    await storeMyStuff('@cyclusLengt', cyclusLength);
+    
   };
-
-  const cycleHandler = (inputText) => {
-    setCycle(inputText.replace(/[^0-9]/g, ""));
-  };
-
-  const inputHandler = () => {
-    console.log("gotcha");
-    const mens = parseInt(enteredMens);
-    const cycle = parseInt(enteredCycle);
-    console.log("mens " + mens + " cycle " + cycle);
-    setMens("");
-    setCycle("");
-    Keyboard.dismiss();
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text2}>{props.header}</Text>
-      <Text style={styles.text}>{content.ZuM1}</Text>
+      
+      <Image style={styles.logo} source={require("../assets/PeriodenundZykluslänge.png")} />
 
-      <InputNumber
-        title="Menstruationslänge"
-        onChangeText={mensHandler}
-        value={enteredMens}
-      />
+      <View style={styles.textBox}>
+          <Text style={styles.text}>{content.ZuM1}</Text>
+      </View>
+      <InputNumber />
 
-      <InputNumber
-        title="Zykluslänge"
-        onChangeText={cycleHandler}
-        value={enteredCycle}
-      />
-
-      <View style={styles.buttonBox}>
-        <Pressable style={styles.buttonDesign} onPress={inputHandler}>
+      <View style={styles.button}>
+          <Pressable
+            style={styles.button1}
+            onPress={() => storeLengths()}
+           
+          >
+          <Text style={styles.textButton}>{"speichern"}</Text>
+          </Pressable>
+        </View>
+        <Pressable
+          style={styles.buttonDesign}
+          onPress={() => Alert.alert(content.changeCheck)}
+        >
           <Text style={styles.textButton}>{props.title}</Text>
         </Pressable>
-      </View>
+     
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    alignItems: "center",
+    height: "100%",
     flexDirection: "column",
-    paddingHorizontal: 30,
-    paddingVertical: 50,
-
-    //justifyContent: 'space-around',
-    //alignItems: 'center'
   },
   title: {
     color: colors.accBlue,
     fontSize: 32,
     lineHeight: 36,
+  }, textBox:{
+    marginTop: "14%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
   },
 
   text: {
     color: colors.mainG,
-    fontSize: 20,
+    lineHeight: normalizeH(9),
+    fontSize: normalizeH(7),
   },
 
   //Button Styles:
@@ -108,6 +108,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+    alignSelf: "flex-start",
+   
+    marginTop:  "20%",
+    width: normalizeH(31),
+    height: normalizeH(35),
+  },
+    
+  button1: {
+    borderRadius: 8, 
+    marginTop:"10%",
+    height: normalize(40),
+    width: normalize(100),
+    elevation: 3,
+    backgroundColor: colors.accBlue,
+    alignItems: "center",
+    justifyContent: "center",
+  },button:{
+    width:"100%",
+    height: "100%",
+  }
 });
 
 export default MensCycleChangeScreen;

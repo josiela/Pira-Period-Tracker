@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
+import { normalize } from "react-native-elements";
+import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
@@ -17,13 +19,9 @@ const LogoScreen = (props) => {
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/bubble.jpg")} />
 
-      <View style={styles.button}>
-        <Pressable
-          style={styles.button1}
-          onPress={() => Alert.alert("am pressed omg")}
-        >
-          <Text style={styles.text}>{props.title}</Text>
-        </Pressable>
+      <View style={styles.textBox}>
+        <Text style={styles.text}>Willkommen!</Text>
+        <Text style={styles.text}>Swipe nach links um loszulegen</Text>
       </View>
     </View>
   );
@@ -31,30 +29,31 @@ const LogoScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "50%",
+    alignItems: "center",
+    height: "100%",
   },
-  button: {
-    margin: 50,
-    elevation: 5,
-  },
-  text: {
-    color: colors.mainLG,
-    fontSize: 16,
-    lineHeight: 21,
-    letterSpacing: 0.25,
+ textBox: {
+    justifyContent: "center",
+    alignContent: "center",
+    marginTop: "60%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
   },
 
-  button1: {
-    borderRadius: 8,
-    height: 40,
-    elevation: 3,
-    backgroundColor: colors.accBlue,
-    alignItems: "center",
-    justifyContent: "center",
+  text: {
+    textAlign: "center",
+    lineHeight: normalizeH(9),
+    color: colors.mainG,
+    fontSize: normalizeH(7),
   },
+
+
   logo: {
-    width: 300,
-    height: 200,
+    alignSelf: "center",
+    marginTop:  "40%",
+    width: normalize(200),
+    height: normalizeH(70),
   },
 });
 

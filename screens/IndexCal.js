@@ -4,6 +4,7 @@ import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { color } from "react-native-elements/dist/helpers";
+import UILogo from "../components/UILogo";
 
 /* 
 TODO: 
@@ -69,7 +70,9 @@ const IndexCal = (props) => {
         />
       </View>
       <View style={styles.addButton}>
-        <AddButton icon="plus" selectedDay={selectedDay} />
+        <Pressable onPress={() => props.navigation.navigate("AboutUs")}>
+          <UILogo src={props.icon} styleType={props.sizeStyle} />
+        </Pressable>
       </View>
     </View>
   );

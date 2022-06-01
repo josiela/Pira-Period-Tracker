@@ -6,6 +6,7 @@ import {
   Pressable,
   Text,
   Keyboard,
+  Image, 
 } from "react-native";
 import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";

@@ -13,6 +13,8 @@ import InfoWOButtScreen from "../../screens/InfoWOButtScreen";
 import SettingsScreen from "../../screens/SettingsScreen";
 import IndexCal from "../../screens/IndexCal";
 import SettingStack from "./SettingStack";
+import EntryScreen from "../../screens/EntryScreen"
+import AddButton from "../AddButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +28,8 @@ const StackNavigation = () => {
       <Stack.Screen name="MensundZyklus" component={MensCycleChangeScreen} />
       <Stack.Screen name="AboutUs" component={AboutUsScreen} />
       <Stack.Screen name="Info" component={InfoWOButtScreen} />
-    
+      <Stack.Screen name="AddButton" component={AddButton} />
+      <Stack.Screen name="AddEntryScreen" component={EntryScreen} />
     </Stack.Navigator>
 
 

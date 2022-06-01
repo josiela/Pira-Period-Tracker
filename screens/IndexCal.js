@@ -8,7 +8,6 @@ import { color } from "react-native-elements/dist/helpers";
 /* 
 TODO: 
 - Set minDay to first entry-month
-- Arrows are not shown
 */
 
 const IndexCal = (props) => {
@@ -69,7 +68,11 @@ const IndexCal = (props) => {
         />
       </View>
       <View style={styles.addButton}>
-        <AddButton navigation={props.navigation} icon="plus" />
+        <AddButton
+          navigation={props.navigation}
+          icon="plus"
+          date={selectedDay}
+        />
       </View>
     </View>
   );

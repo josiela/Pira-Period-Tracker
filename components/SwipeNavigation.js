@@ -44,7 +44,7 @@ const SwipeNavigation = (props) => {
       
       <Tab.Screen
         name="Settings"
-        component={StackNavigation}
+        component={SettingStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

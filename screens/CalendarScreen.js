@@ -86,7 +86,7 @@ const CalendarScreen = (props) => {
       <View style={styles.button}>
         <Pressable
           style={styles.button1}
-          onPress={() => Alert.alert("am pressed omg")}
+          onPress={() => props.navigation.navigate("AddEntryScreen")}
         >
           <Text style={styles.text}>{props.title}</Text>
         </Pressable>

@@ -6,7 +6,13 @@ import UILogo from "./UILogo";
 const AddButton = (props) => {
   return (
     <View>
-      <Pressable onPress={() => console.log("pressed " + props.selectedDay)}>
+      <Pressable
+        onPress={() =>
+          props.navigation.navigate("AddEntryScreen", {
+            date: props.date,
+          })
+        }
+      >
         <UILogo src={props.icon} styleType={props.sizeStyle} />
       </Pressable>
     </View>

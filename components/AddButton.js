@@ -6,7 +6,7 @@ import UILogo from "./UILogo";
 const AddButton = (props) => {
   return (
     <View>
-      <Pressable onPress={() => props.navigation.navigate("AboutUs")}>
+      <Pressable onPress={() => props.navigation.navigate("AddEntryScreen")}>
         <UILogo src={props.icon} styleType={props.sizeStyle} />
       </Pressable>
     </View>

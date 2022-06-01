@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 const SettingStack = () => {
   return (
     <Stack.Navigator name="SettingStack" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Setting" component={SettingsScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="ChangePW" component={ChangePWScreen} />
       <Stack.Screen name="MensundZyklus" component={MensCycleChangeScreen} />
       <Stack.Screen name="AboutUs" component={AboutUsScreen} />

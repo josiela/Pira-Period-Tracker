@@ -20,9 +20,8 @@ const StackNavigation = () => {
  
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Swipe" component={SwipeNavigation} />
-      
-      <Stack.Screen name="Setting" component={SettingsScreen} />
+      <Stack.Screen name="home" component={SwipeNavigation} />
+      <Stack.Screen name="Next page" component={InfoTextScreen} />
       <Stack.Screen name="ChangePW" component={ChangePWScreen} />
       <Stack.Screen name="MensundZyklus" component={MensCycleChangeScreen} />
       <Stack.Screen name="AboutUs" component={AboutUsScreen} />
@@ -33,7 +32,7 @@ const StackNavigation = () => {
 
   ); 
 };
-
+//<Stack.Screen name="home" component={SwipeNavigation} />
 export default StackNavigation;
 
 

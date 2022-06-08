@@ -22,17 +22,36 @@ import { normalizeH } from "../constants/fontResponsive";/**
  * @returns
  */
 
-//Nextstep: Aiden, ich brauch die Variablen aus den Inputs auch hier so, dass ich sie in die DB stecken kann:)
 
 const MensCycleChangeScreen = (props) => {
-  const [mensLength, setMensLength] = useState(7);
-  const [cyclusLength, setCyclusLength] = useState(28);
+  const [mensLength, setMensLength] = useState();
+  const [cyclusLength, setCyclusLength] = useState();
+
+  const mensHandler = (inputText) => {
+    setMensLength(inputText.replace(/[^0-9]/g, ""));
+  };
+
+  const cycleHandler = (inputText) => {
+    setCyclusLength(inputText.replace(/[^0-9]/g, ""));
+  };
 
   const storeLengths = async() => {
-    await storeMyStuff('@mensLength',mensLength);
+    await storeMyStuff('@mensLength', mensLength);
     await storeMyStuff('@cyclusLengt', cyclusLength);
     
   };
+
+  const inputHandler = () => {
+    console.log("gotcha");
+    const mens = parseInt(mensLength);
+    const cycle = parseInt(cyclusLength);
+    console.log("mens " + mens + " cycle " + cycle);
+    setMensLength("");
+    setCyclusLength("");
+    Keyboard.dismiss();
+   
+  };
+
   return (
     <View style={styles.container}>
       
@@ -45,23 +64,29 @@ const MensCycleChangeScreen = (props) => {
      
           <Text style={styles.text}>{content.ZuM1}</Text>
       </View>
-      <InputNumber />
+      <InputNumber
+        title="Menstruationslänge"
+        onChangeText={mensHandler}
+        value={mensLength}
+      />
+
+      <InputNumber
+        title="Zykluslänge"
+        onChangeText={cycleHandler}
+        value={cyclusLength}
+      />
+
 
       <View style={styles.button}>
           <Pressable
             style={styles.button1}
-            onPress={() => storeLengths()}
+            onPress={inputHandler}
            
           >
           <Text style={styles.textButton}>{"speichern"}</Text>
           </Pressable>
         </View>
-        <Pressable
-          style={styles.buttonDesign}
-          onPress={() => Alert.alert(content.changeCheck)}
-        >
-          <Text style={styles.textButton}>{props.title}</Text>
-        </Pressable>
+      
      
     </View>
   );

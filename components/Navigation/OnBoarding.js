@@ -129,7 +129,7 @@ const OnBoarding = (props) => {
       />
         <Tab.Screen
         name="5"
-        component={MensCycleChangeScreen}
+        component={MensCycleScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

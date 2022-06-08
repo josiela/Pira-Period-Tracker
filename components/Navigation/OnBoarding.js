@@ -175,22 +175,6 @@ const OnBoarding = (props) => {
           ),
         }}
       />
-    <Tab.Screen
-        name="8"
-        component={NotificationScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                height: 10,
-                width: 10,
-                borderRadius: 10,
-                backgroundColor: focused ? "#493d8a" : "#748c94",
-              }}
-            />
-          ),
-        }}
-      />
       <Tab.Screen
         name="9"
         children={() => (

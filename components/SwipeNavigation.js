@@ -6,9 +6,8 @@ import SettingsScreen from "../screens/SettingsScreen";
 import ChoosePwScreen from "../screens/ChoosePwScreen";
 import MonasPasswordCheck from "../screens/MonasPasswordCheck";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import StackNavigation from "../components/Navigation/StackNavigation.js"
+import StackNavigation from "../components/Navigation/StackNavigation.js";
 import SettingStack from "./Navigation/SettingStack";
-
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -42,10 +41,9 @@ const SwipeNavigation = (props) => {
         },
       }}
     >
-      
       <Tab.Screen
         name="Settings"
-        component={SettingStack}
+        component={SettingsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -64,7 +62,7 @@ const SwipeNavigation = (props) => {
           },
         }}
       />
-   <Tab.Screen
+      <Tab.Screen
         name="Calendar"
         component={IndexCal}
         options={{
@@ -78,7 +76,6 @@ const SwipeNavigation = (props) => {
               }}
             />
           ),
-         
         }}
       />
       <Tab.Screen

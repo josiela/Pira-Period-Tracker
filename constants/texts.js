@@ -42,13 +42,20 @@ export const changeCheck = 'Anderungen gespeichert'
 //view AboutUs
 export const au2= "Hey du!"
 export const au1='Bevor du diese App nutzt, wollen wir uns einmal vorstellen!\n  \nWir sind ein kleines Team aus Studierenden. Als Menstruierende ist uns der Datenschutz sauer aufgestoßen, vor allem nach der Veröffentlichung der Analyse von Eva Blum-Dumontet auf der 36C3. Wir sind ein diverses Team aus cis und trans Menschen, die sich bemüht haben, die App so inklusiv wie möglich zu gestalten. Daher kam die Idee eine App im Rahmen eines Projekts zu realisieren, die nicht nur in puncto Datenschutz besser abschneidet sondern auch nicht pink ist. Das Ergebnis hältst du nun in deinen Händen.'
+export const au3='Wir sind ein kleines Team aus Studierenden. \n\nAls Menstruierende sind uns die verfügbaren Periodentracker sauer aufgestoßen. Unsicher und wenig inklusiv stellten diese oft die Menstruation an Sich als negativ dar und gaben medizinisch inkorrekte Angaben. \n\nDaher kam die Idee einer App, die dies verbessert und vor Allem in puncto Datenschutz besser abschneidet. Als diverses Team aus cis und trans Menschen bemühten wir uns die App so inklusiv wie möglich zu gestalten.  \nDas Ergebnis hältst du nun in deinen Händen.\n\nFalls du Anregungen oder Kritik hast, leite diese gerne an uns weiter!\n\nSolltest du dich für die Programmierung dieser App interssieren, findest du den Link zu unserem Git-Repository in der Playstore Beschreibung.'
+export const au4='Wer wir sind:'
 
 //explained
-export const why1= 'Warum bescreibende Bezeichnungen?'
-export const why2='Im Gegensatz zu beschreibenden Bezeichnungen schließen Bezeichnungen wie “Frau” viele Menschen aus, die trotzdem menstruieren. Bspw. nicht-binäre afab Personen oder trans Männer. Es gibt cis Frauen, die bspw. aufgrund von Krankheit nicht menstruieren oder trans Frauen, die es auch nicht tun.'
+export const why1= 'Warum beschreibende Bezeichnungen?'
+export const why2='Neben cis-Frauen können beispielsweise auch nicht-binäre afab Personen oder trans Männer menstruieren. Andererseits gibt es auch cis- oder trans-Frauen, die z.B. aufgrund von Krankheit nicht menstruieren. Die Gruppe der Menstruierenden ist also viel zu vielseitig, um sie mit dem Wort "Frauen" zu beschreiben. Deshalb nutzen wir beschreibende Bezeichnungen, um alle Menschen einzuschließen, die eine Periode haben.'
+export const why3= 'Verhütung'
+export const why4='Diese App dient ausdrücklich NICHT der Empfängnisverhütung. Der Eisprung wird von vielen Faktoren beeinflusst und findet nicht in jedem Zyklus zur gleichen Zeit statt. Anders als einige Periodentracker vermitteln, ist das reine Tracken der Blutungstage also eine extrem unsichere Methode der Verhütung (Pearl Index 9). Solltest du dich für natürliche Verhütung interessieren, informiere dich über die Symptothermale Methode (Pearl Index  0,4 - 2,3)'
 
 //View End of Onboarding
 export const endOnb= "Vielen Dank!\n\nAll deine Angaben sind gespeichert und werden verarbeitet. Wir wünschend dir viel Freude mit APPNAMEN EINFÜGEN. Wir freuen uns über Kritik und Anmerkungen, falls dir etwas auffallen sollte.";
 
 //Database Stuff
 export const checkPasswordText='Wilkommen!'
+
+//Zurücksetzen
+export const getBack='\nSetzt du die App zurück, werden alle deine Einträge und Einstellungen gelöscht.\n\nDiese sind nicht widerherstellbar, also sei dir ganz sicher, bevor du die App zurücksetzt.'

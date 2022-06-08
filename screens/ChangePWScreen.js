@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.accBlue,
-    fontSize: 32,
+    fontSize: normalizeH(10),
     lineHeight: 36,
   }, textBox:{
     marginTop: "14%",

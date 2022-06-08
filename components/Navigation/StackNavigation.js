@@ -15,6 +15,9 @@ import IndexCal from "../../screens/IndexCal";
 import SettingStack from "./SettingStack";
 import EntryScreen from "../../screens/EntryScreen"
 import AddButton from "../AddButton";
+import NotificationScreen from "../../screens/NotificationScreen";
+import LateAboutUsScreen from  "../../screens/LateAboutUsScreen";
+import DeleteScreen from  "../../screens/DeleteScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,10 +29,13 @@ const StackNavigation = () => {
       <Stack.Screen name="Next page" component={InfoTextScreen} />
       <Stack.Screen name="ChangePW" component={ChangePWScreen} />
       <Stack.Screen name="MensundZyklus" component={MensCycleChangeScreen} />
-      <Stack.Screen name="AboutUs" component={AboutUsScreen} />
+      <Stack.Screen name="LateAboutUs" component={LateAboutUsScreen} />
       <Stack.Screen name="Info" component={InfoWOButtScreen} />
       <Stack.Screen name="AddButton" component={AddButton} />
       <Stack.Screen name="AddEntryScreen" component={EntryScreen} />
+      <Stack.Screen name="Notifications" component={NotificationScreen} />
+      <Stack.Screen name="DeleteScreen" component={DeleteScreen} />
+    
     </Stack.Navigator>
 
 

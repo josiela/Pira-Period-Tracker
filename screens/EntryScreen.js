@@ -5,155 +5,92 @@ import {
   Image,
   Keyboard,
   Alert,
-  TouchableWithoutFeedback,
   Pressable,
   Text,
   TextInput,
 } from "react-native";
 import { normalize, normalizeH } from "../constants/fontResponsive";
 import Entry from "../database/EntryClass";
-import Input from "../components/Input";
 import colors from "../constants/colors";
 import {
   storeMyStringStuff,
   getMyStringStuff,
-  getMyObjectStuff,
   removeMyStuff,
-  getAllKeys,
   storeMyStuff,
 } from "../database/CreateDatabase";
-import { TabRouter } from "@react-navigation/native";
-/**
- * Probleme in diesem File: Textfeld funktioniert nicht / kommt keine Tastatur- aber nur bei meinem Handy nicht, sigh
- * ausgewähltes anzeigen??
- *
- *
- *
- *
- * The Screen we forgot about.
- * Login PW Screen
- *
- * takes the Image Source of our Logo and asks the password
- *
- * ToDo: Navigation and create a Logo. The Image is a dummy rn.
- * Also takes in the Password, so it's safe to unlock :)
- * needs to add logic: Like failed PW
- *
- * @param {*} props
- * @returns
- */
 
-const UselessTextInput = (props) => {
-  return (
-    <TextInput
-      {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
-      editable
-      maxLength={40}
-    />
-  );
-};
-let opacityFace = 0.2;
 
 const EntryScreen = (props) => {
+
   // get datestring with props.route.params.date
   let firstEntry = new Entry(1, 2, 3, 4, "Nichts Sonderliches");
   let [entryArray, setEntryArray] = useState([firstEntry]);
-  let [proveArray, setproveArray] = useState([firstEntry]);
-  let [anzuzeigenderEntry, setanzuzeigendenEntry] = useState(1);
-
   const [blood, setBlood] = useState("");
   const [pain, setPain] = useState("");
   const [mood, setMood] = useState("");
-  const [date, setDate] = useState(2000.01);
   const [notes, setNotes] = useState(
-    "Nix besonderes, bisschen Wärmekissen dies das"
+    ""
   );
 
   const createNewEntry = async () => {
+    
     //Wenn es schon nen Eintrag gibt, den erst löschen
-    if (entryArray.find((entry) => entry.date === date)) {
+    if (entryArray.find((entry) => entry.date === props.route.params.date)!==null) {
       console.log("Bereits ein Eintrag vorhanden");
-      entryArray = entryArray.filter((entry) => entry.date !== date);
-    }
-    let newEntry = new Entry(date, pain, mood, blood, notes);
-    setDate(date + 1); //--- eigentlich nicht richtug, gibt ja nur noch kein Date
-    entryArray.push(newEntry); //                  Push funktioniert nicht
-    setanzuzeigendenEntry(anzuzeigenderEntry + 1);
-
-    console.log(anzuzeigenderEntry + " " + entryArray[anzuzeigenderEntry].date);
+      entryArray = entryArray.filter((entry) => entry.date !== props.route.params.date);
+    }else{console.log("Kein Eintrag mit dem Datum vorhanden");}
+    
+    //Neues Objekt mit Daten anlegen und ins Array stecken
+    let newEntry = new Entry(props.route.params.date, pain, mood, blood, notes);
+    entryArray.push(newEntry);    
+   
+    //Altes Array löschen, neues speichern
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
   };
 
-  //Old stuff--------------------------------------------------------------------------------
-  const [databaseNumber, setDatabaseNumber] = useState("");
-  const [confirmed, setConfirmed] = useState(false);
-  const [value, onChangeText] = React.useState("Useless Multiline Placeholder");
-
-  //validates Numbers only
-  const numberInputHandler = (inputText) => {
-    setEnteredValue(inputText.replace(/[^0-9]/g, ""));
-  };
-
-  //resets the Input in case nothing of worth was given
-  const resetInputHandler = () => {
-    setEnteredValue("");
-    setConfirmed(false);
-  };
-
-  //confirms that a number was entered, else it throws an insult
-  const confirmInputHandler = async () => {
-    const chosenPin = parseInt(enteredValue);
-    if (isNaN(chosenPin)) {
-      Alert.alert("Das Passwort muss mindestens eine Ziffer enthalten");
-      resetInputHandler;
-    } else {
-      setConfirmed(true);
-      setSelectedNumber(chosenPin);
-      storeMyStringStuff("@password", JSON.stringify(chosenPin));
-      setEnteredValue("");
-      Keyboard.dismiss();
-    }
-  };
-
-  //Shit to prove the database works
-  const getPWfromDBHandler = async () => {
-    await getMyStringStuff("@password").then((value) => {
-      console.log("first" + value);
-      setDatabaseNumber(value);
-    });
-  };
-
-  const handleFaceButtons = (number, obj) => {
-    setMood(number);
-    opacityFace = 0.8;
-    console.log(opacityFace);
-  };
-
-  //if pressed and confirmed selectedNumber holds the PIN
-  if (confirmed) {
-    console.log(selectedNumber + ".. here ye go");
-  }
-
+  //Zieht Array aus Datenbank
   const getArray = async () => {
+    
     await getMyStringStuff("@entryArrayKey").then((returnedValue) => {
-      setEntryArray(JSON.parse(returnedValue));
+      
+      if(returnedValue!==null){
+         setEntryArray(JSON.parse(returnedValue));
+      }else{
+        setEntryArray([firstEntry]);
+      }
+      
     });
+  
   };
+
+  //Sorgt für aktualisierung der Variablen nachdem die Datenbank fertig geladen hat
   useEffect(() => {
-    getArray();
-  });
-  // Old stuff ends------------------------------------------------------------------------------------------
+    let myEntry= entryArray.find((entry) => entry.date === props.route.params.date);
+    
+    if(myEntry!==undefined) {
+      console.log("Eintrag gefunden: "+myEntry.note);
+      setNotes(myEntry.note); 
+      setPain(myEntry.pain);
+      setMood(myEntry.mood);
+      setBlood(myEntry.blood);
+    } else{
+      console.log("notes nicht vorhanden");
+    }
+  }, [entryArray])
+  
+
+  //Startet Datenbank Aufruf
+  useEffect(() => {
+    
+   getArray();
+  },[])
+  
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
+  
       <View style={styles.container}>
         <View style={styles.container3}>
-          <Image style={styles.logo} source={require("../assets/plus.png")} />
-          <Text style={styles.text}>{"Datum "}</Text>
+          <Text style={styles.text}>{props.route.params.date}</Text>
         </View>
 
         <View style={styles.container2}>
@@ -226,47 +163,35 @@ const EntryScreen = (props) => {
                 />
               </Pressable>
             </View>
-            <View style={styles.button}>
-              <Pressable
-                style={styles.button1}
-                onPress={() => createNewEntry()}
-              >
-                <Text style={styles.textButton}>{"speichern"}</Text>
-              </Pressable>
-            </View>
           </View>
         </View>
         <View style={styles.bigDownContainer}>
-          <Text style={styles.bigText2}>{"Notes"}</Text>
+          <Text style={styles.bigText2}>{"Notiz :"}</Text>
           <View style={styles.notesContainer}>
             <TextInput
               style={styles.textInputStyle}
-              //onChangeText={onChangeNumber}
-              //value={number}
+              onChangeText={text=>  setNotes(text)}
+              value={notes}
+              multiline
+              numberOfLines={4}
+
               placeholder="Tippe hier"
               placeholderTextColor={colors.accBlue}
             />
 
-            <UselessTextInput
-              multiline
-              numberOfLines={7}
-              onChangeText={(text) => onChangeText(text)}
-              value={value}
-              style={{ padding: 5 }}
-            />
+  
           </View>
 
           <View style={styles.button}>
             <Pressable
               style={styles.button1}
-              onPress={() => Alert.alert("bestätigt")}
+              onPress={() => createNewEntry()}
             >
               <Text style={styles.textButton}>{"speichern"}</Text>
             </Pressable>
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
   );
 };
 
@@ -290,9 +215,11 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   notesContainer: {
+    justifyContent:"flex-start",
+    alignItems:"flex-start",
     width: "100%",
     alignSelf: "center",
-    height: normalizeH(60),
+    height: normalizeH(20),
     borderBottomWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
@@ -306,7 +233,7 @@ const styles = StyleSheet.create({
     marginLeft: "0%",
   },
   bigTextContainer: {
-    backgroundColor: colors.mainLG,
+    
     flexDirection: "column",
     width: "35%",
     height: "90%",
@@ -318,7 +245,6 @@ const styles = StyleSheet.create({
     width: "30%",
     marginRight: "10%",
     height: normalize(50),
-    backgroundColor: colors.mainLG,
   },
   logo: {
     marginLeft: "4%",
@@ -331,12 +257,6 @@ const styles = StyleSheet.create({
     height: "20%",
     marginTop: "10%",
     marginRight: "7%",
-  },
-  inputBox: {},
-  //Button Styles
-  buttonBox: {
-    margin: normalize(50),
-    elevation: normalize(5),
   },
 
   textButton: {
@@ -363,7 +283,7 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: "center",
-    marginLeft: "40%",
+    marginLeft: "5%",
     color: colors.accBlue,
     fontSize: normalize(30),
     lineHeight: normalize(30),
@@ -393,14 +313,9 @@ const styles = StyleSheet.create({
     height: normalize(43),
     width: normalize(50),
   },
-  TextInput: {
-    height: normalizeH(10),
-    margin: normalize(12),
-    borderWidth: normalize(20),
-    padding: normalize(10),
-  },
 
   button1: {
+   
     borderRadius: 8,
     marginLeft: "64%",
     marginTop: "10%",
@@ -411,6 +326,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     justifyContent: "center",
+  },
+  textInputStyle:{
+    
+    alignSelf:"flex-start",
+    width:"100%",
+    height:"100%",
+    alignItems:"center",
+    justifyContent:"center",
+    padding:7,
+    fontSize: normalizeH(7),
   },
 });
 

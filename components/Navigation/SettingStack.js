@@ -25,7 +25,6 @@ const SettingStack = () => {
       <Stack.Screen name="MensundZyklus" component={MensCycleChangeScreen} />
       <Stack.Screen name="LateAboutUs" component={LateAboutUsScreen} />
       <Stack.Screen name="Info" component={InfoWOButtScreen} />
-      <Stack.Screen name="Notifications" component={NotificationScreen} />
       <Stack.Screen name="Delete" component={DeleteScreen} />
     </Stack.Navigator>
   );

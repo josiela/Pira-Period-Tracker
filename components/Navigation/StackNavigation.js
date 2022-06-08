@@ -33,7 +33,6 @@ const StackNavigation = () => {
       <Stack.Screen name="Info" component={InfoWOButtScreen} />
       <Stack.Screen name="AddButton" component={AddButton} />
       <Stack.Screen name="AddEntryScreen" component={EntryScreen} />
-      <Stack.Screen name="Notifications" component={NotificationScreen} />
       <Stack.Screen name="DeleteScreen" component={DeleteScreen} />
     
     </Stack.Navigator>

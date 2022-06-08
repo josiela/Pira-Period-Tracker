@@ -6,7 +6,7 @@ import Input from "../components/Input";
 import * as content from "../constants/texts";
 import {normalizeH } from "../constants/fontResponsive";
 import { normalize } from "react-native-elements";
-import { getMyStringStuff, storeMyStringStuff, storeMyStuff } from "../database/CreateDatabase";
+import { getMyStringStuff, removeMyStuff, storeMyStringStuff, storeMyStuff } from "../database/CreateDatabase";
 /**
  *  ChangePWScreen!
  *  takes the UILogo & Input Component.
@@ -52,6 +52,7 @@ const storeNewPassword =async()=>{
   
     if((enteredValue===oldPW) || (oldPW===0)){
        if(confirmValue===confirmConfirmNumber){
+         removeMyStuff("@passwordKey");
         storeMyStuff("@passwordKey",confirmValue);
         alert("Danke!\nDein neues Passwort wurde gespeichert");
       }else{

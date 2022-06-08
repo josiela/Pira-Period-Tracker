@@ -3,21 +3,15 @@ import {
   View,
   StyleSheet,
   Image,
-  Keyboard,
-  Alert,
-  TouchableWithoutFeedback,
   Pressable,
   Text,
-  Vibration,
 } from "react-native";
-import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
-import AddButton from "../components/AddButton";
 import { normalizeH } from "../constants/fontResponsive";
 import { normalize } from "../constants/fontResponsive";
-import InputNumber from "../components/InputNumber";
+import { storeMyStuff } from "../database/CreateDatabase";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -36,9 +30,19 @@ import InputNumber from "../components/InputNumber";
 const ChoosePwScreen = (props) => {
   const [enteredValue, setEnteredValue] = useState();
   const [confirmNumber, setConfirmNumber] = useState();
-  const [selectedNumber, setSelectedNumber] = useState();
-  const [confirmed, setConfirmed] = useState(false);
 
+  
+
+  const storeNewPassword =async()=>{
+
+       if(confirmNumber===enteredValue){
+        storeMyStuff("@passwordKey",enteredValue);
+        alert("Danke Dir!\nDein Passwort wurde gespeichert");
+      }else{
+        alert("Die Widerholung des Passworts ist inkorrekt");
+      }
+    }
+  
   //validates Numbers only
   const numberInputHandler = (inputText) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
@@ -48,42 +52,6 @@ const ChoosePwScreen = (props) => {
     setConfirmNumber(inputText.replace(/[^0-9]/g, ""));
   };
 
-  //resets the Input in case nothing of worth was given
-  const resetInputHandler = () => {
-    setEnteredValue("");
-    setConfirmNumber("");
-    setSelectedNumber("");
-    setConfirmed(false);
-  };
-
-  //confirms that a number was entered, else it throws an insult
-  const confirmInputHandler = () => {
-    console.log("clicked");
-    var chosenPin0 = parseInt(enteredValue);
-    var chosenPin1 = parseInt(confirmNumber);
-    if (isNaN(chosenPin0 || chosenPin1)) {
-      console.log("Fuck you");
-      resetInputHandler();
-    }
-    if (chosenPin0 == chosenPin1) {
-      const chosenPin = chosenPin0;
-      console.log("IT IS SAAAME");
-      setConfirmed(true);
-      setSelectedNumber(chosenPin);
-      setEnteredValue("");
-      setConfirmNumber("");
-      Keyboard.dismiss();
-    } else {
-      console.log("you failed to enter yer fkn pw");
-      resetInputHandler();
-      setConfirmed(false);
-    }
-  };
-
-  //if pressed and confirmed selectedNumber holds the PIN
-  if (confirmed) {
-    console.log(selectedNumber + ".. here ye go");
-  }
 
   return (
     <View style={styles.container}>
@@ -98,14 +66,14 @@ const ChoosePwScreen = (props) => {
           <Text style={styles.text}>{content.Passwort}</Text>
       </View>
 
-        <Input title="Passwort" />
-        <Input title="Wiederholen" />
+        <Input title="Passwort" onChangeText={numberInputHandler} value={enteredValue} />
+        <Input title="Wiederholung"onChangeText={confirmNumberHandler} value={confirmNumber} />
  
 
       <View style={styles.button}>
           <Pressable
             style={styles.button1}
-            onPress={() => storeLengths()}
+            onPress={() => storeNewPassword()}
            
           >
           <Text style={styles.textButton}>{"speichern"}</Text>

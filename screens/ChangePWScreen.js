@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Alert, Image, Pressable, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
-import UILogo from "../components/UILogo";
+
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
 import {normalizeH } from "../constants/fontResponsive";
 import { normalize } from "react-native-elements";
+import { getMyStringStuff, storeMyStringStuff, storeMyStuff } from "../database/CreateDatabase";
 /**
  *  ChangePWScreen!
  *  takes the UILogo & Input Component.
@@ -21,15 +22,47 @@ import { normalize } from "react-native-elements";
  * @returns
  */
 
+  //Startet Datenbank Aufruf
 
 const ChangePWScreen = (props) => {
 
 
   const [enteredValue, setEnteredValue] = useState();
+  const [oldPW, setOldPW] = useState(0);
   const [confirmValue, setConfirmValue] = useState();
   const [confirmConfirmNumber, setConfirmConfirmNumber] = useState();
   const [selectedNumber, setSelectedNumber] = useState();
   const [confirmed, setConfirmed] = useState(false);
+
+
+  //My New Stuff
+const getPassword= async ()=>{
+  await getMyStringStuff("@passwordKey").then((returnedValue) => {
+      
+    if(returnedValue!==null){
+       setOldPW(JSON.parse(returnedValue));
+    }else{
+      setOldPW(0);
+    }
+    
+  });
+}
+
+const storeNewPassword =async()=>{
+  
+    if((enteredValue===oldPW) || (oldPW===0)){
+       if(confirmValue===confirmConfirmNumber){
+        storeMyStuff("@passwordKey",confirmValue);
+        alert("Danke!\nDein neues Passwort wurde gespeichert");
+      }else{
+        alert("Die Widerholung der neuen Pin ist inkorrekt");
+      }
+    }else{
+     alert("Überprüfe die aktuelle Pin");
+      console.log(oldPW);
+    }
+  
+}
 
   //validates Numbers only
   const numberInputHandler = (inputText) => {
@@ -90,6 +123,10 @@ const ChangePWScreen = (props) => {
   if (confirmed) {
     console.log(selectedNumber + ".. here ye go");
   }
+  useEffect(() => {
+    
+    getPassword();
+   },[])
 
   return (
     <View style={styles.container}>
@@ -104,13 +141,13 @@ const ChangePWScreen = (props) => {
       </View>
    
       <Input title={content.pin2} onChangeText={numberInputHandler} value={enteredValue}/>
-      <Input title={content.pin3} onChangeText={numberInputHandler} value={enteredValue}/>
-      <Input title={content.pin4} onChangeText={numberInputHandler} value={enteredValue}/>
+      <Input title={content.pin3} onChangeText={confirmValueHandler} value={confirmValue}/>
+      <Input title={content.pin4} onChangeText={confirmConfirmNumberHandler} value={confirmConfirmNumber}/>
   
       <View style={styles.button}>
           <Pressable
             style={styles.button1}
-            onPress={() => storeLengths()}
+            onPress={() => storeNewPassword()}
            
           >
           <Text style={styles.textButton}>{"speichern"}</Text>

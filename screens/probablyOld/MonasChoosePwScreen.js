@@ -53,7 +53,7 @@ const MonasChoosePwScreen = (props) => {
           <Text style={styles.text2}>{content.start7}</Text>
         </View>
         <Input title="Passwort" value={firstPassword1} />
-        <Input title="Wiederholen" value={secondPassword1} />
+        <Input title="Wieeeederholen" value={secondPassword1} />
       </View>
 
       <View style={styles.button}>

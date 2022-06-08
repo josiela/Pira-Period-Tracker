@@ -12,7 +12,7 @@ export const hey = 'Hallo!'
 
 // view Einstellungen
 export const Passwort = 'Möchtest du deine App mit einem Passwort schützen? \n\nDas ermöglicht dir, dass die Inhalte von Fremden nicht gesehen werden können, sollte beim Start der App das Passwort falsch eingegeben werden. '
-export const Passwort2 = '\nEin Passwort ermöglicht dir, dass die Inhalte von Fremden nicht gesehen werden können, sollte beim Start der App das Passwort falsch eingegeben werden. '
+export const Passwort2 = '\nEin Passwort ermöglicht dir, deine Inhalte vor Fremden zu schützen, sollten sie dein Endgerät bedienen.\n\nSolltest du noch kein Passwort haben, lass das Feld einfach leer'
 export const ZuM1 = 'Unsere Voraussagen basieren auf den von dir eingetragenen Daten. \nFalls du sie kennst, kannst du hier deine durchschnittlichen Zyklus- und Menstruationslänge eintragen.'
 export const ZuM2= 'Die Zyklus- und Menstruationslänge ist sehr individuell. Ein Zyklus beginnt mit dem 1. Tag der Menstruation und endet einen Tag vor der nächsten Menstruation. Ein “durchschnittlicher” 28 Tage Zyklus ist eher die Ausnahme, als die Regel. '
 export const ZuM3= '“Das einzig regelmäßige am Zyklus einer Menstruierenden Person, ist seine Unregelmäßigkeit.”'

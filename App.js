@@ -64,7 +64,12 @@ export default function App() {
       </NavigationContainer>
       
     );
-  }
+  }/*else{
+    return (
+      <MonasPasswordCheck></MonasPasswordCheck>
+      
+    );
+  }*/
 
   console.log("im done with this");
   return (

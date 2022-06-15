@@ -27,9 +27,11 @@ export const storeMyStringStuff=async(key, stuff)=>{
 export const getMyStringStuff=async (key)=>{
     
       if(AsyncStorage.getItem(key)!= null){
+       
         return AsyncStorage.getItem(key)
         }else{
-            Alert("No Password found in Database")
+            console.log("Nothing found here");
+            Alert("No String found in Database")
         }
 };
 

@@ -21,7 +21,7 @@ export const ZuM3= '“Das einzig regelmäßige am Zyklus einer Menstruierenden 
 export const Datenschutz4 = 'Datenschutz hat es uns besonders angetan! \n\nDenn gerade sensible Gesundheitsdaten sind für werbetreibende Firmen sehr interessant, da die Daten einer schwangeren Person besonders wertvoll sind (1,50 Dollar im Gegensatz zu einer nicht schwangeren Person 10 cent). Deshalb brauchen diese einen besonderen Schutz. Daher werden deine Daten ausschließlich lokal auf deinem Endgerät gespeichert. Wir sind bemüht, diese App so übersichtlich und schlicht wie möglich zu halten und erheben außerdem keine Daten, die für die Nutzung nicht unerlässlich sind.'
 export const Datenschutz5 = 'Ein Wort zum Datenschutz'
 //view Start0.2
-export const start5 = 'Damit dein Zyklus vorherbestimmt werden kann, gib bitte deine durchschnittliche Menstruations- und Zykluslänge an. Du kannst sie später in den Einstellungen ändern.'
+export const start5 = 'Damit dein Zyklus verlässlicher vorherbestimmt werden kann, gib bitte deine durchschnittliche Menstruations- und Zykluslänge an.\nDu kannst sie später in den Einstellungen ändern.\nSolltest du sie nicht kennen, swipe einfach weiter und wir berechnen rein durch deine Einträge im Kalender'
 
 //view start 0.3
 export const start6 = 'Wann begann deine letzte Menstruation?'

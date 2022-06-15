@@ -1,112 +1,181 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
-import InputNumber from '../components/InputNumber';
-import * as content from "../constants/texts";
+
+import InputNumber from "../components/InputNumber";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Pressable,
+  Text,
+} from "react-native";
 import colors from "../constants/colors";
+import Input from "../components/Input";
+import * as content from "../constants/texts";
+import { normalizeH } from "../constants/fontResponsive";
+import { normalize } from "../constants/fontResponsive";
+import { storeMyStuff } from "../database/CreateDatabase";
+
 /**
- * InputScreen for Mens and Cycle Length with our lovely Logo FOR STARTERS!
+ *  ChoosePwScreen for Starters!
+ *  takes the UILogo & Input Component.
  *
- * ToDo Styling prop smarter to return to it by the time we have a Navigation and a Logo at hand :)
- * 
- * 
- * @param {*} props 
- * @returns 
+ *
+ * ToDo: Navigation Bar
+ * may find another solution for the marked Dates, it's just a dummy rn
+ * also find a way to get the input outta it but that's prob. a diff issue
+ *
+ * @param {} props
+ * @returns
  */
-const MensCycleScreen = (props) => {
-
-  const [enteredMens, setMens] = useState();
-  const [enteredCycle, setCycle] = useState();
-
+//Auch hier: Aiden, hilfe die Variablen zu übernehmen um sie zu Speichern! 
+//Josie: kein-passwort knopf muss weiterleiten auf nächsten slide, ist das möglich?
+const ChoosePwScreen = (props) => {
+  
+  const [mensLength, setMensLength] = useState();
+  const [cyclusLength, setCyclusLength] = useState();
   const mensHandler = (inputText) => {
-    setMens(inputText.replace(/[^0-9]/g, ""));
+    setMensLength(inputText.replace(/[^0-9]/g, ""));
   };
 
   const cycleHandler = (inputText) => {
-    setCycle(inputText.replace(/[^0-9]/g, ""));
+    setCyclusLength(inputText.replace(/[^0-9]/g, ""));
   };
+  
 
-  const inputHandler = () => {
-    console.log("gotcha");
-    const mens = parseInt(enteredMens);
-    const cycle = parseInt(enteredCycle);
-    console.log("mens " + mens + " cycle " + cycle);
-    setMens("");
-    setCycle("");
-    Keyboard.dismiss();
-  };
+  const storeNewLengths =async()=>{
+
+    if(mensLength!==null){
+      
+    await storeMyStuff("@mensLength", mensLength);
+      
+    }
+    if(cyclusLength!==null){
+      await storeMyStuff("@cyclusLength", cyclusLength);
+    }
+    if(cyclusLength===null && mensLength===null){
+      alert("Bitte gib Daten ein, um sie zu speichern");
+    }else{
+      alert("Danke! Deine Angaben wurden gespeichert!")
+    }
+    
+    }
+  
+
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/bubble.jpg")} />
-      <Text style={styles.textH}>{content.start5}</Text>
-       <InputNumber
-        title="Menstruationslänge"
+      
+      <Image style={styles.logo} source={require("../assets/PeriodenundZykluslänge.png")} />
+
+      <View style={styles.textBox}>
+     
+        
+        <Text style={styles.title}>Zeitliche Angaben</Text>
+       
+          <Text style={styles.text}>{content.start5}</Text>
+      </View>
+
+      <InputNumber
+        title="Menstruationslänge: "
         onChangeText={mensHandler}
-        value={enteredMens}
+        value={mensLength}
       />
 
       <InputNumber
         title="Zykluslänge"
         onChangeText={cycleHandler}
-        value={enteredCycle}
+        value={cyclusLength}
       />
-
+ 
 
       <View style={styles.button}>
-        <Pressable
-          style={styles.button1}
-          onPress={inputHandler}
-        >
-          <Text style={styles.text}>{props.title}</Text>
-        </Pressable>
-      </View>
+          <Pressable
+            style={styles.button1}
+            onPress={() => storeNewLengths()}
+           
+          >
+          <Text style={styles.textButton}>{"speichern"}</Text>
+          </Pressable>
+
+        </View>
+      
+        
+     
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    alignItems: "center",
+    height: "100%",
     flexDirection: "column",
-    paddingHorizontal: 50,
-    paddingVertical: 20,
-    paddingTop:30,
-    //justifyContent: 'space-around',
-    //alignItems: 'center'
-
   },
-  textH:{
+  title: {
+    color: colors.accBlue,
+    fontSize: normalizeH(10),
+    lineHeight: 36,
+    marginBottom:"5%",
+  }, textBox:{
+    marginTop: "10%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: 'flex-start',
+  },
+
+  text: {
     color: colors.mainG,
-    fontSize: 20, 
-  },
-
-  logo: {
-    width: 300,
-    height: 200,
-    
+    fontSize: 20,
   },
 
   //Button Styles:
-  text: {
+  textButton: {
     color: colors.mainLG,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
   },
 
-  button: {
+  buttonBox: {
     margin: 50,
     elevation: 5,
   },
-  
-  button1: {
+
+  buttonDesign: {
     borderRadius: 8,
     height: 40,
     elevation: 3,
     backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
+  },
+  logo: {
+    alignSelf: "flex-start",
+   
+    marginTop:  "20%",
+    width: normalizeH(31),
+    height: normalizeH(35),
+  },
+    
+  button1: {
+    marginRight:"20%",
+    borderRadius: 8, 
+    marginTop:"10%",
+    height: normalize(40),
+    width: normalize(100),
+    elevation: 3,
+    backgroundColor: colors.accBlue,
+    alignItems: "center",
+    justifyContent: "center",
+  },button:{
+    
+    flexDirection: 'row',
+    width:"100%",
+     marginTop:"10%",
+    height: "100%",
   }
 });
 
-export default MensCycleScreen;
+export default ChoosePwScreen;

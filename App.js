@@ -1,6 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  AppState,
+} from "react-native";
 import colors from "./constants/colors";
 import InfoTextScreen from "./screens/InfoTextScreen";
 import LogoScreen from "./screens/LogoScreen";
@@ -49,29 +55,44 @@ const slides = [
 ];
 
 export default function App() {
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const [showHomePage, setShowHomePage] = useState(false);
   const updateOnBoarding = () => {
-    console.log("Du bist ganz oben angekommen!");
     setShowHomePage(true);
   };
+
+  useEffect(() => {
+    const _handleAppStateChange = AppState.addEventListener(
+      "change",
+      (nextAppState) => {
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+      }
+    );
+
+    return () => {
+      _handleAppStateChange.remove();
+    };
+  }, []);
+
   // let content = <LoginPWScreen onSavePin={selectedNumber} />;
-  if (!showHomePage) {
-   
+  if (appStateVisible === "active") {
+    if (!showHomePage) {
+      return (
+        <NavigationContainer>
+          <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
+        </NavigationContainer>
+      );
+    }
     return (
       <NavigationContainer>
-        <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
-        
+        <StackNavigation />
       </NavigationContainer>
-      
     );
+  } else {
+    return <LogoScreen />;
   }
-
-  console.log("im done with this");
-  return (
-    <NavigationContainer>
-    <StackNavigation/>
-    </NavigationContainer>
-  );
 }
 
 const styles = StyleSheet.create({

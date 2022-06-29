@@ -5,7 +5,7 @@
  * @returns
  */
 
-const CycleCalc = (props) => {
+const CycleCalc = (day, month, year) => {
   const long = [1, 3, 5, 7, 8, 10, 12];
   const short = [4, 6, 9, 11];
   const special = [2];
@@ -16,7 +16,6 @@ const CycleCalc = (props) => {
   const monthNotSpecial = 28;
 
   let nextYear = false;
-  let k;
   let cycle;
 
   //checks for LeapYear is given the year
@@ -95,88 +94,88 @@ const CycleCalc = (props) => {
     }
   };
 
-    //calculates the date of the next cycle, saves it in Array k
-    const nextDayCalc = (day, month, year) => {
-      let y = NaN;
-      let x = NaN;
-      cycle = setCycle();
-  
-      if (long.includes(month)) {
-        y = parseInt((day + cycle) / monthLong);
-        x = (day + cycle) % monthLong;
-  
-        if (x == 0 && y != 0) {
-          x = monthLong;
-          y = 0;
-        }
-      } else if (short.includes(month)) {
-        y = parseInt((day + cycle) / monthShort);
-        x = (day + cycle) % monthShort;
-        if (x == 0 && y != 0) {
-          x = monthShort;
-          y = 0;
-        }
-      } else if (special.includes(month)) {
-        if (isLeapYear(year) == true) {
-          y = parseInt((day + cycle) / monthSpecial);
-          x = (day + cycle) % monthSpecial;
-          if (x == 0 && y != 0) {
-            x = monthSpecial;
-            y = 0;
-          }
-        } else {
-          y = parseInt((day + cycle) / monthNotSpecial);
-          x = (day + cycle) % monthNotSpecial;
-          if (x == 0 && y != 0) {
-            x = monthNotSpecial;
-            y = 0;
-          }
-        }
-      }
-  
-      if (y != NaN) {
-        switch (y) {
-          case 0:
-            y = month;
-            k = [x, y, year];
-            break;
-          case 1:
-            month += 1;
-            k = [x, checkYear(month, year)];
-            break;
-          case 2:
-            month += 2;
-            k = [x, checkYear(month, year)];
-            break;
-          case 3:
-            month += 3;
-            k = [x, checkYear(month, year)];
-            break;
-          case y == 4:
-            month += 4;
-            k = [x, checkYear(month, year)];
-            break;
-          case y == 5:
-            month += 5;
-            k = [x, checkYear(month, year)];
-            break;
-          default:
-            console.log("You Failed me");
-        }
-      }
-  
-      console.log("First day of next cycle " + k);
-      endOfMensCalc(k);
-    };
+  //calculates the date of the next cycle, saves it in Array firstDay
+  const nextDayCalc = (day, month, year) => {
+    let y = NaN;
+    let x = NaN;
+    let firstDay;
+    cycle = setCycle();
 
-  //called after nextDayCalc passed the date and saves the date in k
+    if (long.includes(month)) {
+      y = parseInt((day + cycle) / monthLong);
+      x = (day + cycle) % monthLong;
+
+      if (x == 0 && y != 0) {
+        x = monthLong;
+        y = 0;
+      }
+    } else if (short.includes(month)) {
+      y = parseInt((day + cycle) / monthShort);
+      x = (day + cycle) % monthShort;
+      if (x == 0 && y != 0) {
+        x = monthShort;
+        y = 0;
+      }
+    } else if (special.includes(month)) {
+      if (isLeapYear(year) == true) {
+        y = parseInt((day + cycle) / monthSpecial);
+        x = (day + cycle) % monthSpecial;
+        if (x == 0 && y != 0) {
+          x = monthSpecial;
+          y = 0;
+        }
+      } else {
+        y = parseInt((day + cycle) / monthNotSpecial);
+        x = (day + cycle) % monthNotSpecial;
+        if (x == 0 && y != 0) {
+          x = monthNotSpecial;
+          y = 0;
+        }
+      }
+    }
+
+    if (y != NaN) {
+      switch (y) {
+        case 0:
+          y = month;
+          firstDay = [x, y, year];
+          break;
+        case 1:
+          month += 1;
+          firstDay = [x, checkYear(month, year)];
+          break;
+        case 2:
+          month += 2;
+          firstDay = [x, checkYear(month, year)];
+          break;
+        case 3:
+          month += 3;
+          firstDay = [x, checkYear(month, year)];
+          break;
+        case y == 4:
+          month += 4;
+          firstDay = [x, checkYear(month, year)];
+          break;
+        case y == 5:
+          month += 5;
+          firstDay = [x, checkYear(month, year)];
+          break;
+        default:
+          console.log("You Failed me");
+      }
+    }
+    return firstDay;
+  };
+
+  //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
     let y = NaN;
     let x = NaN;
+    let lastDay;
     let day = date[0];
     let month = date[1][0];
     let year = date[1][1];
-    
+
     mens = setMens();
     if (long.includes(month)) {
       y = parseInt((day + mens) / monthLong);
@@ -209,45 +208,45 @@ const CycleCalc = (props) => {
         }
       }
     }
+    console.log("what is y? " + y);
 
     if (y != NaN) {
       switch (y) {
         case 0:
           y = month;
-          k = [x, y, year];
+          lastDay = [x, y, year];
           break;
         case 1:
           month += 1;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
         case 2:
           month += 2;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
         case 3:
           month += 3;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
         case y == 4:
           month += 4;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
         case y == 5:
           month += 5;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
-    
       }
     }
-    console.log("lastday of mens " + k);
+    return lastDay;
   };
 
-
-//calls nextDayCalc function with current date 
+  //calls nextDayCalc function with current date
   nextDayCalc(30, 12, 2021);
-
-
-  return 3;
+  let firstDay = nextDayCalc(day, month, year);
+  let lastDay = endOfMensCalc(firstDay);
+  console.log("First Day " + firstDay + " lastday " + lastDay);
+  return firstDay, lastDay;
 };
 
 export default CycleCalc;

@@ -4,6 +4,7 @@ import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { color } from "react-native-elements/dist/helpers";
+import CycleCalc from "../components/CycleCalc";
 
 /* 
 TODO: 
@@ -12,6 +13,9 @@ TODO:
 
 const IndexCal = (props) => {
   const [selectedDay, setSelectedDay] = useState("");
+  const [selectedDayNumber, setSelectedDayNumber] = useState(1);
+  const [selectedMonthNumber, setSelectedMonthNumber] = useState(1);
+  const [selectedYearNumber, setSelectedYearNumber] = useState(2022);
   let mark = {
     [selectedDay]: {
       selected: true,
@@ -33,9 +37,23 @@ const IndexCal = (props) => {
   };
 
   function setDay(day) {
-    console.log("Ausgewählter Tag: " + day);
     setSelectedDay(day);
   }
+
+  function setDateNumbers(day) {
+    setSelectedDayNumber(day.day);
+    setSelectedMonthNumber(day.month);
+    setSelectedYearNumber(day.year);
+    calculateDates();
+  }
+
+  function calculateDates() {
+    console.log(
+      "Cycle Calc: " +
+        CycleCalc(selectedDayNumber, selectedMonthNumber, selectedYearNumber)
+    );
+  }
+
   return (
     <View style={styles.imageBox}>
       <View style={styles.calBox}>
@@ -48,6 +66,7 @@ const IndexCal = (props) => {
           onDayPress={(day) => {
             const date = day.dateString;
             setDay(date);
+            setDateNumbers(day);
           }}
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {

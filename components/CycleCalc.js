@@ -100,9 +100,11 @@ const CycleCalc = (day, month, year) => {
     let x = NaN;
     let firstDay;
     cycle = setCycle();
+    console.log("cycle before if "+ cycle)
 
     if (long.includes(month)) {
       y = parseInt((day + cycle) / monthLong);
+      console.log (" ich bin eine "+ y)
       x = (day + cycle) % monthLong;
 
       if (x == 0 && y != 0) {
@@ -138,7 +140,7 @@ const CycleCalc = (day, month, year) => {
       switch (y) {
         case 0:
           y = month;
-          firstDay = [x, y, year];
+          firstDay = [x,[ y, year]];
           break;
         case 1:
           month += 1;
@@ -152,11 +154,11 @@ const CycleCalc = (day, month, year) => {
           month += 3;
           firstDay = [x, checkYear(month, year)];
           break;
-        case y == 4:
+        case 4:
           month += 4;
           firstDay = [x, checkYear(month, year)];
           break;
-        case y == 5:
+        case 5:
           month += 5;
           firstDay = [x, checkYear(month, year)];
           break;
@@ -175,10 +177,12 @@ const CycleCalc = (day, month, year) => {
     let day = date[0];
     let month = date[1][0];
     let year = date[1][1];
+    console.log("Tag "+  day + " monnat "+month +" year "+ year + " DATE:   " + date)
 
     mens = setMens();
     if (long.includes(month)) {
       y = parseInt((day + mens) / monthLong);
+      console.log(y + " hdashdhakjs")
       x = (day + mens) % monthLong;
       if (x == 0 && y != 0) {
         x = monthLong;
@@ -201,6 +205,7 @@ const CycleCalc = (day, month, year) => {
         }
       } else {
         y = parseInt((day + mens) / monthNotSpecial);
+        console.log("pick me!" + y)
         x = (day + mens) % monthNotSpecial;
         if (x == 0 && y != 0) {
           x = monthNotSpecial;
@@ -214,7 +219,7 @@ const CycleCalc = (day, month, year) => {
       switch (y) {
         case 0:
           y = month;
-          lastDay = [x, y, year];
+          lastDay = [x,[ y, year]];
           break;
         case 1:
           month += 1;
@@ -228,21 +233,23 @@ const CycleCalc = (day, month, year) => {
           month += 3;
           lastDay = [x, checkYear(month, year)];
           break;
-        case y == 4:
+        case 4:
           month += 4;
           lastDay = [x, checkYear(month, year)];
           break;
-        case y == 5:
+        case 5:
           month += 5;
           lastDay = [x, checkYear(month, year)];
           break;
+          default:
+          console.log("You Failed twice");
       }
     }
     return lastDay;
   };
 
   //calls nextDayCalc function with current date
-  nextDayCalc(30, 12, 2021);
+  //nextDayCalc(30, 12, 2021);
   let firstDay = nextDayCalc(day, month, year);
   let lastDay = endOfMensCalc(firstDay);
   console.log("First Day " + firstDay + " lastday " + lastDay);

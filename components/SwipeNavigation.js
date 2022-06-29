@@ -8,6 +8,7 @@ import MonasPasswordCheck from "../screens/MonasPasswordCheck";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import StackNavigation from "../components/Navigation/StackNavigation.js";
 import SettingStack from "./Navigation/SettingStack";
+import IndexCircle from "../screens/IndexCircle";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -80,7 +81,7 @@ const SwipeNavigation = (props) => {
       />
       <Tab.Screen
         name="Seite3"
-        component={ChoosePwScreen}
+        component={IndexCircle}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

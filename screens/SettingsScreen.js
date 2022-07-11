@@ -25,15 +25,11 @@ const SettingsScreen = (props) => {
       onPress: () => props.navigation.navigate("ChangePW"),
     },
     {
-      title: "Menstruationslänge & Zykluslänge",
+      title: "Menstruations- und Zykluslänge",
       subTitle: null,
       onPress: () => props.navigation.navigate("MensundZyklus"),
     },
-    {
-      title: "Benachrichtigungen",
-      subTitle: null,
-      onPress: () => props.navigation.navigate("Notifications"),
-    },
+    
     {
       title: "Über uns",
       subTitle: null,
@@ -68,11 +64,7 @@ const SettingsScreen = (props) => {
             onPress={() => (this.opacity = 0.2)}
             source={require("../assets/PeriodenundZykluslänge.png")}
           />
-          <Image
-            style={styles.icon4}
-            onPress={() => (this.opacity = 0.2)}
-            source={require("../assets/Benachrichtigung.png")}
-          />
+      
           <Image
             style={styles.icon3}
             onPress={() => (this.opacity = 0.2)}

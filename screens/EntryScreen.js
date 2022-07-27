@@ -5,6 +5,7 @@ import {
   Image,
   Keyboard,
   Alert,
+  TouchableWithoutFeedback,
   Pressable,
   Text,
   TextInput,
@@ -87,7 +88,9 @@ const EntryScreen = (props) => {
   },[])
   
   return (
-  
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+    }}>
       <View style={styles.container}>
         <View style={styles.container3}>
           <Text style={styles.text}>{props.route.params.date}</Text>
@@ -192,6 +195,7 @@ const EntryScreen = (props) => {
           </View>
         </View>
       </View>
+      </TouchableWithoutFeedback>
   );
 };
 

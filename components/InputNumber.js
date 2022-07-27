@@ -30,17 +30,16 @@ const InputNumber = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    height: "30%",
     width: "100%",
     //justifyContent: "center",
   },
 
   input: {
-    marginTop:"10%",
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
     width: 250,
-    height: 70,
+    height: 35,
     fontSize: normalizeH(8),
   },
 });

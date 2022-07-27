@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, Image, Pressable, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, StyleSheet, Pressable, Text, Keyboard } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
@@ -22,7 +22,8 @@ import { normalize } from "react-native-elements";
  */
 
 
-const ChangePWScreen = (props) => {
+
+ const ChangePWScreen = (props) => {
 
 
   const [enteredValue, setEnteredValue] = useState();
@@ -93,36 +94,30 @@ const ChangePWScreen = (props) => {
 
   return (
     <View style={styles.container}>
+      <UILogo src="lock" />
       
-      <Image style={styles.logo} source={require("../assets/lock.png")} />
-
-     
-      <View style={styles.textBox}>
-        
-      <Text style={styles.title}>Passwort ändern</Text>
-          <Text style={styles.text}>{content.Passwort2}</Text>
-      </View>
-   
+      <Text style={styles.title}>{content.pin1}</Text>
+      
+      <Text style={styles.text3}>{content.Passwort}</Text>
+      
+      <View>
       <Input title={content.pin2} onChangeText={numberInputHandler} value={enteredValue}/>
-      <Input title={content.pin3} onChangeText={numberInputHandler} value={enteredValue}/>
-      <Input title={content.pin4} onChangeText={numberInputHandler} value={enteredValue}/>
-  
-      <View style={styles.button}>
-          <Pressable
-            style={styles.button1}
-            onPress={() => storeLengths()}
-           
-          >
-          <Text style={styles.textButton}>{"speichern"}</Text>
-          </Pressable>
+      <Input title={content.pin3} onChangeText={confirmValueHandler} value={confirmValue}/>
+      <Input title={content.pin4} onChangeText={confirmConfirmNumberHandler} value={confirmConfirmNumber}/>
+      </View>
 
-        </View>
-      
-        
-     
+      <View style={styles.buttonBox}>
+        <Pressable
+          style={styles.buttonDesign}
+          onPress={confirmInputHandler}
+        >
+          <Text style={styles.textButton}>{"speichern"}</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

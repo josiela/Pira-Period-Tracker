@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  Alert,
   Pressable,
   Text,
   Keyboard,
-  Image, 
+  Image,
 } from "react-native";
 import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
 import { normalize } from "../constants/fontResponsive";
 import { storeMyStuff, getMyObjectStuff } from "../database/CreateDatabase";
-import { normalizeH } from "../constants/fontResponsive";/**
+import { normalizeH } from "../constants/fontResponsive";
+/**
  * InputScreen for Mens and Cycle Length CHANGE
  *
  * Style I suppose..
@@ -21,7 +21,6 @@ import { normalizeH } from "../constants/fontResponsive";/**
  * @param {*} props
  * @returns
  */
-
 
 const MensCycleChangeScreen = (props) => {
   const [mensLength, setMensLength] = useState();
@@ -35,10 +34,9 @@ const MensCycleChangeScreen = (props) => {
     setCyclusLength(inputText.replace(/[^0-9]/g, ""));
   };
 
-  const storeLengths = async() => {
-    await storeMyStuff('@mensLength', mensLength);
-    await storeMyStuff('@cyclusLengt', cyclusLength);
-    
+  const storeLengths = async () => {
+    await storeMyStuff("@mensLength", mensLength);
+    await storeMyStuff("@cyclusLengt", cyclusLength);
   };
 
   const inputHandler = () => {
@@ -49,21 +47,21 @@ const MensCycleChangeScreen = (props) => {
     setMensLength("");
     setCyclusLength("");
     Keyboard.dismiss();
-   
   };
 
   return (
     <View style={styles.container}>
-      
-      <Image style={styles.logo} source={require("../assets/PeriodenundZykluslänge.png")} />
+      <Image
+        style={styles.logo}
+        source={require("../assets/PeriodenundZykluslänge.png")}
+      />
 
       <View style={styles.textBox}>
-      
-        
-        <Text style={styles.title}>Menstruartions- und Zykluslänge</Text>
-     
-          <Text style={styles.text}>{content.ZuM1}</Text>
+        <Text style={styles.title}>Menstruations- und Zykluslänge</Text>
+
+        <Text style={styles.text}>{content.ZuM1}</Text>
       </View>
+  
       <InputNumber
         title="Menstruationslänge"
         onChangeText={mensHandler}
@@ -76,18 +74,11 @@ const MensCycleChangeScreen = (props) => {
         value={cyclusLength}
       />
 
-
       <View style={styles.button}>
-          <Pressable
-            style={styles.button1}
-            onPress={inputHandler}
-           
-          >
+        <Pressable style={styles.button1} onPress={inputHandler}>
           <Text style={styles.textButton}>{"speichern"}</Text>
-          </Pressable>
-        </View>
-      
-     
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -104,12 +95,13 @@ const styles = StyleSheet.create({
     color: colors.accBlue,
     fontSize: normalizeH(10),
     lineHeight: 36,
-    marginBottom:"5%",
-  }, textBox:{
+    marginBottom: "5%",
+  },
+  textBox: {
     marginTop: "10%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
@@ -141,25 +133,25 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignSelf: "flex-start",
-   
-    marginTop:  "20%",
+    marginTop: "20%",
     width: normalizeH(31),
     height: normalizeH(35),
   },
-    
+
   button1: {
-    borderRadius: 8, 
-    marginTop:"10%",
+    borderRadius: 8,
+    marginTop: "10%",
     height: normalize(40),
     width: normalize(100),
     elevation: 3,
     backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
-  },button:{
-    width:"100%",
+  },
+  button: {
+    width: "100%",
     height: "100%",
-  }
+  },
 });
 
 export default MensCycleChangeScreen;

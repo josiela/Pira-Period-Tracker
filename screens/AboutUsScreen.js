@@ -14,9 +14,7 @@ import colors from "../constants/colors";
 const AboutUsScreen = (props) => {
   return (
     <View style={styles.container}>
-    
-        <Text style={styles.title}>{content.au2}</Text>
-
+      <Text style={styles.title}>{content.au2}</Text>
 
       <View style={styles.textBox}>
         <Text style={styles.text}>{content.au1}</Text>
@@ -43,11 +41,10 @@ const styles = StyleSheet.create({
     marginTop: "26%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
-    
     lineHeight: normalizeH(9),
     color: colors.mainG,
     fontSize: normalizeH(7),

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import { normalizeH } from "../constants/fontResponsive";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
@@ -11,15 +11,15 @@ Here the transition to the start page is handled (at the moment by a button clic
 This communicates to <OnBoarding>, and from there on to App.js via props
 */
 const EndOfOnBoarding = (props) => {
-
   // onPress triggers the updateState function in OnBoarding
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Geschafft</Text>
-      
+
       <View style={styles.textBox}>
         <Text style={styles.text}>{content.endOnb}</Text>
-      </View><View style={styles.button}>
+      </View>
+      <View style={styles.button}>
         <Pressable style={styles.button1} onPress={props.updateState}>
           <Text style={styles.text2}>Einrichtung beenden</Text>
         </Pressable>
@@ -43,19 +43,17 @@ const styles = StyleSheet.create({
     marginTop: "26%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
-    
     lineHeight: normalizeH(9),
     color: colors.mainG,
     fontSize: normalizeH(7),
   },
   text2: {
-    
     lineHeight: normalizeH(9),
-   color: colors.mainLG,
+    color: colors.mainLG,
     fontSize: normalizeH(7),
   },
 
@@ -70,7 +68,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 300,
     height: 200,
-  },  title: {
+  },
+  title: {
     marginTop: "18%",
     color: colors.accBlue,
     fontSize: normalizeH(15),

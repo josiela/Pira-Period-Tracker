@@ -138,7 +138,7 @@ const CycleCalc = (props) => {
         switch (y) {
           case 0:
             y = month;
-            k = [x, y, year];
+            k = [x, [y, year]];
             break;
           case 1:
             month += 1;
@@ -214,7 +214,7 @@ const CycleCalc = (props) => {
       switch (y) {
         case 0:
           y = month;
-          k = [x, y, year];
+          k = [x, [y, year]];
           break;
         case 1:
           month += 1;

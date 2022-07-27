@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, Image, Pressable, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, StyleSheet, Alert, Image, Pressable, Text } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
-import Input from "../components/Input";
 import * as content from "../constants/texts";
-import {normalizeH } from "../constants/fontResponsive";
+import { normalizeH } from "../constants/fontResponsive";
 import { normalize } from "react-native-elements";
 import { deleteAll } from "../database/CreateDatabase";
 /**
@@ -12,47 +11,31 @@ import { deleteAll } from "../database/CreateDatabase";
  *  takes the UILogo & Input Component.
  *  to change Password with some describing Text.
  *  Keyboard dismisses as soon as you tab the screen so you can switch to the next field
- * 
+ *
  * ToDo Styling
  *
  * ToDo Logik, checks old and new Input and fetches it from the database.
- * 
+ *
  *
  * @param {} props
  * @returns
  */
 
-
 const DeleteScreen = (props) => {
-
-
-
-
   return (
     <View style={styles.container}>
-      
       <Image style={styles.logo} source={require("../assets/BigX.png")} />
 
-     
       <View style={styles.textBox}>
-        
-      <Text style={styles.title}>App zurücksetzen</Text>
-          <Text style={styles.text}>{content.getBack}</Text>
+        <Text style={styles.title}>App zurücksetzen</Text>
+        <Text style={styles.text}>{content.getBack}</Text>
       </View>
-   
-      <View style={styles.button}>
-          <Pressable
-            style={styles.button1}
-            onPress={() => deleteAll()}
-           
-          >
-          <Text style={styles.textButton}>{"zurücksetzen"}</Text>
-          </Pressable>
 
-        </View>
-      
-        
-     
+      <View style={styles.button}>
+        <Pressable style={styles.button1} onPress={() => deleteAll()}>
+          <Text style={styles.textButton}>{"zurücksetzen"}</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -69,11 +52,12 @@ const styles = StyleSheet.create({
     color: colors.accBlue,
     fontSize: normalizeH(10),
     lineHeight: 36,
-  }, textBox:{
+  },
+  textBox: {
     marginTop: "14%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
@@ -104,29 +88,29 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignSelf: "flex-start",
-   
-    marginTop:  "20%",
+
+    marginTop: "20%",
     width: normalizeH(31),
     height: normalizeH(35),
   },
-    
+
   button1: {
-    marginRight:"20%",
-    borderRadius: 8, 
-    marginTop:"10%",
+    marginRight: "20%",
+    borderRadius: 8,
+    marginTop: "10%",
     height: normalize(40),
     width: normalize(120),
     elevation: 3,
     backgroundColor: colors.accOrange,
     alignItems: "center",
     justifyContent: "center",
-  },button:{
-    
-    flexDirection: 'row',
-    width:"100%",
-     marginTop:"10%",
+  },
+  button: {
+    flexDirection: "row",
+    width: "100%",
+    marginTop: "10%",
     height: "100%",
-  }
+  },
 });
 
 export default DeleteScreen;

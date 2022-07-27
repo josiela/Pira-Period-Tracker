@@ -15,7 +15,7 @@ export const Passwort = 'Möchtest du deine App mit einem Passwort schützen? \n
 export const Passwort2 = '\nEin Passwort ermöglicht dir, dass die Inhalte von Fremden nicht gesehen werden können, sollte beim Start der App das Passwort falsch eingegeben werden. '
 export const ZuM1 = 'Unsere Voraussagen basieren auf den von dir eingetragenen Daten. \nFalls du sie kennst, kannst du hier deine durchschnittlichen Zyklus- und Menstruationslänge eintragen.'
 export const ZuM2= 'Die Zyklus- und Menstruationslänge ist sehr individuell. Ein Zyklus beginnt mit dem 1. Tag der Menstruation und endet einen Tag vor der nächsten Menstruation. Ein “durchschnittlicher” 28 Tage Zyklus ist eher die Ausnahme, als die Regel. '
-export const ZuM3= '“Das einzig regelmäßige am Zyklus einer Menstruierenden Person, ist seine Unregelmäßigkeit.”'
+export const ZuM3= '“Das einzig regelmäßige am Zyklus einer menstruierenden Person, ist seine Unregelmäßigkeit.”'
 
 //view Start 01
 export const Datenschutz4 = 'Datenschutz hat es uns besonders angetan! \n\nDenn gerade sensible Gesundheitsdaten sind für werbetreibende Firmen sehr interessant, da die Daten einer schwangeren Person besonders wertvoll sind (1,50 Dollar im Gegensatz zu einer nicht schwangeren Person 10 cent). Deshalb brauchen diese einen besonderen Schutz. Daher werden deine Daten ausschließlich lokal auf deinem Endgerät gespeichert. Wir sind bemüht, diese App so übersichtlich und schlicht wie möglich zu halten und erheben außerdem keine Daten, die für die Nutzung nicht unerlässlich sind.'
@@ -46,10 +46,8 @@ export const au3='Wir sind ein kleines Team aus Studierenden. \n\nAls Menstruier
 export const au4='Wer wir sind:'
 
 //explained
-export const why1= 'Warum beschreibende Bezeichnungen?'
-export const why2='Neben cis-Frauen können beispielsweise auch nicht-binäre afab Personen oder trans Männer menstruieren. Andererseits gibt es auch cis- oder trans-Frauen, die z.B. aufgrund von Krankheit nicht menstruieren. Die Gruppe der Menstruierenden ist also viel zu vielseitig, um sie mit dem Wort "Frauen" zu beschreiben. Deshalb nutzen wir beschreibende Bezeichnungen, um alle Menschen einzuschließen, die eine Periode haben.'
 export const why3= 'Verhütung'
-export const why4='Diese App dient ausdrücklich NICHT der Empfängnisverhütung. Der Eisprung wird von vielen Faktoren beeinflusst und findet nicht in jedem Zyklus zur gleichen Zeit statt. Anders als einige Periodentracker vermitteln, ist das reine Tracken der Blutungstage also eine extrem unsichere Methode der Verhütung (Pearl Index 9). Solltest du dich für natürliche Verhütung interessieren, informiere dich über die Symptothermale Methode (Pearl Index  0,4 - 2,3)'
+export const why4='Diese App dient nicht der Empfängnisverhütung. Der Eisprung wird von vielen Faktoren beeinflusst und findet nicht in jedem Zyklus zur gleichen Zeit statt. Solltest du dich für natürliche Verhütung interessieren, informiere dich über die Symptothermale Methode \n\n(Pearl Index  0,4 - 2,3)'
 
 //View End of Onboarding
 export const endOnb= "Vielen Dank!\n\nAll deine Angaben sind gespeichert und werden verarbeitet. Wir wünschend dir viel Freude mit APPNAMEN EINFÜGEN. Wir freuen uns über Kritik und Anmerkungen, falls dir etwas auffallen sollte.";

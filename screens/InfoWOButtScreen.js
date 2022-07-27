@@ -17,27 +17,19 @@ import colors from "../constants/colors";
 const InfoWOButtScreen = (props) => {
   return (
     <View style={styles.container}>
-    
-    <Text style={styles.title}>Medizinisches</Text>
+      <Text style={styles.title}>Medizinisches</Text>
 
-    <Text style={styles.title2}>Zykluslängen</Text>
-  <View style={styles.textBox}>
-    <Text style={styles.text}>{content.ZuM2}</Text>
-    <View style={styles.textBoxQuote}>
-        <Text style={styles.textQuote}>{content.ZuM3}</Text>
-      </View>
-      <Text style={styles.title2}>{content.why3}</Text>
+      <Text style={styles.title2}>Zykluslängen</Text>
       <View style={styles.textBox}>
-        <Text style={styles.text}>{content.why4}</Text>
+        <Text style={styles.text}>{content.ZuM2}</Text>
+        <View style={styles.textBoxQuote}>
+          <Text style={styles.textQuote}>{content.ZuM3}</Text>
+        </View>
+        <Text style={styles.title2}>{content.why3}</Text>
+        <View style={styles.textBox}>
+          <Text style={styles.text}>{content.why4}</Text>
+        </View>
       </View>
-  </View>
-
-      <View>
-        <Text style={styles.title}>{props.header}</Text>
-      </View>
-      
-     
-    
     </View>
   );
 };
@@ -50,12 +42,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
-    marginBottom:"15%",
+    marginBottom: "15%",
     marginTop: "18%",
     color: colors.accBlue,
     fontSize: normalizeH(15),
     lineHeight: normalizeH(22),
-  }, title2: {
+  },
+  title2: {
     color: colors.accBlue,
     fontSize: normalizeH(8),
     lineHeight: normalizeH(12),
@@ -64,11 +57,10 @@ const styles = StyleSheet.create({
   textBox: {
     width: "100%",
     paddingTop: normalizeH(3),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
-    
     lineHeight: normalizeH(9),
     color: colors.mainG,
     fontSize: normalizeH(7),

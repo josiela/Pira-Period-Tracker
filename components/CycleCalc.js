@@ -134,36 +134,36 @@ const CycleCalc = (day, month, year) => {
           y = 0;
         }
       }
-    }
-
-    if (y != NaN) {
-      switch (y) {
-        case 0:
-          y = month;
-          firstDay = [x,[ y, year]];
-          break;
-        case 1:
-          month += 1;
-          firstDay = [x, checkYear(month, year)];
-          break;
-        case 2:
-          month += 2;
-          firstDay = [x, checkYear(month, year)];
-          break;
-        case 3:
-          month += 3;
-          firstDay = [x, checkYear(month, year)];
-          break;
-        case 4:
-          month += 4;
-          firstDay = [x, checkYear(month, year)];
-          break;
-        case 5:
-          month += 5;
-          firstDay = [x, checkYear(month, year)];
-          break;
-        default:
-          console.log("You Failed me");
+  
+      if (y != NaN) {
+        switch (y) {
+          case 0:
+            y = month;
+            k = [x, [y, year]];
+            break;
+          case 1:
+            month += 1;
+            k = [x, checkYear(month, year)];
+            break;
+          case 2:
+            month += 2;
+            k = [x, checkYear(month, year)];
+            break;
+          case 3:
+            month += 3;
+            k = [x, checkYear(month, year)];
+            break;
+          case y == 4:
+            month += 4;
+            k = [x, checkYear(month, year)];
+            break;
+          case y == 5:
+            month += 5;
+            k = [x, checkYear(month, year)];
+            break;
+          default:
+            console.log("You Failed me");
+        }
       }
     }
     return firstDay;
@@ -219,7 +219,7 @@ const CycleCalc = (day, month, year) => {
       switch (y) {
         case 0:
           y = month;
-          lastDay = [x,[ y, year]];
+          k = [x, [y, year]];
           break;
         case 1:
           month += 1;

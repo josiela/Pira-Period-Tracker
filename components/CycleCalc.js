@@ -5,7 +5,7 @@
  * @returns
  */
 
-const CycleCalc = (props) => {
+const CycleCalc = (day, month, year) => {
   const long = [1, 3, 5, 7, 8, 10, 12];
   const short = [4, 6, 9, 11];
   const special = [2];
@@ -16,7 +16,6 @@ const CycleCalc = (props) => {
   const monthNotSpecial = 28;
 
   let nextYear = false;
-  let k;
   let cycle;
 
   //checks for LeapYear is given the year
@@ -95,42 +94,44 @@ const CycleCalc = (props) => {
     }
   };
 
-    //calculates the date of the next cycle, saves it in Array k
-    const nextDayCalc = (day, month, year) => {
-      let y = NaN;
-      let x = NaN;
-      cycle = setCycle();
-  
-      if (long.includes(month)) {
-        y = parseInt((day + cycle) / monthLong);
-        x = (day + cycle) % monthLong;
-  
+  //calculates the date of the next cycle, saves it in Array firstDay
+  const nextDayCalc = (day, month, year) => {
+    let y = NaN;
+    let x = NaN;
+    let firstDay;
+    cycle = setCycle();
+    console.log("cycle before if "+ cycle)
+
+    if (long.includes(month)) {
+      y = parseInt((day + cycle) / monthLong);
+      console.log (" ich bin eine "+ y)
+      x = (day + cycle) % monthLong;
+
+      if (x == 0 && y != 0) {
+        x = monthLong;
+        y = 0;
+      }
+    } else if (short.includes(month)) {
+      y = parseInt((day + cycle) / monthShort);
+      x = (day + cycle) % monthShort;
+      if (x == 0 && y != 0) {
+        x = monthShort;
+        y = 0;
+      }
+    } else if (special.includes(month)) {
+      if (isLeapYear(year) == true) {
+        y = parseInt((day + cycle) / monthSpecial);
+        x = (day + cycle) % monthSpecial;
         if (x == 0 && y != 0) {
-          x = monthLong;
+          x = monthSpecial;
           y = 0;
         }
-      } else if (short.includes(month)) {
-        y = parseInt((day + cycle) / monthShort);
-        x = (day + cycle) % monthShort;
+      } else {
+        y = parseInt((day + cycle) / monthNotSpecial);
+        x = (day + cycle) % monthNotSpecial;
         if (x == 0 && y != 0) {
-          x = monthShort;
+          x = monthNotSpecial;
           y = 0;
-        }
-      } else if (special.includes(month)) {
-        if (isLeapYear(year) == true) {
-          y = parseInt((day + cycle) / monthSpecial);
-          x = (day + cycle) % monthSpecial;
-          if (x == 0 && y != 0) {
-            x = monthSpecial;
-            y = 0;
-          }
-        } else {
-          y = parseInt((day + cycle) / monthNotSpecial);
-          x = (day + cycle) % monthNotSpecial;
-          if (x == 0 && y != 0) {
-            x = monthNotSpecial;
-            y = 0;
-          }
         }
       }
   
@@ -164,22 +165,24 @@ const CycleCalc = (props) => {
             console.log("You Failed me");
         }
       }
-  
-      console.log("First day of next cycle " + k);
-      endOfMensCalc(k);
-    };
+    }
+    return firstDay;
+  };
 
-  //called after nextDayCalc passed the date and saves the date in k
+  //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
     let y = NaN;
     let x = NaN;
+    let lastDay;
     let day = date[0];
     let month = date[1][0];
     let year = date[1][1];
-    
+    console.log("Tag "+  day + " monnat "+month +" year "+ year + " DATE:   " + date)
+
     mens = setMens();
     if (long.includes(month)) {
       y = parseInt((day + mens) / monthLong);
+      console.log(y + " hdashdhakjs")
       x = (day + mens) % monthLong;
       if (x == 0 && y != 0) {
         x = monthLong;
@@ -202,6 +205,7 @@ const CycleCalc = (props) => {
         }
       } else {
         y = parseInt((day + mens) / monthNotSpecial);
+        console.log("pick me!" + y)
         x = (day + mens) % monthNotSpecial;
         if (x == 0 && y != 0) {
           x = monthNotSpecial;
@@ -209,6 +213,7 @@ const CycleCalc = (props) => {
         }
       }
     }
+    console.log("what is y? " + y);
 
     if (y != NaN) {
       switch (y) {
@@ -218,36 +223,37 @@ const CycleCalc = (props) => {
           break;
         case 1:
           month += 1;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
         case 2:
           month += 2;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
         case 3:
           month += 3;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
-        case y == 4:
+        case 4:
           month += 4;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
-        case y == 5:
+        case 5:
           month += 5;
-          k = [x, checkYear(month, year)];
+          lastDay = [x, checkYear(month, year)];
           break;
-    
+          default:
+          console.log("You Failed twice");
       }
     }
-    console.log("lastday of mens " + k);
+    return lastDay;
   };
 
-
-//calls nextDayCalc function with current date 
-  nextDayCalc(30, 12, 2021);
-
-
-  return 3;
+  //calls nextDayCalc function with current date
+  //nextDayCalc(30, 12, 2021);
+  let firstDay = nextDayCalc(day, month, year);
+  let lastDay = endOfMensCalc(firstDay);
+  console.log("First Day " + firstDay + " lastday " + lastDay);
+  return firstDay, lastDay;
 };
 
 export default CycleCalc;

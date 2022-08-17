@@ -3,11 +3,12 @@ import { View, StyleSheet } from "react-native";
 import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
 import { Calendar } from "react-native-calendars";
-import CycleCalc from "../components/CycleCalc";
+//import CycleCalc from "../components/CycleCalc";
 
 /* 
 TODO: 
-- Set minDay to first entry-month
+- Heutigen Tag anzeigen
+- Periode berechnen und in mark schreiben
 */
 
 const IndexCal = (props) => {
@@ -23,12 +24,19 @@ const IndexCal = (props) => {
       endingDay: true,
       textColor: "white",
     },
-    "2022-05-03": {
+    "2022-08-03": {
       color: "#F08080",
       startingDay: true,
+      endingDay: false,
       textColor: "white",
     },
-    "2022-05-07": {
+    "2022-08-04": {
+      color: "#F08080",
+      startingDay: false,
+      endingDay: false,
+      textColor: "white",
+    },
+    "2022-08-07": {
       color: "#F08080",
       endingDay: true,
       textColor: "white",
@@ -43,21 +51,24 @@ const IndexCal = (props) => {
     setSelectedDayNumber(day.day);
     setSelectedMonthNumber(day.month);
     setSelectedYearNumber(day.year);
-    calculateDates();
+    //calculateDates();
   }
 
-  function calculateDates() {
+  /*function calculateDates() {
     console.log(
       "Cycle Calc: " +
         CycleCalc(selectedDayNumber, selectedMonthNumber, selectedYearNumber)
     );
-  }
+  }*/
 
   return (
     <View style={styles.imageBox}>
       <View style={styles.calBox}>
         <Calendar
-          theme={{ arrowColor: colors.accBlue }}
+          theme={{
+            arrowColor: colors.accBlue,
+            calendarBackground: colors.mainLG,
+          }}
           markingType={"period"}
           markedDates={mark}
           hideArrows={false}
@@ -66,6 +77,12 @@ const IndexCal = (props) => {
             const date = day.dateString;
             setDay(date);
             setDateNumbers(day);
+          }}
+          onDayLongPress={(day) => {
+            setDay(day.dateString);
+            props.navigation.navigate("AddEntryScreen", {
+              date: day.dateString,
+            });
           }}
           // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => {

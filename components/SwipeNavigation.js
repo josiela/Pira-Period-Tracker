@@ -60,8 +60,11 @@ const SwipeNavigation = (props) => {
         }}
       />
       <Tab.Screen
-        name="Calendar"
-        component={IndexCal}
+        name="Seite3"
+        children={() => (
+          //updateState triggers the updateOnBoarding function one component higher (App.js)
+          <IndexCircle date={props.date} />
+        )}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -73,14 +76,16 @@ const SwipeNavigation = (props) => {
               }}
             />
           ),
+          tabBarIconStyle: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          },
         }}
       />
       <Tab.Screen
-        name="Seite3"
-        children={() => (
-          //updateState triggers the updateOnBoarding function one component higher (App.js)
-          <IndexCircle date={props.date} />
-        )}
+        name="Calendar"
+        component={IndexCal}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

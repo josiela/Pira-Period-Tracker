@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Pressable, Animated } from "react-native";
+import { View, StyleSheet } from "react-native";
 import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import { color } from "react-native-elements/dist/helpers";
+import { Calendar } from "react-native-calendars";
 import CycleCalc from "../components/CycleCalc";
 
 /* 

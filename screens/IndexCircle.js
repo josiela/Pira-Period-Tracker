@@ -1,17 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  Animated,
-  Image,
-  AppState,
-} from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 const IndexCircle = (props) => {
-  const appState = useRef(AppState.currentState);
   var degree = "80deg";
 
   console.log("Heute ist: " + props.date);

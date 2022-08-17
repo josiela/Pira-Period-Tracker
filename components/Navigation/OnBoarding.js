@@ -1,16 +1,14 @@
 import React from "react";
-import { View, StyleSheet, TextInput, Pressable } from "react-native";
+import { View } from "react-native";
 import colors from "../../constants/colors";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import LogoScreen from "../../screens/LogoScreen";
 import AboutUsScreen from "../../screens/AboutUsScreen";
 import InfoTextScreen from "../../screens/InfoTextScreen";
 import MensCycleScreen from "../../screens/MensCycleScreen";
-import MensCycleChangeScreen from "../../screens/MensCycleChangeScreen";
 import EndOfOnBoarding from "../../screens/EndOfOnBoarding";
 import CalendarScreen from "../../screens/CalendarScreen";
 import ChoosePWScreen from "../../screens/ChoosePwScreen";
-import NotificationScreen from "../../screens/NotificationScreen";
 import InfoWOButtScreen from "../../screens/InfoWOButtScreen";
 /*
 This component holds the navigation for the OnBoarding page. 
@@ -106,7 +104,7 @@ const OnBoarding = (props) => {
           },
         }}
       />
-          <Tab.Screen
+      <Tab.Screen
         name="4"
         component={InfoWOButtScreen}
         options={{
@@ -127,7 +125,7 @@ const OnBoarding = (props) => {
           },
         }}
       />
-        <Tab.Screen
+      <Tab.Screen
         name="5"
         component={MensCycleScreen}
         options={{
@@ -143,7 +141,7 @@ const OnBoarding = (props) => {
           ),
         }}
       />
-         <Tab.Screen
+      <Tab.Screen
         name="6"
         component={CalendarScreen}
         options={{
@@ -159,7 +157,7 @@ const OnBoarding = (props) => {
           ),
         }}
       />
-            <Tab.Screen
+      <Tab.Screen
         name="7"
         component={ChoosePWScreen}
         options={{

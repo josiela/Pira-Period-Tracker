@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import * as content from "../constants/texts";
 import { normalizeH } from "../constants/fontResponsive";
@@ -14,9 +14,7 @@ import colors from "../constants/colors";
 const LateAboutUsScreen = (props) => {
   return (
     <View style={styles.container}>
-    
-        <Text style={styles.title}>{content.au4}</Text>
-
+      <Text style={styles.title}>{content.au4}</Text>
 
       <View style={styles.textBox}>
         <Text style={styles.text}>{content.au3}</Text>
@@ -43,11 +41,10 @@ const styles = StyleSheet.create({
     marginTop: "15%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
-    
     lineHeight: normalizeH(9),
     color: colors.mainG,
     fontSize: normalizeH(7),

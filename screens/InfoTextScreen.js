@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Alert, Pressable, Text, } from "react-native";
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
 import * as content from "../constants/texts";
 import { normalizeH } from "../constants/fontResponsive";
 
@@ -7,31 +7,28 @@ import colors from "../constants/colors";
 /**
  * InfoTextScreen for Starters!
  * takes the Navigation Component and a WoT
- * 
- *  
+ *
+ *
  * ToDo: Navigation Bar
- * Decide on a diff Font? 
- * 
- * @param {*} props 
- * @returns 
+ * Decide on a diff Font?
+ *
+ * @param {*} props
+ * @returns
  */
 
 const InfoTextScreen = (props) => {
   return (
     <View style={styles.container}>
-       <Text style={styles.title}>{content.Datenschutz5}</Text>
-        
-        <View style={styles.textBox}>
-        <Text style={styles.text2}>{content.Datenschutz4}</Text>
-        </View>
+      <Text style={styles.title}>{content.Datenschutz5}</Text>
 
-      
+      <View style={styles.textBox}>
+        <Text style={styles.text2}>{content.Datenschutz4}</Text>
+      </View>
     </View>
   );
 };
 //quick reminder: Button gehört zum Navigation Component. Touchable Opacity wär noch cool.
 //Standard Button lässt sich nicht verändern. Müsste Pressable nehmen.
-
 
 const styles = StyleSheet.create({
   container: {
@@ -56,14 +53,14 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     letterSpacing: 0.25,
   },
-  textBox:{
+  textBox: {
     marginTop: "10%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
-  text2:{
+  text2: {
     color: colors.mainG,
     lineHeight: normalizeH(9),
     fontSize: normalizeH(7),

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
 
 /**
@@ -30,11 +24,9 @@ const Settings = ({ settingsOptions }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-  
   },
 
   text: {

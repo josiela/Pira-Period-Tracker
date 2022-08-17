@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Pressable } from "react-native";
-import colors from "../constants/colors";
+import React from "react";
+import { View, Pressable } from "react-native";
 import UILogo from "./UILogo";
 
 const AddButton = (props) => {

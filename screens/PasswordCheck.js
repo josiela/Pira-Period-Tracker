@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
+import React from "react";
+import { View, StyleSheet, Alert, Pressable, Text } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
-import AddButton from "../components/AddButton";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -28,7 +27,6 @@ const PasswordCheck = (props) => {
           <Text style={styles.text2}>{content.checkPasswordText}</Text>
         </View>
         <Input title="Passwort" />
-   
       </View>
 
       <View style={styles.button}>

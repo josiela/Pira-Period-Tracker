@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Image,
   Keyboard,
-  Alert,
   TouchableWithoutFeedback,
   Pressable,
   Text,
@@ -14,37 +13,38 @@ import { normalize, normalizeH } from "../constants/fontResponsive";
 import Entry from "../database/EntryClass";
 import colors from "../constants/colors";
 import {
-  storeMyStringStuff,
   getMyStringStuff,
   removeMyStuff,
   storeMyStuff,
 } from "../database/CreateDatabase";
 
-
 const EntryScreen = (props) => {
-
   // get datestring with props.route.params.date
   let firstEntry = new Entry(1, 2, 3, 4, "Nichts Sonderliches");
   let [entryArray, setEntryArray] = useState([firstEntry]);
   const [blood, setBlood] = useState("");
   const [pain, setPain] = useState("");
   const [mood, setMood] = useState("");
-  const [notes, setNotes] = useState(
-    ""
-  );
+  const [notes, setNotes] = useState("");
 
   const createNewEntry = async () => {
-    
     //Wenn es schon nen Eintrag gibt, den erst löschen
-    if (entryArray.find((entry) => entry.date === props.route.params.date)!==null) {
+    if (
+      entryArray.find((entry) => entry.date === props.route.params.date) !==
+      null
+    ) {
       console.log("Bereits ein Eintrag vorhanden");
-      entryArray = entryArray.filter((entry) => entry.date !== props.route.params.date);
-    }else{console.log("Kein Eintrag mit dem Datum vorhanden");}
-    
+      entryArray = entryArray.filter(
+        (entry) => entry.date !== props.route.params.date
+      );
+    } else {
+      console.log("Kein Eintrag mit dem Datum vorhanden");
+    }
+
     //Neues Objekt mit Daten anlegen und ins Array stecken
     let newEntry = new Entry(props.route.params.date, pain, mood, blood, notes);
-    entryArray.push(newEntry);    
-   
+    entryArray.push(newEntry);
+
     //Altes Array löschen, neues speichern
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
@@ -52,45 +52,43 @@ const EntryScreen = (props) => {
 
   //Zieht Array aus Datenbank
   const getArray = async () => {
-    
     await getMyStringStuff("@entryArrayKey").then((returnedValue) => {
-      
-      if(returnedValue!==null){
-         setEntryArray(JSON.parse(returnedValue));
-      }else{
+      if (returnedValue !== null) {
+        setEntryArray(JSON.parse(returnedValue));
+      } else {
         setEntryArray([firstEntry]);
       }
-      
     });
-  
   };
 
   //Sorgt für aktualisierung der Variablen nachdem die Datenbank fertig geladen hat
   useEffect(() => {
-    let myEntry= entryArray.find((entry) => entry.date === props.route.params.date);
-    
-    if(myEntry!==undefined) {
-      console.log("Eintrag gefunden: "+myEntry.note);
-      setNotes(myEntry.note); 
+    let myEntry = entryArray.find(
+      (entry) => entry.date === props.route.params.date
+    );
+
+    if (myEntry !== undefined) {
+      console.log("Eintrag gefunden: " + myEntry.note);
+      setNotes(myEntry.note);
       setPain(myEntry.pain);
       setMood(myEntry.mood);
       setBlood(myEntry.blood);
-    } else{
+    } else {
       console.log("notes nicht vorhanden");
     }
-  }, [entryArray])
-  
+  }, [entryArray]);
 
   //Startet Datenbank Aufruf
   useEffect(() => {
-    
-   getArray();
-  },[])
-  
+    getArray();
+  }, []);
+
   return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
       <View style={styles.container}>
         <View style={styles.container3}>
           <Text style={styles.text}>{props.route.params.date}</Text>
@@ -173,29 +171,23 @@ const EntryScreen = (props) => {
           <View style={styles.notesContainer}>
             <TextInput
               style={styles.textInputStyle}
-              onChangeText={text=>  setNotes(text)}
+              onChangeText={(text) => setNotes(text)}
               value={notes}
               multiline
               numberOfLines={4}
-
               placeholder="Tippe hier"
               placeholderTextColor={colors.accBlue}
             />
-
-  
           </View>
 
           <View style={styles.button}>
-            <Pressable
-              style={styles.button1}
-              onPress={() => createNewEntry()}
-            >
+            <Pressable style={styles.button1} onPress={() => createNewEntry()}>
               <Text style={styles.textButton}>{"speichern"}</Text>
             </Pressable>
           </View>
         </View>
       </View>
-      </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -219,8 +211,8 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   notesContainer: {
-    justifyContent:"flex-start",
-    alignItems:"flex-start",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     width: "100%",
     alignSelf: "center",
     height: normalizeH(20),
@@ -237,7 +229,6 @@ const styles = StyleSheet.create({
     marginLeft: "0%",
   },
   bigTextContainer: {
-    
     flexDirection: "column",
     width: "35%",
     height: "90%",
@@ -319,7 +310,6 @@ const styles = StyleSheet.create({
   },
 
   button1: {
-   
     borderRadius: 8,
     marginLeft: "64%",
     marginTop: "10%",
@@ -331,14 +321,13 @@ const styles = StyleSheet.create({
 
     justifyContent: "center",
   },
-  textInputStyle:{
-    
-    alignSelf:"flex-start",
-    width:"100%",
-    height:"100%",
-    alignItems:"center",
-    justifyContent:"center",
-    padding:7,
+  textInputStyle: {
+    alignSelf: "flex-start",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 7,
     fontSize: normalizeH(7),
   },
 });

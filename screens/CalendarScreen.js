@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import colors from "../constants/colors";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
 /**
  * This is the Calendar Screen for Starters.

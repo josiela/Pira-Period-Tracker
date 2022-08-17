@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  Image,
   Alert,
   Pressable,
   Text,

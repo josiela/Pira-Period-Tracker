@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import React from "react";
+import { View, Image } from "react-native";
 
 /**
  * UILogo Component for two screens.

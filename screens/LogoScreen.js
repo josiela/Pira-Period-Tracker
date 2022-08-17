@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
+import React from "react";
+import { View, StyleSheet, Image, Text } from "react-native";
 import { normalize } from "react-native-elements";
 import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
- * LogoScreen for STARTERS omg. WELCOME 
- * 
+ * LogoScreen for STARTERS omg. WELCOME
+ *
  * takes the Image Source of our Logo and has a future Navigation Component
- * 
+ *
  * ToDo: Navigation and create a Logo. The Image is a dummy rn.
- * 
- * @param {*} props 
- * @returns 
+ *
+ * @param {*} props
+ * @returns
  */
 const LogoScreen = (props) => {
   return (
@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "100%",
   },
- textBox: {
+  textBox: {
     justifyContent: "center",
     alignContent: "center",
     marginTop: "60%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
@@ -48,10 +48,9 @@ const styles = StyleSheet.create({
     fontSize: normalizeH(7),
   },
 
-
   logo: {
     alignSelf: "center",
-    marginTop:  "40%",
+    marginTop: "40%",
     width: normalize(200),
     height: normalizeH(70),
   },

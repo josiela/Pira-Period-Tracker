@@ -11,7 +11,7 @@ import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
 import { normalize } from "../constants/fontResponsive";
-import { storeMyStuff, getMyObjectStuff } from "../database/CreateDatabase";
+import { storeMyStuff } from "../database/CreateDatabase";
 import { normalizeH } from "../constants/fontResponsive";
 /**
  * InputScreen for Mens and Cycle Length CHANGE
@@ -61,7 +61,7 @@ const MensCycleChangeScreen = (props) => {
 
         <Text style={styles.text}>{content.ZuM1}</Text>
       </View>
-  
+
       <InputNumber
         title="Menstruationslänge"
         onChangeText={mensHandler}

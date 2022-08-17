@@ -1,8 +1,3 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { ThemeProvider, Button } from "react-native-elements";
-
-import colors from "../constants/colors";
 import { LocaleConfig } from "react-native-calendars";
 
 /**

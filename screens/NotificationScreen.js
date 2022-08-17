@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import colors from "../constants/colors";
 import TextWSwitch from "../components/TextWSwitch";
 import { normalizeH } from "../constants/fontResponsive";
-
-
 
 /**
  *  NotificationScreen for Starters! and for the Settings.. it can be recycled I guess? *cool*
@@ -12,7 +10,7 @@ import { normalizeH } from "../constants/fontResponsive";
  *
  * TODo Figure out how you can reuse the component and hand over the texts..
  * and how to safe the state and all..
- * 
+ *
  *
  *
  * @param {} props
@@ -23,29 +21,27 @@ import { normalizeH } from "../constants/fontResponsive";
 const NotificationScreen = (props) => {
   return (
     <View style={styles.container}>
-      
-      <Image style={styles.logo} source={require("../assets/Benachrichtigung.png")} />
+      <Image
+        style={styles.logo}
+        source={require("../assets/Benachrichtigung.png")}
+      />
 
-    
       <View style={styles.textBox}>
-        
         <Text style={styles.title}>Benachrichtigungen</Text>
-      </View>         
-        <TextWSwitch />
-        
-       
-  </View>
+      </View>
+      <TextWSwitch />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-
-  head:{
+  head: {
     paddingVertical: normalizeH(20),
     paddingHorizontal: "7%",
     height: "100%",
     width: "100%",
-  },container: {
+  },
+  container: {
     paddingVertical: normalizeH(20),
     paddingHorizontal: "7%",
     alignItems: "center",
@@ -56,13 +52,13 @@ const styles = StyleSheet.create({
     color: colors.accBlue,
     fontSize: normalizeH(10),
     lineHeight: 36,
-    marginBottom:"10%",
-
-  }, textBox:{
+    marginBottom: "10%",
+  },
+  textBox: {
     marginTop: "8%",
     width: "100%",
     paddingTop: normalizeH(8),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
 
   text: {
@@ -70,19 +66,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
-
-
   logo: {
     alignSelf: "flex-start",
-   
-    marginTop:  "30%",
+
+    marginTop: "30%",
     width: normalizeH(51),
     height: normalizeH(25),
   },
-    
-
- 
- 
 });
 
 export default NotificationScreen;

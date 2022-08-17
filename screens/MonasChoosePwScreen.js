@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Alert,
-  Pressable,
-  Text,
-  TextInput,
-} from "react-native";
+import { View, StyleSheet, Alert, Pressable, Text } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
-import AddButton from "../components/AddButton";
 import storeMyStuff from "../database/CreateDatabase";
 
 /**

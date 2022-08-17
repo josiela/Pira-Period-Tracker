@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import * as content from "../constants/texts";
 import { normalizeH } from "../constants/fontResponsive";

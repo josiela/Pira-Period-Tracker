@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { normalizeH } from "../constants/fontResponsive";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
-import { normalize } from "../constants/fontResponsive";
 
 /* 
 This is an example page for the last page of the OnBoarding pages. 

@@ -15,7 +15,6 @@ const CycleCalc = (day, month, year) => {
   const monthSpecial = 29;
   const monthNotSpecial = 28;
 
-  let nextYear = false;
   let cycle;
 
   //checks for LeapYear is given the year
@@ -100,11 +99,11 @@ const CycleCalc = (day, month, year) => {
     let x = NaN;
     let firstDay;
     cycle = setCycle();
-    console.log("cycle before if "+ cycle)
+    console.log("cycle before if " + cycle);
 
     if (long.includes(month)) {
       y = parseInt((day + cycle) / monthLong);
-      console.log (" ich bin eine "+ y)
+      console.log(" ich bin eine " + y);
       x = (day + cycle) % monthLong;
 
       if (x == 0 && y != 0) {
@@ -134,7 +133,7 @@ const CycleCalc = (day, month, year) => {
           y = 0;
         }
       }
-  
+
       if (y != NaN) {
         switch (y) {
           case 0:
@@ -177,12 +176,14 @@ const CycleCalc = (day, month, year) => {
     let day = date[0];
     let month = date[1][0];
     let year = date[1][1];
-    console.log("Tag "+  day + " monnat "+month +" year "+ year + " DATE:   " + date)
+    console.log(
+      "Tag " + day + " monnat " + month + " year " + year + " DATE:   " + date
+    );
 
     mens = setMens();
     if (long.includes(month)) {
       y = parseInt((day + mens) / monthLong);
-      console.log(y + " hdashdhakjs")
+      console.log(y + " hdashdhakjs");
       x = (day + mens) % monthLong;
       if (x == 0 && y != 0) {
         x = monthLong;
@@ -205,7 +206,7 @@ const CycleCalc = (day, month, year) => {
         }
       } else {
         y = parseInt((day + mens) / monthNotSpecial);
-        console.log("pick me!" + y)
+        console.log("pick me!" + y);
         x = (day + mens) % monthNotSpecial;
         if (x == 0 && y != 0) {
           x = monthNotSpecial;
@@ -241,7 +242,7 @@ const CycleCalc = (day, month, year) => {
           month += 5;
           lastDay = [x, checkYear(month, year)];
           break;
-          default:
+        default:
           console.log("You Failed twice");
       }
     }

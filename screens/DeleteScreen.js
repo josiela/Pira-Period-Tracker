@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Alert, Image, Pressable, Text } from "react-native";
-import UILogo from "../components/UILogo";
+import React from "react";
+import { View, StyleSheet, Image, Pressable, Text } from "react-native";
 import colors from "../constants/colors";
 import * as content from "../constants/texts";
 import { normalizeH } from "../constants/fontResponsive";

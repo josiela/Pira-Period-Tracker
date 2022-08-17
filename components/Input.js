@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import colors from "../constants/colors";
 import { normalizeH } from "../constants/fontResponsive";
@@ -6,32 +6,29 @@ import { normalizeH } from "../constants/fontResponsive";
 /**
  * Password Input Component
  * maxLength currently at 8
- * 
- * ToDo: 
+ *
+ * ToDo:
  * Style
- * eventually lower the placeholder on the line, so it doesn't hover above it that awkwardly. 
+ * eventually lower the placeholder on the line, so it doesn't hover above it that awkwardly.
  * Also when toggled/pressed change color mebbe..
- * & Logic ofc.. need to sort the min 4 PIN out 
- * 
+ * & Logic ofc.. need to sort the min 4 PIN out
+ *
  * @param {*} props
  * @returns Component
  */
 const Input = (props) => {
-
-
   return (
     <View style={styles.container}>
       <TextInput
-       {...props}
+        {...props}
         style={styles.input}
         secureTextEntry={true}
         autoCapitalize="none"
         autoCorrect={false}
-        keyboardType = 'numeric'
+        keyboardType="numeric"
         placeholder={props.title}
         placeholderTextColor={colors.primBlue}
         maxLength={8}
-      
       />
     </View>
   );
@@ -43,7 +40,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    marginTop:"10%",
+    marginTop: "10%",
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
     width: 250,

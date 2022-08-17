@@ -27,7 +27,7 @@ const IndexCircle = (props) => {
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
     // +1 sonst wird heute nicht mitgezählt
-    var daysLeft = Math.round((nextCycle - props.date) / oneDay);
+    var daysLeft = Math.round((nextCycle - props.date) / oneDay) + 1;
     console.log("Total Days left: " + daysLeft);
     //-----------------------------//
 

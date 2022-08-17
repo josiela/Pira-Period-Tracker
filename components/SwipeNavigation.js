@@ -81,7 +81,10 @@ const SwipeNavigation = (props) => {
       />
       <Tab.Screen
         name="Seite3"
-        component={IndexCircle}
+        children={() => (
+          //updateState triggers the updateOnBoarding function one component higher (App.js)
+          <IndexCircle date={props.date} />
+        )}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

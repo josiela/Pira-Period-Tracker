@@ -1,41 +1,93 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
+  Text,
   StyleSheet,
   TextInput,
   Pressable,
   Animated,
   Image,
+  AppState,
 } from "react-native";
 
 const IndexCircle = (props) => {
-  var FollicularAndLutealLength = 22;
-  var mensLength = 6;
-  var totalDuration;
-  var section;
-  var degree = "0deg";
-  // wird später durch actual data ersetzt
-  const daysLeft = 22;
+  const appState = useRef(AppState.currentState);
+  var degree = "80deg";
+
+  console.log("Heute ist: " + props.date);
+
+  // get date aus Datenbank später:
+  //------------//
+  //Menstruationslänge
+  var mensLength = 6; // aus Datenbank
+  //gesamte Zycluslänge
+  var totalLength = 28; // aus Datenbank
+  // Timestamp des nächsten Zyklusbeginns
+  var nextCycle = new Date(2022, 7, 20).getTime(); // aus Datenbank
+  //-----------//
+  var setCycleDaysLeft = totalLength;
+  var days = "Tage";
+  var status = "bis zur nächsten Periode";
 
   var imgSrc;
 
-  if (daysLeft <= 22 && daysLeft > 0) {
-    imgSrc = require("../assets/Circle/Indicators/empty.png");
-  } else if (daysLeft == 0) {
-    imgSrc = require("../assets/Circle/Indicators/spotting.png");
+  function cyclusPositionBerechnung(cycleLength, menstruationLength) {
+    // Follikel und Luteal Länge (gF)
+    var gF = cycleLength - menstruationLength;
+    //--- übrige Tage berechnen ---//
+    const oneDay = 1000 * 60 * 60 * 24;
+    // +1 sonst wird heute nicht mitgezählt
+    var daysLeft = Math.round((nextCycle - props.date) / oneDay);
+    console.log("Total Days left: " + daysLeft);
+    //-----------------------------//
+
+    if (daysLeft > gF) {
+      console.log("noch in mens");
+      status = "";
+      // noch in Menstruation
+      imgSrc = require("../assets/Circle/Indicators/spotting.png");
+      // Berechnung der Position des roten Balkens
+      if (daysLeft == 1) {
+        setCycleDaysLeft = 1;
+        days = "Tag";
+        // erster Tag, Ausgangsposition kann automatisch eingestellt werden
+        return "80deg";
+      } else {
+        // Position auf Kreis muss berechnet werden
+        var mensLeft = daysLeft - (cycleLength - menstruationLength);
+        setCycleDaysLeft = mensLeft;
+        console.log("MensDays left: " + mensLeft);
+        var einTag = kreisabschnittBerechnung(90, menstruationLength);
+        var bogenPosition = einTag * mensLeft;
+        var resultToString = bogenPosition.toString();
+        degree = resultToString + "deg";
+        return degree;
+      }
+    } else {
+      if (daysLeft == 1) {
+        days = "Tag";
+      } else {
+        days = "Tage";
+      }
+      status = "bis zur nächsten Periode";
+      console.log("in FollikelPhase");
+      setCycleDaysLeft = daysLeft;
+      // in Follikelphase
+      imgSrc = require("../assets/Circle/Indicators/empty.png");
+      // Berechnung des Abstands zum roten Balken
+      var einTag = kreisabschnittBerechnung(270, gF);
+      console.log("Ein Tag: " + einTag);
+      var bogenPosition = einTag * daysLeft + 80;
+      console.log("Bogenposition: " + (bogenPosition + 80));
+      var resultToString = bogenPosition.toString();
+      degree = resultToString + "deg";
+      return degree;
+    }
   }
 
-  // berechnet die gesamte Zykluslänge
-  function calculateTotalDuration(FollicularAndLutealLength, mensLength) {
-    var totalDuration = FollicularAndLutealLength + mensLength;
-    console.log(totalDuration);
-    var section = 360 / totalDuration;
-    // +90 because the top part is at 90deg and not at 0deg
-    var currentState = daysLeft * section + 90;
-    var resultToString = currentState.toString();
-    degree = resultToString + "deg";
-    console.log(degree);
-    return degree;
+  function kreisabschnittBerechnung(grad, tage) {
+    var abschnitt = grad / tage;
+    return abschnitt;
   }
 
   return (
@@ -46,17 +98,19 @@ const IndexCircle = (props) => {
           style={{
             transform: [
               {
-                rotate: calculateTotalDuration(
-                  FollicularAndLutealLength,
-                  mensLength
-                ),
+                rotate: cyclusPositionBerechnung(totalLength, mensLength),
               },
             ],
-            position: "relative",
-            justifyContent: "flex-start",
+            width: "100%",
           }}
         />
         <Image source={imgSrc} style={styles.indicator} />
+        <View style={styles.daysLeftText}>
+          <Text>
+            {setCycleDaysLeft} {days}
+          </Text>
+          <Text>{status}</Text>
+        </View>
       </View>
     </View>
   );
@@ -66,18 +120,24 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     display: "flex",
+    justifyContent: "center",
+  },
+  circleContainer: {
+    position: "relative",
+    display: "flex",
+    flexWrap: "nowrap",
+    textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
   },
-  circle: {
-    position: "relative",
-    justifyContent: "flex-start",
-  },
   indicator: {
     position: "absolute",
-    justifyContent: "flex-start",
     alignSelf: "center",
     top: "6%",
+  },
+  daysLeftText: {
+    position: "absolute",
+    alignItems: "center",
   },
 });
 

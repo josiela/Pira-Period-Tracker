@@ -61,11 +61,18 @@ export default function App() {
   const updateOnBoarding = () => {
     setShowHomePage(true);
   };
+  const [currentDate, setCurrentDate] = useState(Date.now());
 
   useEffect(() => {
     const _handleAppStateChange = AppState.addEventListener(
       "change",
       (nextAppState) => {
+        if (
+          appState.current.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          setCurrentDate(Date.now());
+        }
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
       }
@@ -87,7 +94,7 @@ export default function App() {
     }
     return (
       <NavigationContainer>
-        <StackNavigation />
+        <StackNavigation date={currentDate} />
       </NavigationContainer>
     );
   } else {

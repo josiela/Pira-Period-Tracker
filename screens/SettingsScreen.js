@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
 import Settings from "../components/Settings";
 import colors from "../constants/colors";
 import { normalizeH } from "../constants/fontResponsive";
+//evtl als subtitle die aktuelle Einstellung eingeben
 
 /**
  * SettingsScreen taking the Settings component. Hands over an array of input, subTitle and onPress events
@@ -21,7 +22,7 @@ const SettingsScreen = (props) => {
       onPress: () => props.navigation.navigate("ChangePW"),
     },
     {
-      title: "Menstruationslänge & Zykluslänge",
+      title: "Menstruations- und Zykluslänge",
       subTitle: null,
       onPress: () => props.navigation.navigate("MensundZyklus"),
     },
@@ -60,6 +61,7 @@ const SettingsScreen = (props) => {
             onPress={() => (this.opacity = 0.2)}
             source={require("../assets/PeriodenundZykluslänge.png")}
           />
+
           <Image
             style={styles.icon3}
             onPress={() => (this.opacity = 0.2)}

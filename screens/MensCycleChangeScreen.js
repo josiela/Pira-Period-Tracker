@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -11,7 +11,11 @@ import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
 import { normalize } from "../constants/fontResponsive";
-import { storeMyStuff } from "../database/CreateDatabase";
+import {
+  storeMyStuff,
+  getMyObjectStuff,
+  getMyStringStuff,
+} from "../database/CreateDatabase";
 import { normalizeH } from "../constants/fontResponsive";
 /**
  * InputScreen for Mens and Cycle Length CHANGE
@@ -26,6 +30,9 @@ const MensCycleChangeScreen = (props) => {
   const [mensLength, setMensLength] = useState();
   const [cyclusLength, setCyclusLength] = useState();
 
+  const [oldmensLength, setoldMensLength] = useState(44);
+  const [oldcyclusLength, setoldCyclusLength] = useState(44);
+
   const mensHandler = (inputText) => {
     setMensLength(inputText.replace(/[^0-9]/g, ""));
   };
@@ -35,8 +42,36 @@ const MensCycleChangeScreen = (props) => {
   };
 
   const storeLengths = async () => {
+    if (mensLength === null) {
+      mensLength = oldmensLength;
+    }
+    if (cyclusLength === null) {
+      cyclusLength = oldcyclusLength;
+    }
+    console.log("Wird gestored" + mensLength + cyclusLength);
     await storeMyStuff("@mensLength", mensLength);
-    await storeMyStuff("@cyclusLengt", cyclusLength);
+    await storeMyStuff("@cyclusLength", cyclusLength);
+    console.log(oldcyclusLength + " --- " + oldmensLength);
+  };
+
+  const getOldStuff = async () => {
+    await getMyStringStuff("@mensLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        setoldMensLength(JSON.parse(returnedValue));
+      } else {
+        setoldMensLength(12);
+      }
+    });
+
+    await getMyStringStuff("@cyclusLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        setoldCyclusLength(JSON.parse(returnedValue));
+      } else {
+        setoldCyclusLength(13);
+      }
+    });
   };
 
   const inputHandler = () => {
@@ -46,9 +81,12 @@ const MensCycleChangeScreen = (props) => {
     console.log("mens " + mens + " cycle " + cycle);
     setMensLength("");
     setCyclusLength("");
+    storeLengths();
     Keyboard.dismiss();
   };
-
+  useEffect(() => {
+    getOldStuff();
+  }, []);
   return (
     <View style={styles.container}>
       <Image
@@ -60,24 +98,32 @@ const MensCycleChangeScreen = (props) => {
         <Text style={styles.title}>Menstruations- und Zykluslänge</Text>
 
         <Text style={styles.text}>{content.ZuM1}</Text>
-      </View>
+        <View style={styles.zweigeteiltes}>
+          <View style={styles.leftcontainer}>
+            <InputNumber
+              title="Menstruationslänge "
+              onChangeText={mensHandler}
+              value={mensLength}
+            />
 
-      <InputNumber
-        title="Menstruationslänge"
-        onChangeText={mensHandler}
-        value={mensLength}
-      />
+            <InputNumber
+              title="Zykluslänge"
+              onChangeText={cycleHandler}
+              value={cyclusLength}
+            />
 
-      <InputNumber
-        title="Zykluslänge"
-        onChangeText={cycleHandler}
-        value={cyclusLength}
-      />
+            <View style={styles.button}>
+              <Pressable style={styles.button1} onPress={inputHandler}>
+                <Text style={styles.textButton}>{"speichern"}</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.rightcontainer}>
+            <Text style={styles.text2}>Alter Wert: {oldmensLength}</Text>
 
-      <View style={styles.button}>
-        <Pressable style={styles.button1} onPress={inputHandler}>
-          <Text style={styles.textButton}>{"speichern"}</Text>
-        </Pressable>
+            <Text style={styles.text2}>Alter Wert: {oldcyclusLength}</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -85,11 +131,21 @@ const MensCycleChangeScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "flex-start",
     paddingVertical: normalizeH(20),
     paddingHorizontal: "7%",
-    alignItems: "center",
+    alignItems: "flex-start",
     height: "100%",
     flexDirection: "column",
+  },
+  zweigeteiltes: {
+    flexDirection: "row",
+  },
+  leftcontainer: {
+    width: "50%",
+  },
+  rightcontainer: {
+    width: "50%",
   },
   title: {
     color: colors.accBlue,
@@ -107,6 +163,13 @@ const styles = StyleSheet.create({
   text: {
     color: colors.mainG,
     lineHeight: normalizeH(9),
+    fontSize: normalizeH(7),
+  },
+  text2: {
+    marginTop: "15%",
+    marginLeft: "30%",
+    color: colors.mainG,
+    lineHeight: normalizeH(13),
     fontSize: normalizeH(7),
   },
 
@@ -127,12 +190,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 40,
     elevation: 3,
-    backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
   },
   logo: {
     alignSelf: "flex-start",
+
     marginTop: "20%",
     width: normalizeH(31),
     height: normalizeH(35),

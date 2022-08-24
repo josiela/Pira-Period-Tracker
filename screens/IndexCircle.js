@@ -13,7 +13,7 @@ const IndexCircle = (props) => {
   //gesamte Zycluslänge
   var totalLength = 28; // aus Datenbank
   // Timestamp des nächsten Zyklusbeginns
-  var nextCycle = new Date(2022, 7, 20).getTime(); // aus Datenbank
+  var nextCycle = new Date(2022, 7, 28).getTime(); // aus Datenbank
   //-----------//
   var setCycleDaysLeft = totalLength;
   var days = "Tage";
@@ -27,7 +27,7 @@ const IndexCircle = (props) => {
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
     // +1 sonst wird heute nicht mitgezählt
-    var daysLeft = Math.round((nextCycle - props.date) / oneDay) + 1;
+    var daysLeft = Math.round((nextCycle - props.date) / oneDay);
     console.log("Total Days left: " + daysLeft);
     //-----------------------------//
 

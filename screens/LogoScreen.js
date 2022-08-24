@@ -17,7 +17,7 @@ import colors from "../constants/colors";
 const LogoScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/bubble.jpg")} />
+      <Image style={styles.logo} source={require("../assets/logo.png")} />
 
       <View style={styles.textBox}>
         <Text style={styles.text}>Willkommen!</Text>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   textBox: {
     justifyContent: "center",
     alignContent: "center",
-    marginTop: "60%",
+    marginTop: "30%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: "flex-start",
@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
 
   logo: {
     alignSelf: "center",
-    marginTop: "40%",
-    width: normalize(200),
-    height: normalizeH(70),
+    marginTop: "60%",
+    width: normalize(270),
+    height: normalizeH(85),
   },
 });
 

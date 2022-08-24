@@ -13,7 +13,7 @@ const IndexCircle = (props) => {
   //gesamte Zycluslänge
   var totalLength = 28; // aus Datenbank
   // Timestamp des nächsten Zyklusbeginns
-  var nextCycle = new Date(2022, 7, 28).getTime(); // aus Datenbank
+  var nextCycle = new Date(2022, 8, 20).getTime(); // aus Datenbank
   //-----------//
   var setCycleDaysLeft = totalLength;
   var days = "Tage";
@@ -26,7 +26,7 @@ const IndexCircle = (props) => {
     var gF = cycleLength - menstruationLength;
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
-    // +1 sonst wird heute nicht mitgezählt
+
     var daysLeft = Math.round((nextCycle - props.date) / oneDay);
     console.log("Total Days left: " + daysLeft);
     //-----------------------------//
@@ -43,11 +43,16 @@ const IndexCircle = (props) => {
         // erster Tag, Ausgangsposition kann automatisch eingestellt werden
         return "80deg";
       } else {
+        days = "Tage";
         // Position auf Kreis muss berechnet werden
-        var mensLeft = daysLeft - (cycleLength - menstruationLength);
+        var mensLeft = daysLeft - gF;
         setCycleDaysLeft = mensLeft;
         console.log("MensDays left: " + mensLeft);
-        var einTag = kreisabschnittBerechnung(90, menstruationLength);
+        if (mensLeft > mensLength) {
+          var einTag = kreisabschnittBerechnung(90, mensLeft);
+        } else {
+          var einTag = kreisabschnittBerechnung(90, mensLength);
+        }
         var bogenPosition = einTag * mensLeft;
         var resultToString = bogenPosition.toString();
         degree = resultToString + "deg";

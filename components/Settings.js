@@ -1,6 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import colors from "../constants/colors";
+import { normalizeH, normalize } from "../constants/fontResponsive";
 
 /**
  * Settings Component
@@ -26,12 +33,14 @@ const Settings = ({ settingsOptions }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    marginLeft: "9%",
+    paddingTop: "7%",
+    paddingBottom: normalizeH(16),
   },
 
   text: {
     color: colors.mainG,
-    fontSize: 20,
+    fontSize: normalize(15),
   },
   subtext: {
     color: colors.mainBlk,

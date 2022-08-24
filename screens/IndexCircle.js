@@ -1,5 +1,11 @@
-import React from "react";
+import {useEffect, React} from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStringStuff,
+  storeMyStuff,
+} from "../database/CreateDatabase";
 
 const IndexCircle = (props) => {
   var degree = "80deg";
@@ -22,6 +28,29 @@ const IndexCircle = (props) => {
   var status = "bis zur nächsten Periode";
 
   var imgSrc;
+
+  //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
+  const getOldStuff = async () => {
+    await getMyStringStuff("@mensLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        mensLength=JSON.parse(returnedValue);
+      } else {
+        setoldMensLength(6);
+      }
+    });
+
+    await getMyStringStuff("@cyclusLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        totalLength=JSON.parse(returnedValue);
+      } else {
+        setoldCyclusLength(28);
+      }
+    });
+
+  };
+  // Datenbank Abschnitt zu Ende-------------------------------
 
   function cyclusPositionBerechnung(cycleLength, menstruationLength) {
     // Follikel und Luteal Länge (gF)
@@ -87,6 +116,9 @@ const IndexCircle = (props) => {
     return abschnitt;
   }
 
+  useEffect(() => {
+    getOldStuff();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.circleContainer}>

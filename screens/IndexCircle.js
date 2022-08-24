@@ -7,14 +7,16 @@ const IndexCircle = (props) => {
   console.log("Heute ist: " + props.date);
 
   // get date aus Datenbank später:
+
   //------------//
   //Menstruationslänge
-  var mensLength = 6; // aus Datenbank
+  var mensLength = 6; // aus Datenbank, TYPE=NUMBER
   //gesamte Zycluslänge
-  var totalLength = 28; // aus Datenbank
+  var totalLength = 28; // aus Datenbank TYPE=NUMBER
   // Timestamp des nächsten Zyklusbeginns
   var nextCycle = new Date(2022, 8, 20).getTime(); // aus Datenbank
   //-----------//
+
   var setCycleDaysLeft = totalLength;
   var days = "Tage";
   var status = "bis zur nächsten Periode";

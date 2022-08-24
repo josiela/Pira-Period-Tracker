@@ -67,12 +67,8 @@ export default function App() {
     const _handleAppStateChange = AppState.addEventListener(
       "change",
       (nextAppState) => {
-        if (
-          appState.current.match(/inactive|background/) &&
-          nextAppState === "active"
-        ) {
-          setCurrentDate(Date.now());
-        }
+        console.log("In App.js. Fetched Date.");
+        setCurrentDate(Date.now());
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
       }

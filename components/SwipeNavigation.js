@@ -13,7 +13,7 @@ const SwipeNavigation = (props) => {
     <Tab.Navigator
       style={{ backgroundColor: colors.mainLG }}
       tabBarPosition={"bottom"}
-      initialRouteName="Calendar"
+      initialRouteName="Circle"
       screenOptions={{
         tabBarStyle: { backgroundColor: colors.mainLG },
         tabBarShowLabel: false,
@@ -60,7 +60,7 @@ const SwipeNavigation = (props) => {
         }}
       />
       <Tab.Screen
-        name="Seite3"
+        name="Circle"
         children={() => (
           //updateState triggers the updateOnBoarding function one component higher (App.js)
           <IndexCircle date={props.date} />

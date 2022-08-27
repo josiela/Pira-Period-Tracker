@@ -1,5 +1,13 @@
-import React from "react";
+import {useEffect, React} from "react";
+import colors from "../constants/colors";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { normalizeH } from "../constants/fontResponsive";
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStringStuff,
+  storeMyStuff,
+} from "../database/CreateDatabase";
 
 const IndexCircle = (props) => {
   var degree = "80deg";
@@ -22,6 +30,29 @@ const IndexCircle = (props) => {
   var status = "bis zur nächsten Periode";
 
   var imgSrc;
+
+  //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
+  const getOldStuff = async () => {
+    await getMyStringStuff("@mensLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        mensLength=JSON.parse(returnedValue);
+      } else {
+        setoldMensLength(6);
+      }
+    });
+
+    await getMyStringStuff("@cyclusLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        totalLength=JSON.parse(returnedValue);
+      } else {
+        setoldCyclusLength(28);
+      }
+    });
+
+  };
+  // Datenbank Abschnitt zu Ende-------------------------------
 
   function cyclusPositionBerechnung(cycleLength, menstruationLength) {
     // Follikel und Luteal Länge (gF)
@@ -87,26 +118,34 @@ const IndexCircle = (props) => {
     return abschnitt;
   }
 
+  useEffect(() => {
+    getOldStuff();
+  }, []);
   return (
     <View style={styles.container}>
-      <View style={styles.circleContainer}>
-        <Image
-          source={require("../assets/Circle/circle.png")}
-          style={{
-            transform: [
-              {
-                rotate: cyclusPositionBerechnung(totalLength, mensLength),
-              },
-            ],
-            width: "100%",
-          }}
-        />
-        <Image source={imgSrc} style={styles.indicator} />
-        <View style={styles.daysLeftText}>
-          <Text>
-            {setCycleDaysLeft} {days}
-          </Text>
-          <Text>{status}</Text>
+      <View >
+        <Text style={styles.title}>Zyklus-Übersicht</Text>
+      </View>
+      <View style={styles.bigView}>
+        <View style={styles.circleContainer}>
+          <Image
+            source={require("../assets/Circle/circle.png")}
+            style={{
+              transform: [
+                {
+                  rotate: cyclusPositionBerechnung(totalLength, mensLength),
+                },
+              ],
+              width: "100%",
+            }}
+          />
+          <Image source={imgSrc} style={styles.indicator} />
+          <View style={styles.daysLeftText}>
+            <Text style={styles.text}>
+              {setCycleDaysLeft} {days}
+            </Text>
+            <Text>{status}</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -114,12 +153,28 @@ const IndexCircle = (props) => {
 };
 
 const styles = StyleSheet.create({
+  text: {
+   // textAlign: "center",
+   alignSelf: "center",
+    lineHeight: normalizeH(9),
+    color: colors.primBlue,
+    fontSize: normalizeH(9),
+  },
+  title: {
+    marginTop: "18%",
+    color: colors.accBlue,
+    fontSize: normalizeH(15),
+    lineHeight: normalizeH(22),
+  },
   container: {
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
     height: "100%",
-    display: "flex",
-    justifyContent: "center",
+    width: "100%",
+    
   },
   circleContainer: {
+    paddingTop:"30%",
     position: "relative",
     display: "flex",
     flexWrap: "nowrap",
@@ -128,14 +183,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   indicator: {
+    
     position: "absolute",
     alignSelf: "center",
-    top: "6%",
+    top: "30%",
   },
   daysLeftText: {
     position: "absolute",
     alignItems: "center",
   },
+  bigView: {
+    height: "90%",
+
+  }
 });
 
 export default IndexCircle;

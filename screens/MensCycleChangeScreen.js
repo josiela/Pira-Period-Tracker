@@ -60,7 +60,7 @@ const MensCycleChangeScreen = (props) => {
       if (returnedValue !== null) {
         setoldMensLength(JSON.parse(returnedValue));
       } else {
-        setoldMensLength(12);
+        setoldMensLength(0);
       }
     });
 
@@ -69,7 +69,7 @@ const MensCycleChangeScreen = (props) => {
       if (returnedValue !== null) {
         setoldCyclusLength(JSON.parse(returnedValue));
       } else {
-        setoldCyclusLength(13);
+        setoldCyclusLength(0);
       }
     });
   };

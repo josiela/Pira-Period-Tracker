@@ -14,7 +14,7 @@ const IndexCircle = (props) => {
   //gesamte Zycluslänge
   var totalLength = 28; // aus Datenbank TYPE=NUMBER
   // Timestamp des nächsten Zyklusbeginns
-  var nextCycle = new Date(2022, 8, 20).getTime(); // aus Datenbank
+  var nextCycle = new Date(2022, 7, 30).getTime(); // aus Datenbank
   //-----------//
 
   var setCycleDaysLeft = totalLength;

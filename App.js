@@ -61,14 +61,16 @@ export default function App() {
   const updateOnBoarding = () => {
     setShowHomePage(true);
   };
-  const [currentDate, setCurrentDate] = useState(Date.now());
+  const [currentDate, setCurrentDate] = useState(
+    new Date().setHours(0, 0, 0, 0)
+  );
 
   useEffect(() => {
     const _handleAppStateChange = AppState.addEventListener(
       "change",
       (nextAppState) => {
         console.log("In App.js. Fetched Date.");
-        setCurrentDate(Date.now());
+        setCurrentDate(new Date().setHours(0, 0, 0, 0));
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
       }

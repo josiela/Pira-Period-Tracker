@@ -29,6 +29,7 @@ const ChoosePwScreen = (props) => {
     if (confirmNumber === enteredValue) {
       storeMyStuff("@passwordKey", enteredValue);
       alert("Danke Dir!\nDein Passwort wurde gespeichert");
+      props.navigation.navigate("9");
     } else {
       alert("Die Widerholung des Passworts ist inkorrekt");
     }

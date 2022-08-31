@@ -31,7 +31,13 @@ const DeleteScreen = (props) => {
       </View>
 
       <View style={styles.button}>
-        <Pressable style={styles.button1} onPress={() => deleteAll()}>
+        <Pressable style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? colors.accBlue
+              : colors.accOrange
+          },styles.button1
+        ]} onPress={() => deleteAll()}>
           <Text style={styles.textButton}>{"zurücksetzen"}</Text>
         </Pressable>
       </View>
@@ -100,7 +106,6 @@ const styles = StyleSheet.create({
     height: normalize(40),
     width: normalize(120),
     elevation: 3,
-    backgroundColor: colors.accOrange,
     alignItems: "center",
     justifyContent: "center",
   },

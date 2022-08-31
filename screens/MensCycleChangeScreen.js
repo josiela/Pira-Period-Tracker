@@ -113,7 +113,13 @@ const MensCycleChangeScreen = (props) => {
             />
 
             <View style={styles.button}>
-              <Pressable style={styles.button1} onPress={inputHandler}>
+              <Pressable style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? colors.accBlue
+              : colors.primBlue
+          },styles.button1
+        ]} onPress={inputHandler}>
                 <Text style={styles.textButton}>{"speichern"}</Text>
               </Pressable>
             </View>
@@ -207,7 +213,6 @@ const styles = StyleSheet.create({
     height: normalize(40),
     width: normalize(100),
     elevation: 3,
-    backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
   },

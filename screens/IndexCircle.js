@@ -38,7 +38,7 @@ const IndexCircle = (props) => {
       if (returnedValue !== null) {
         mensLength=JSON.parse(returnedValue);
       } else {
-        setoldMensLength(6);
+        mensLength=6;
       }
     });
 
@@ -47,7 +47,7 @@ const IndexCircle = (props) => {
       if (returnedValue !== null) {
         totalLength=JSON.parse(returnedValue);
       } else {
-        setoldCyclusLength(28);
+        totalLength=28;
       }
     });
 

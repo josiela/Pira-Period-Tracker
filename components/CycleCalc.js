@@ -1,3 +1,9 @@
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStuff,
+} from "../database/CreateDatabase";
+import {  useState } from "react";
 /**
  * Cycle Calc. Returns dates in format DD/MM/YY
  *
@@ -5,10 +11,20 @@
  * @returns
  */
 
-const CycleCalc = (day, month, year) => {
+ 
+
+const CycleCalc = async () => {
+  let day=2;
+  let year =2022;
+  let month=10;
+  console.log("Yey CycleCalc wird aufgerufen lol");
+  //let [entryArray, setEntryArray] = useState([]);
+  let mensLength=5;
+  let cyclusLength=28;
   const long = [1, 3, 5, 7, 8, 10, 12];
   const short = [4, 6, 9, 11];
   const special = [2];
+  
 
   const monthLong = 31;
   const monthShort = 30;
@@ -17,6 +33,39 @@ const CycleCalc = (day, month, year) => {
 
   let cycle;
 
+  //----------------------------------DB SECTION----------------------
+  // Gets the Array of Entrys from DB
+  await getMyStringStuff("@entryArrayKey").then((returnedValue) => {
+    if (returnedValue !== null) {
+     // setEntryArray(JSON.parse(returnedValue));
+    } else {
+     // setEntryArray([]);
+    }
+  });
+
+  
+    await getMyStringStuff("@mensLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        mensLength=JSON.parse(returnedValue);
+      } else {
+        mensLength=5;
+      }
+    });
+
+    await getMyStringStuff("@cyclusLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        cyclusLength=JSON.parse(returnedValue);
+      } else {
+        cyclusLength=28;
+      }
+    });
+
+  
+
+
+  //---------------------------------------------------------------------
   //checks for LeapYear is given the year
   const isLeapYear = (year) => {
     if (year % 4 == 0) {
@@ -254,7 +303,12 @@ const CycleCalc = (day, month, year) => {
   let firstDay = nextDayCalc(day, month, year);
   let lastDay = endOfMensCalc(firstDay);
   console.log("First Day " + firstDay + " lastday " + lastDay);
+  
+  storeMyStuff("firstDayArrayKey", firstDay);
+  storeMyStuff("lastDayArrayKey", lastDay);
   return firstDay, lastDay;
+  //Diese beiden Variablen müssen in die Datenbank und im Index-Calc aufgerufen werden. 
+  
 };
 
 export default CycleCalc;

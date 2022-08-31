@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Pressable } from "react-native";
 import colors from "../constants/colors";
 import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
+import { normalizeH } from "../constants/fontResponsive";
 /**
  * This is the Calendar Screen for Starters.
  * It holds the "When you had your last mens?" Question ft. the
@@ -70,8 +71,11 @@ const CalendarScreen = (props) => {
   return (
     //props.header is given when calling the Screen
     <View style={styles.container}>
-      <Text style={styles.title}>{props.header}</Text>
-
+      <Text style={styles.title}>Deine letzte Periode</Text>
+      <Text style={styles.infoText}>
+        Bitte tippe den ersten Tag deiner letzten Periode an und klicke
+        anschließend den Button zum Bestätigen.
+      </Text>
       <Calendar
         onDayPress={(day) => {
           const date = day.dateString;
@@ -97,17 +101,25 @@ const CalendarScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-    marginVertical: 50,
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    height: "100%",
+    width: "100%",
   },
 
   title: {
+    marginBottom: "15%",
+    marginTop: "18%",
     color: colors.accBlue,
-    fontSize: 32,
-    lineHeight: 36,
+    fontSize: normalizeH(15),
+    lineHeight: normalizeH(22),
+  },
+
+  infoText: {
+    paddingBottom: "10%",
+    lineHeight: normalizeH(9),
+    color: colors.mainG,
+    fontSize: normalizeH(7),
   },
 
   button: {

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { normalizeH } from "../constants/fontResponsive";
 import {
   getMyStringStuff,
+  getMyObjectStuff,
   removeMyStuff,
   storeMyStringStuff,
   storeMyStuff,
@@ -17,6 +18,9 @@ const IndexCircle = (props) => {
   // get date aus Datenbank später:
 
   //------------//
+  //Nächste Mens Anfang und Ende
+  var nextMensBeginning=[];
+  var nextMensEnd=[];
   //Menstruationslänge
   var mensLength = 6; // aus Datenbank, TYPE=NUMBER
   //gesamte Zycluslänge
@@ -48,6 +52,21 @@ const IndexCircle = (props) => {
         totalLength=JSON.parse(returnedValue);
       } else {
         totalLength=28;
+      }
+    });
+
+    await getMyObjectStuff("@firstDayArrayKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        nextMensBeginning=JSON.parse(returnedValue);
+      } else {
+        console.log("NextMensBeginning ist leer");
+      }
+    });
+    await getMyObjectStuff("@lastDayArrayKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        nextMensEnd=JSON.parse(returnedValue);
+      } else {
+        console.log("NextMensEnd ist leer");
       }
     });
 

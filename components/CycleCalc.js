@@ -17,7 +17,7 @@ const CycleCalc = async () => {
   let day=2;
   let year =2022;
   let month=10;
-  console.log("Yey CycleCalc wird aufgerufen lol");
+  console.log("Yey CycleCalc wird aufgerufen");
   //let [entryArray, setEntryArray] = useState([]);
   let mensLength=5;
   let cyclusLength=28;
@@ -304,11 +304,15 @@ const CycleCalc = async () => {
   let lastDay = endOfMensCalc(firstDay);
   console.log("First Day " + firstDay + " lastday " + lastDay);
   
-  storeMyStuff("firstDayArrayKey", firstDay);
-  storeMyStuff("lastDayArrayKey", lastDay);
+  storeMyStuff("@firstDayArrayKey", firstDay);
+  storeMyStuff("@lastDayArrayKey", lastDay);
   return firstDay, lastDay;
   //Diese beiden Variablen müssen in die Datenbank und im Index-Calc aufgerufen werden. 
   
 };
 
 export default CycleCalc;
+//Ich brauche: Abstand von erstem zu letztem mens tag
+//Abstand von erstem zu erstem oder letztem zu nächstem ersten (Also zykluslänge)
+//-> Das in Arrays packen
+//-> Help?

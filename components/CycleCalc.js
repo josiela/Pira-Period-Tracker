@@ -1,6 +1,7 @@
 import {
   getMyStringStuff,
   removeMyStuff,
+  storeMyStringStuff,
   storeMyStuff,
 } from "../database/CreateDatabase";
 import {  useState } from "react";
@@ -16,7 +17,7 @@ import {  useState } from "react";
 const CycleCalc = async () => {
   let day=2;
   let year =2022;
-  let month=10;
+  let month=2;
   console.log("Yey CycleCalc wird aufgerufen");
   //let [entryArray, setEntryArray] = useState([]);
   let mensLength=5;
@@ -148,7 +149,7 @@ const CycleCalc = async () => {
     let x = NaN;
     let firstDay;
     cycle = setCycle();
-    console.log("cycle before if " + cycle);
+    console.log("cycle before iffff " + cycle);
 
     if (long.includes(month)) {
       y = parseInt((day + cycle) / monthLong);
@@ -182,47 +183,57 @@ const CycleCalc = async () => {
           y = 0;
         }
       }
-
+    }
+      console.log("Y ist : "+y);
       if (y != NaN) {
         switch (y) {
           case 0:
             y = month;
             k = [x, [y, year]];
+            console.log("Hier ist k: "+k);
             break;
           case 1:
             month += 1;
             k = [x, checkYear(month, year)];
+            console.log("Hier ist k: "+k);
             break;
           case 2:
             month += 2;
             k = [x, checkYear(month, year)];
+            console.log("Hier ist k: "+k);
             break;
           case 3:
             month += 3;
             k = [x, checkYear(month, year)];
+            console.log("Hier ist k: "+k);
             break;
           case y == 4:
             month += 4;
             k = [x, checkYear(month, year)];
+            console.log("Hier ist k: "+k);
             break;
           case y == 5:
             month += 5;
             k = [x, checkYear(month, year)];
+            console.log("Hier ist k: "+k);
             break;
           default:
             console.log("You Failed me");
         }
-      }
     }
-    return firstDay;
+    
+    console.log("TEEEEXT "+ endOfMensCalc(k));
+    return k;
   };
 
   //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
+    console.log("EndofMensCalc wird aufgerufen "+date[0]);
     let y = NaN;
     let x = NaN;
     let lastDay;
     let day = date[0];
+    console.log("EndofMensCalc wird weitergeführt");
     let month = date[1][0];
     let year = date[1][1];
     console.log(
@@ -269,7 +280,7 @@ const CycleCalc = async () => {
       switch (y) {
         case 0:
           y = month;
-          k = [x, [y, year]];
+          lastDay = [x, [y, year]];
           break;
         case 1:
           month += 1;
@@ -301,11 +312,17 @@ const CycleCalc = async () => {
   //calls nextDayCalc function with current date
   //nextDayCalc(30, 12, 2021);
   let firstDay = nextDayCalc(day, month, year);
+  //console.log("Rangebastelter Text"+firstDay[0]);
   let lastDay = endOfMensCalc(firstDay);
-  console.log("First Day " + firstDay + " lastday " + lastDay);
+  //console.log("First Day " + firstDay + " lastday " + lastDay);
   
-  storeMyStuff("@firstDayArrayKey", firstDay);
-  storeMyStuff("@lastDayArrayKey", lastDay);
+  let firstDayString = firstDay[1][1] + "-"+firstDay[1][0]+"-"+firstDay[0];
+  console.log(firstDayString+" ist das Datum, und der Datentyp: "+ typeof(firstDayString));
+  storeMyStringStuff("@firstDayArrayKey", firstDayString);
+  let lastDayString = lastDay[1][1] + "-"+lastDay[1][0]+"-"+lastDay[0];
+  console.log(lastDayString+" ist das Datum, und der Datentyp: "+ typeof(lastDayString));
+  storeMyStringStuff("@lastDayArrayKey", lastDayString);
+  
   return firstDay, lastDay;
   //Diese beiden Variablen müssen in die Datenbank und im Index-Calc aufgerufen werden. 
   

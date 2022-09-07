@@ -28,6 +28,7 @@ const EntryScreen = (props) => {
   const [pain, setPain] = useState("");
   const [mood, setMood] = useState("");
   const [notes, setNotes] = useState("");
+  const [dateString, setDateString] = useState("");
 
   const createNewEntry = async () => {
     console.log("NENENEEN");
@@ -66,8 +67,67 @@ const EntryScreen = (props) => {
     });
   };
 
+
+  //Schreibt das Datum einzeln in Bums
+  const fixDate = () => {
+    let monthString;
+    let tryVar= props.route.params.date[8]+props.route.params.date[9];
+    let dayNumber= parseInt(tryVar);
+
+    tryVar= props.route.params.date[5]+props.route.params.date[6];
+    let monthNumber= parseInt(tryVar);
+
+
+    tryVar= props.route.params.date[0]+props.route.params.date[1]+props.route.params.date[2]+props.route.params.date[3];
+    let yearNumber= parseInt(tryVar);
+    console.log(monthNumber);
+    switch (monthNumber){
+      case 1:
+        monthString="Januar";
+        break;
+      case 2:
+        monthString="Februar";
+        break;
+      case 3:
+        monthString="März";
+        break;
+      case 4:
+        monthString="April";
+        break;
+      case 5:
+        monthString="Mai";
+        break;
+      case 6:
+        monthString="Juni";
+        break;
+      case 7:
+        monthString="Juli";
+        break;
+      case 8:
+        monthString="August";
+        break;
+      case 9:
+          monthString="September";
+          break;
+      case 10:
+          monthString="Oktober";
+          break;
+      case 11:
+          monthString="November";
+          break;
+      case 12:
+          monthString="Dezember";
+          break;
+      default:
+          monthString="Nutze einen Tag";
+    }
+    console.log(monthString+"hehe");
+    setDateString(JSON.stringify(dayNumber)+". "+monthString);
+  };
+
   //Sorgt für aktualisierung der Variablen nachdem die Datenbank fertig geladen hat
   useEffect(() => {
+    fixDate();
     let myEntry = entryArray.find(
       (entry) => entry.date === props.route.params.date
     );
@@ -97,7 +157,7 @@ const EntryScreen = (props) => {
       <View style={styles.container}>
         <View style={styles.container3}>
           
-          <Text style={styles.text}>{props.route.params.date}</Text>
+          <Text style={styles.text}>{dateString}</Text>
         </View>
 
         <View style={styles.container2}>

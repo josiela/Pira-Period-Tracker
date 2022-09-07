@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: colors.mainG,
-    fontSize: normalize(15),
+    fontSize: normalizeH(7.5),
   },
   subtext: {
     color: colors.mainBlk,

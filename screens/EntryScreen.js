@@ -18,6 +18,7 @@ import {
   storeMyStuff,
 } from "../database/CreateDatabase";
 import CycleCalc from "../components/CycleCalc";
+import { startCalculatingMensLengths } from "../components/calculateMensArrays";
 
 const EntryScreen = (props) => {
   // get datestring with props.route.params.date
@@ -46,12 +47,12 @@ const EntryScreen = (props) => {
     //Neues Objekt mit Daten anlegen und ins Array stecken
     let newEntry = new Entry(props.route.params.date, pain, mood, blood, notes);
     entryArray.push(newEntry);
-    console.log("BAHAHAHAHAHAHAAH HEP");
 
     //Altes Array löschen, neues speichern
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
-    CycleCalc();
+    startCalculatingMensLengths();
+    //CycleCalc();
   };
 
   //Zieht Array aus Datenbank

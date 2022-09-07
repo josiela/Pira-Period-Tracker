@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
-    marginTop: "18%",
+    marginTop: "14%",
     color: colors.accBlue,
     fontSize: normalizeH(15),
     lineHeight: normalizeH(22),
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: normalizeH(9),
     color: colors.mainG,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
 });
 

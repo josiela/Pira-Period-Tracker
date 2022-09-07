@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   textBox: {
-    marginTop: "10%",
+    marginTop: "8%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: "flex-start",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: colors.mainG,
-    fontSize: 20,
+    fontSize: normalizeH(7.5),
   },
 
   //Button Styles:
@@ -140,15 +140,14 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: "flex-start",
 
-    marginTop: "20%",
-    width: normalizeH(31),
+    marginTop: "14%",
+    width: normalizeH(31.5),
     height: normalizeH(35),
   },
 
   button1: {
     marginRight: "20%",
     borderRadius: 8,
-    marginTop: "10%",
     height: normalize(40),
     width: normalize(100),
     elevation: 3,

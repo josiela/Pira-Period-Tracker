@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     color: colors.accBlue,
     fontSize: normalizeH(10),
     lineHeight: 36,
+    marginBottom: "5%",
   },
   textBox: {
     marginTop: "14%",
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: colors.mainG,
-    fontSize: 20,
+    fontSize: normalizeH(7.5),
   },
 
   //Button Styles:
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: "flex-start",
 
-    marginTop: "20%",
+    marginTop: "15%",
     width: normalizeH(31),
     height: normalizeH(35),
   },
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
   button1: {
     marginRight: "20%",
     borderRadius: 8,
-    marginTop: "10%",
+  
     height: normalize(40),
     width: normalize(100),
     elevation: 3,
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     width: "100%",
-    marginTop: "10%",
+    marginTop: "8%",
     height: "100%",
   },
 });

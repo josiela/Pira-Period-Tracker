@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: normalizeH(9),
     color: colors.mainG,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
 
   logo: {
     alignSelf: "center",
     marginTop: "60%",
-    width: normalize(270),
+    width: normalizeH(89),
     height: normalizeH(85),
   },
 });

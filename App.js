@@ -57,7 +57,7 @@ const slides = [
 export default function App() {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  const [showHomePage, setShowHomePage] = useState(true);
+  const [showHomePage, setShowHomePage] = useState(false);
   const updateOnBoarding = () => {
     setShowHomePage(true);
   };

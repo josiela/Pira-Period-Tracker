@@ -55,16 +55,16 @@ const IndexCircle = (props) => {
       }
     });
 
-    await getMyObjectStuff("@firstDayArrayKey").then((returnedValue) => {
+    await getMyStringStuff("@firstDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
-        nextMensBeginning=JSON.parse(returnedValue);
+        nextMensBeginning=returnedValue;
       } else {
         console.log("NextMensBeginning ist leer");
       }
     });
-    await getMyObjectStuff("@lastDayArrayKey").then((returnedValue) => {
+    await getMyStringStuff("@lastDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
-        nextMensEnd=JSON.parse(returnedValue);
+        nextMensEnd=returnedValue;
       } else {
         console.log("NextMensEnd ist leer");
       }

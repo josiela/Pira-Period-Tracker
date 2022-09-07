@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { normalizeH } from "../constants/fontResponsive";
 import {
   View,
   StyleSheet,
@@ -113,8 +114,8 @@ const styles = StyleSheet.create({
     height: "50%",
   },
   logo: {
-    width: 300,
-    height: 200,
+    width: normalizeH(89),
+    height: normalizeH(85),
   },
   inputBox: {},
   //Button Styles

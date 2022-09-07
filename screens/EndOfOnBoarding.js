@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textBox: {
-    marginTop: "26%",
+    marginTop: "14%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: "flex-start",
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: normalizeH(9),
     color: colors.mainG,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
   text2: {
     lineHeight: normalizeH(9),
     color: colors.mainLG,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
 
   button1: {

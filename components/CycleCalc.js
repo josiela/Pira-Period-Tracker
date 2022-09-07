@@ -1,4 +1,5 @@
 import {
+  getMyObjectStuff,
   getMyStringStuff,
   removeMyStuff,
   storeMyStringStuff,
@@ -13,8 +14,19 @@ import {  useState } from "react";
  */
 
  
+//Funktion um aus 9 eine 09 zu machen und so
+const fixDate =(number)=>{
+  let fixedNumber;
+  fixedNumber: number<10
+  ? fixedNumber= "0"+number
+  : fixedNumber = JSON.stringify(number);
+  return fixedNumber;
+}
+
 
 const CycleCalc = async () => {
+  let arrayOfMensLengths=[];
+  let arrayOfCyclusLengths=[];
   let day=2;
   let year =2022;
   let month=2;
@@ -60,6 +72,22 @@ const CycleCalc = async () => {
         cyclusLength=JSON.parse(returnedValue);
       } else {
         cyclusLength=28;
+      }
+    });
+
+    await getMyObjectStuff("@ArrayOfMensLengthsKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        arrayOfMensLengths=returnedValue;
+      } else {
+        console.log("cant get an Array of MensLengths")
+      }
+    });
+
+    await getMyObjectStuff("@ArrayOfCyclusLengthsKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        arrayOfCyclusLengths=returnedValue;
+      } else {
+        console.log("cant get an Array of CyclusLengths")
       }
     });
 
@@ -228,7 +256,7 @@ const CycleCalc = async () => {
 
   //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
-    console.log("EndofMensCalc wird aufgerufen "+date[0]);
+    console.log("EndofMensCalc wird aufgerufen ");
     let y = NaN;
     let x = NaN;
     let lastDay;
@@ -316,12 +344,14 @@ const CycleCalc = async () => {
   let lastDay = endOfMensCalc(firstDay);
   //console.log("First Day " + firstDay + " lastday " + lastDay);
   
-  let firstDayString = firstDay[1][1] + "-"+firstDay[1][0]+"-"+firstDay[0];
-  console.log(firstDayString+" ist das Datum, und der Datentyp: "+ typeof(firstDayString));
-  storeMyStringStuff("@firstDayArrayKey", firstDayString);
-  let lastDayString = lastDay[1][1] + "-"+lastDay[1][0]+"-"+lastDay[0];
-  console.log(lastDayString+" ist das Datum, und der Datentyp: "+ typeof(lastDayString));
-  storeMyStringStuff("@lastDayArrayKey", lastDayString);
+  //Rausgefundene Daten Werden in DB übertragen
+  let firstDayString = firstDay[1][1] + "-"+ fixDate(firstDay[1][0])+"-"+fixDate(firstDay[0]);
+  console.log(firstDayString+" ist das Anfangs-Datum, und der Datentyp: "+ typeof(firstDayString));
+  storeMyStringStuff("@firstDayKey", firstDayString);
+
+  let lastDayString = lastDay[1][1] + "-"+fixDate(lastDay[1][0])+"-"+fixDate(lastDay[0]);
+  console.log(lastDayString+" ist das End-Datum, und der Datentyp: "+ typeof(lastDayString));
+  storeMyStringStuff("@lastDayKey", lastDayString);
   
   return firstDay, lastDay;
   //Diese beiden Variablen müssen in die Datenbank und im Index-Calc aufgerufen werden. 

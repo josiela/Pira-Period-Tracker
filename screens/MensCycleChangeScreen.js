@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.mainG,
     lineHeight: normalizeH(9),
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
   text2: {
     marginTop: "15%",
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: "flex-start",
 
-    marginTop: "20%",
+    marginTop: "15%",
     width: normalizeH(31),
     height: normalizeH(35),
   },

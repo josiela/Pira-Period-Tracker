@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: colors.mainG,
-    fontSize: 20,
+    fontSize: normalizeH(7.5),
   },
 
   //Button Styles:
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: "flex-start",
 
-    marginTop: "20%",
+    marginTop: "15%",
     width: normalizeH(31),
     height: normalizeH(35),
   },

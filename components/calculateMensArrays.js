@@ -5,10 +5,11 @@ import Entry from "../database/EntryClass";
 import React, {  useState } from "react";
 
 let firstEntry = new Entry("2027-08-01", 2, 3, 4, "Nichts Sonderliches");
-let entryArray=[firstEntry,firstEntry];
+let entryArray=[];
 let firstMensDaysArray=[];
 let mensLengthsArray=[];
 let counter=1;
+let oneDayBreakCounter=0;
 
 const getArray = async () => {
   console.log("GetArray aufgerufen");
@@ -35,19 +36,16 @@ const fixDate =(number)=>{
 //Wenn ja-> für den tag davor das gleiche tun
 //Wenn man am ende angekommen ist-> schrittweite, die man gegangen ist= Menslänge für das mal I guess
 
-//Prüft, ob der Tag der erste der blutung in diesem zyklus war, und packt ihn in das firstMensDaysArray, wenn ja
-const checkIfFirstDay=(entry)=>{
-  if(entry.blood!==""){console.log("Bluuut am : "+entry.date);
-  console.log("checkIfFirstDayLength aufgerufen" + entry.date);
+const calculateDayBefore=(date)=>{
+  console.log("Der calcDayBefore wurde folgendes datum gegeben: "+date+ "vom datentyp: "+ typeof(date));
   
-
-  let tryVar= entry.date[8]+entry.date[9];
+  let tryVar= date[9]+date[10];
   let dayNumber= parseInt(tryVar);
 
-  tryVar= entry.date[5]+entry.date[6];
+  tryVar= date[6]+date[7];
   let monthNumber= parseInt(tryVar);
 
-  tryVar= entry.date[0]+entry.date[1]+entry.date[2]+entry.date[3];
+  tryVar= date[1]+date[2]+date[3]+date[4];
   let yearNumber= parseInt(tryVar);
 
   let dayBefore=0;
@@ -55,6 +53,7 @@ const checkIfFirstDay=(entry)=>{
 
   //Berechne den Tag davor
   if(dayNumber!=1){
+    console.log("yearnumber: "+yearNumber);
     dayBefore=JSON.stringify(yearNumber+"-"+fixDate(monthNumber)+"-"+fixDate(dayNumber-1));
     console.log("Day Before:"+dayBefore);
   }
@@ -81,18 +80,41 @@ const checkIfFirstDay=(entry)=>{
     console.log("Day Before:"+dayBefore);
   }
 
+  return dayBefore;
+};
 
+
+//Prüft, ob der Tag der erste der blutung in diesem zyklus war, und packt ihn in das firstMensDaysArray, wenn ja
+const checkIfFirstDay=(entry)=>{
+  console.log(entry.blood);
+  if(entry.blood!=="" && entry.date!== 1){
+  console.log("Bluuut am : "+entry.date);
+  console.log("checkIfFirstDayLength aufgerufen" + entry.date);
+  
+  let dayBefore= calculateDayBefore(JSON.stringify(entry.date));
   //Prüfe, ob Tag davor in der DB ist
-  console.log("Teeeeeeeest"+(entryArray.find((littleEntry) =>  littleEntry.date === "2022-09-02" ))instanceof Entry);
   if(entryArray.find((littleEntry) =>  (JSON.stringify(littleEntry.date) === dayBefore ) && (((littleEntry.blood) === "1"  )||((littleEntry.blood) === "2"  )||((littleEntry.blood) === "3"  )) )){
-    
+        oneDayBreakCounter=0;
         console.log("Am Tag davor wurde was blutiges eingetragen"+dayBefore);
         
         console.log("Der Tag davor hatte auch Blutung!");
         
       }else{
+        //Wenn nicht, prüfen ob zwei tage vorher was mit Blutung in der DB ist
         console.log("Am tag davor war kein Eintrag");
-        firstMensDaysArray.push(entry);
+        
+          console.log("Schauen wir aber noch einen Tag zurück:");
+          
+          
+          let twoDaysBefore = calculateDayBefore(dayBefore);
+          console.log("Two days before: "+twoDaysBefore);
+          if(entryArray.find((littleEntry) =>  (JSON.stringify(littleEntry.date) === twoDaysBefore ) && (((littleEntry.blood) === "1"  )||((littleEntry.blood) === "2"  )||((littleEntry.blood) === "3"  )) )){
+            console.log("Zwei Tage vorher gab es aber blutung, der ursprungstag "+ entry.date+" kommt also nicht in die DB");
+          }else{
+            console.log("Zwei Tage vorher gab es auch keine Blutung, also ab in die DB: mit dem "+ entry.date);
+            firstMensDaysArray.push(entry);
+          }
+     
         
       }
     }
@@ -184,11 +206,13 @@ export const startCalculatingMensLengths = () => {
   firstMensDaysArray.forEach(lengthofMens);
   mensLengthsArray.forEach(justPrintTheArray);
   firstMensDaysArray.forEach(printEntryArray);
-
+  firstMensDaysArray=[];
+  mensLengthsArray=[];
+  console.log("-------------------------------------------\n");
 };
 
 
 
-//Nächster schritt: Warum werden die firstMensDays mit jedem speichern in dem Array verdoppelt? 
+//--------------------------Warum werden die firstMensDays mit jedem speichern in dem Array verdoppelt? 
 //Noch verbessern: auch einen tag pause lassen können bei checkIfFirstday
 //Am ende noch einmal aufrufen, da es immer ein "speichern" hinterherhinkt

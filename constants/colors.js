@@ -7,7 +7,7 @@
 export default{
     mainBlk: '#17120E',
     mainG:'#989395',
-    mainLG:'#EAEDEA',
+    mainLG:'#f2f2f2',
     primBlue: '#92b6e3',
     primCrem: '#fad092',
     accBlue: '#055177',

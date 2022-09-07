@@ -31,7 +31,7 @@ const EntryScreen = (props) => {
   const [dateString, setDateString] = useState("");
 
   const createNewEntry = async () => {
-    console.log("NENENEEN");
+ 
     //Wenn es schon nen Eintrag gibt, den erst löschen
     if (
       entryArray.find((entry) => entry.date === props.route.params.date) !==
@@ -80,7 +80,7 @@ const EntryScreen = (props) => {
 
     tryVar= props.route.params.date[0]+props.route.params.date[1]+props.route.params.date[2]+props.route.params.date[3];
     let yearNumber= parseInt(tryVar);
-    console.log(monthNumber);
+   
     switch (monthNumber){
       case 1:
         monthString="Januar";
@@ -121,9 +121,78 @@ const EntryScreen = (props) => {
       default:
           monthString="Nutze einen Tag";
     }
-    console.log(monthString+"hehe");
     setDateString(JSON.stringify(dayNumber)+". "+monthString);
   };
+
+  const moodEntrys =( mood1)=>{
+    if(parseInt(mood)===mood1){
+      setMood("");
+    }else{ 
+    switch(mood1){
+     
+      case 1:
+        setMood("1");
+        break;
+      case 2:
+        setMood("2");
+        break;
+      case 3:
+        setMood("3");
+        break;
+      default:
+        setMood("");
+        break;
+
+    }
+  }
+  };
+
+  const bloodEntrys =( blood1)=>{
+    if(parseInt(blood)===blood1){
+      setBlood("");
+    }else{ 
+    switch(blood1){
+     
+      case 1:
+        setBlood("1");
+        break;
+      case 2:
+        setBlood("2");
+        break;
+      case 3:
+        setBlood("3");
+        break;
+      default:
+        setBlood("");
+        break;
+
+    }
+  }
+  };
+
+
+  const painEntrys =( pain1)=>{
+    if(parseInt(pain)===pain1){
+      setPain("");
+    }else{ 
+    switch(pain1){
+      case 1:
+        setPain("1");
+        break;
+      case 2:
+        setPain("2");
+        break;
+      case 3:
+        setPain("3");
+        break;
+      default:
+        setPain("");
+        break;
+
+    }
+  }
+  };
+
 
   //Sorgt für aktualisierung der Variablen nachdem die Datenbank fertig geladen hat
   useEffect(() => {
@@ -176,7 +245,7 @@ const EntryScreen = (props) => {
               
           },
           styles.iconBox
-        ]}onPress={() => setBlood("1")}>
+        ]}onPress={() => bloodEntrys(1)}>
                 <Image
                   style={styles.icon}
                   source={require("../assets/Blu1.png")}
@@ -190,7 +259,7 @@ const EntryScreen = (props) => {
               
           },
           styles.iconBox
-        ]} onPress={() => setBlood("2")}>
+        ]} onPress={() => bloodEntrys(2)}>
                 <Image
                   style={styles.blod2}
                   source={require("../assets/Blut2.png")}
@@ -204,7 +273,7 @@ const EntryScreen = (props) => {
               
           },
           styles.iconBox
-        ]} onPress={() => setBlood("3")}>
+        ]} onPress={() => bloodEntrys(3)}>
                 <Image
                   style={styles.blod3}
                   source={require("../assets/Blut3.png")}
@@ -221,7 +290,7 @@ const EntryScreen = (props) => {
               
           },
           styles.iconBox
-        ]} onPress={() => setPain("1")}>
+        ]} onPress={() => painEntrys(1)}>
                 <Image
                   style={styles.clouds}
                   source={require("../assets/Schmerz1.png")}
@@ -235,7 +304,7 @@ const EntryScreen = (props) => {
               
           },
           styles.iconBox
-        ]} onPress={() => setPain("2")}>
+        ]} onPress={() => painEntrys(2)}>
                 <Image
                   style={styles.clouds}
                   source={require("../assets/Schmerz2.png")}
@@ -249,7 +318,7 @@ const EntryScreen = (props) => {
               
           },
           styles.iconBox
-        ]} onPress={() => setPain("3")}>
+        ]} onPress={() => painEntrys(3)}>
                 <Image
                   style={styles.clouds}
                   source={require("../assets/Schmerz3.png")}
@@ -266,7 +335,7 @@ const EntryScreen = (props) => {
               : colors.mainLG
           },
           styles.iconBox
-        ]} onPress={() => setMood("1")}>
+        ]} onPress={() => moodEntrys(1)}>
                 <Image
                   style={styles.faces}
                   source={require("../assets/Stimmung1.png")}
@@ -279,7 +348,7 @@ const EntryScreen = (props) => {
               : colors.mainLG
           },
           styles.iconBox
-        ]} onPress={() => setMood("2")}>
+        ]} onPress={() => moodEntrys(2)}>
                 <Image
                   style={styles.faces}
                   source={require("../assets/Stimmung2.png")}
@@ -293,7 +362,7 @@ const EntryScreen = (props) => {
               : colors.mainLG
           },
           styles.iconBox
-        ]} onPress={() => setMood("3")}>
+        ]} onPress={() => moodEntrys(3)}>
                 <Image
                   style={styles.faces}
                   onPress={() => (this.opacity = 0.2)}

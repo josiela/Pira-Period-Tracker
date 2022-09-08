@@ -1,13 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getMyObjectStuff, getMyStringStuff } from "../database/CreateDatabase";
+
+import { storeMyStuff,removeMyStuff, getMyStringStuff } from "../database/CreateDatabase";
 
 import Entry from "../database/EntryClass";
-import React, {  useState } from "react";
 
 let firstEntry = new Entry("2027-08-01", 2, 3, 4, "Nichts Sonderliches");
 let entryArray=[];
 let firstMensDaysArray=[];
 let mensLengthsArray=[];
+let cyclusLengthsArray=[];
 let counter=1;
 let oneDayBreakCounter=0;
 
@@ -55,29 +55,29 @@ const calculateDayBefore=(date)=>{
   //Berechne den Tag davor
   if(dayNumber!=1){
     dayBefore=JSON.stringify(yearNumber+"-"+fixDate(monthNumber)+"-"+fixDate(dayNumber-1));
-    console.log("Day Before:"+dayBefore);
+    //console.log("Day Before:"+dayBefore);
   }
   else if(dayNumber==1 && monthNumber ==1){
     dayBefore=JSON.stringify((yearNumber-1)+"-"+12+"-"+31);
-    console.log("Day Before:"+dayBefore);
+    //console.log("Day Before:"+dayBefore);
   }
   else if(dayNumber==1 && monthNumber ==3){
     if(yearNumber%4==0){
       dayBefore=JSON.stringify(yearNumber+"-"+fixDate(2)+"-"+29);
-      console.log("Day Before:"+dayBefore);
+     // console.log("Day Before:"+dayBefore);
     }
     else{
       dayBefore=JSON.stringify(yearNumber+"-"+fixDate(2)+"-"+28);
-      console.log("Day Before:"+dayBefore);
+      //console.log("Day Before:"+dayBefore);
     }
   }
   else if(dayNumber==1 && (monthNumber ==2 ||monthNumber ==4 ||monthNumber ==6||monthNumber ==8||monthNumber ==9||monthNumber ==11)){
     dayBefore=JSON.stringify(yearNumber+"-"+fixDate(monthNumber-1)+"-"+31);
-    console.log("Day Before:"+dayBefore);
+    //console.log("Day Before:"+dayBefore);
   }
   else if(dayNumber==1 && (monthNumber ==3 ||monthNumber ==5 ||monthNumber ==7||monthNumber ==10||monthNumber ==12)){
     dayBefore=JSON.stringify(yearNumber+"-"+fixDate(monthNumber-1)+"-"+30);
-    console.log("Day Before:"+dayBefore);
+    //console.log("Day Before:"+dayBefore);
   }
 
   return dayBefore;
@@ -86,10 +86,9 @@ const calculateDayBefore=(date)=>{
 
 //Prüft, ob der Tag der erste der blutung in diesem zyklus war, und packt ihn in das firstMensDaysArray, wenn ja
 const checkIfFirstDay=(entry)=>{
-  console.log(entry.blood);
+  //console.log(entry.blood);
   if(entry.blood!=="" && entry.date!== 1){
- // console.log("Bluuut am : "+entry.date);
-  console.log("checkIfFirstDay aufgerufen" + entry.date);
+
   
   let dayBefore= calculateDayBefore(JSON.stringify(entry.date));
   //Prüfe, ob Tag davor in der DB ist
@@ -135,19 +134,19 @@ const calculateDayAfter=(date)=>{
   //Berechne den Tag danach
   if(dayNumber==31 && monthNumber==12){
     dayAfter=JSON.stringify((yearNumber+1)+"-"+fixDate(1)+"-"+fixDate(1));
-    console.log("Day After:"+dayAfter);
+   
   }
   if(dayNumber==31 && monthNumber<=11){
     dayAfter=JSON.stringify(yearNumber+"-"+fixDate(monthNumber+1)+"-"+fixDate(1));
-    console.log("Day After:"+dayAfter);
+    
   }
   else if(dayNumber==30 && ((monthNumber ==4)||(monthNumber ==6)||(monthNumber ==9)||(monthNumber ==11))){
     dayAfter=JSON.stringify(yearNumber+"-"+fixDate(monthNumber+1)+"-"+fixDate(1));
-    console.log("Day Before:"+dayAfter);
+    
   }
   else if(dayNumber==31 && ((monthNumber ==1)||(monthNumber ==3)||(monthNumber ==5)||(monthNumber ==7)||(monthNumber ==8)||(monthNumber ==10))){
     dayAfter=JSON.stringify(yearNumber+"-"+fixDate(monthNumber+1)+"-"+fixDate(1));
-    console.log("Day Before:"+dayAfter);
+ 
   }
   else if(monthNumber==2 && (dayNumber ==28 ||dayNumber ==29 )){
     if(dayNumber==28){
@@ -163,7 +162,7 @@ const calculateDayAfter=(date)=>{
     dayAfter=JSON.stringify(yearNumber+"-"+fixDate(monthNumber)+"-"+fixDate(dayNumber+1));
   }
   
-  console.log("An calcDayAfter wurde "+ date+"übergeben, der nächste Tag ist: "+ dayAfter);
+  //console.log("An calcDayAfter wurde "+ date+"übergeben, der nächste Tag ist: "+ dayAfter);
   return dayAfter;
 };
 
@@ -211,18 +210,79 @@ const printEntryArray=(entry)=>{
   console.log(entry.date);
 };
 
-export const startCalculatingMensLengths = () => {
+
+//Berechnet Zykluslänge
+
+const calculateCyclusLengths=(entry)=>{
+
+//Anfangsdaten von 2 Perioden die hintereinanderliegen
+//Abstand berechnen lel
+//Eintrag nehmen, nächsten tag berechnen, schauen ob in "firstdays" drin, zählen wie oft das gemacht wird?
+
+let counter=2;
+let finished=false;
+let date= JSON.stringify(entry.date);
+//Nächsten tag berechnen
+
+while((counter<100) && finished===false){
+  
+  let dayAfter=calculateDayAfter(date);
+  date=dayAfter;
+  //console.log(dayAfter);
+
+  //Schauen ob nächster tag ein erster Tag ist
+  if(firstMensDaysArray.find((littleEntry) =>  (JSON.stringify(littleEntry.date) === dayAfter )  )){
+      //console.log("Diese Mens: "+entry.date+", Nächste Mens gefunden am: "+ dayAfter+", Zyklus Länge= "+counter );
+      cyclusLengthsArray.push(counter);
+      counter=2;
+      finished=true;
+  }else{
+    counter+=1;
+}}
+
+}
+
+
+const storeEverything = async () => {
+    console.log("Folgendes wird in die DB gelegt:\n Menslängen:" );
+    mensLengthsArray.forEach(justPrintTheArray);
+    console.log("Zykluslängen:");
+    cyclusLengthsArray.forEach(justPrintTheArray); 
+    
+
+    removeMyStuff("@mensLengthArray", mensLengthsArray);
+    removeMyStuff("@cyclusLengthArray", cyclusLengthsArray);
+
+    storeMyStuff("@mensLengthArray", mensLengthsArray);
+    storeMyStuff("@cyclusLengthArray", cyclusLengthsArray);
+
+};
+
+export const startCalculatingMensLengths = async() => {
   
   console.log("startCalculatingMensLengths aufgerufen");
-  getArray();
+  await getArray();
 
   //entryArray.forEach(printEntryArray);
   entryArray.forEach(checkIfFirstDay);
   firstMensDaysArray.forEach(lengthofMens);
-  mensLengthsArray.forEach(justPrintTheArray);
+
   firstMensDaysArray.forEach(printEntryArray);
-  firstMensDaysArray=[];
-  mensLengthsArray=[];
+  if(firstMensDaysArray.length>1){
+    firstMensDaysArray.forEach(calculateCyclusLengths);
+  }
+  
+
+    storeEverything();
+    console.log("Gespeichert");
+    doItTwice=true;  
+    cyclusLengthsArray=[];
+    firstMensDaysArray=[];
+    mensLengthsArray=[];
+  
+
+
+
   console.log("-------------------------------------------\n");
 };
 
@@ -231,7 +291,7 @@ export const startCalculatingMensLengths = () => {
 //--------------------------Warum werden die firstMensDays mit jedem speichern in dem Array verdoppelt?
 //--------------------------Als nächstes: den tag pause auch bei der calcMensLength berücksichtigen 
 //--------------------------Noch verbessern: auch einen tag pause lassen können bei checkIfFirstday
-//Cycluslänge berechnen
+//--------------------------Cycluslänge berechnen
 //
 //In DB kloppen dat Ding
 //Am ende noch einmal aufrufen, da es immer ein "speichern" hinterherhinkt

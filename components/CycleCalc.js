@@ -24,6 +24,12 @@ const fixDate =(number)=>{
 }
 
 
+  //Holt Arrays aus DB
+ 
+  
+ 
+
+  
 const CycleCalc = async () => {
   let arrayOfMensLengths=[];
   let arrayOfCyclusLengths=[];
@@ -37,7 +43,29 @@ const CycleCalc = async () => {
   const long = [1, 3, 5, 7, 8, 10, 12];
   const short = [4, 6, 9, 11];
   const special = [2];
-  
+  let mensItems = [];
+  let cycleItems = [];
+
+  await getMyStringStuff("@mensLengthArrayKey").then((returnedValue) => {
+    if (returnedValue !== null) {
+      console.log("Hier kommt die menslength"+returnedValue);
+      mensItems= JSON.parse(returnedValue);
+    } else {
+      console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+    }
+  });
+
+
+  await getMyStringStuff("@cyclusLengthArrayKey").then((returnedValue) => {
+    if (returnedValue !== null) {
+      cyclusItems= JSON.parse(returnedValue);
+      console.log("Hier kommt die Zykluslength"+returnedValue);
+      
+    } else {
+      console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+    }
+  });
+
 
   const monthLong = 31;
   const monthShort = 30;
@@ -75,23 +103,6 @@ const CycleCalc = async () => {
       }
     });
 
-    await getMyObjectStuff("@ArrayOfMensLengthsKey").then((returnedValue) => {
-      if (returnedValue !== null) {
-        arrayOfMensLengths=returnedValue;
-      } else {
-        console.log("cant get an Array of MensLengths")
-      }
-    });
-
-    await getMyObjectStuff("@ArrayOfCyclusLengthsKey").then((returnedValue) => {
-      if (returnedValue !== null) {
-        arrayOfCyclusLengths=returnedValue;
-      } else {
-        console.log("cant get an Array of CyclusLengths")
-      }
-    });
-
-  
 
 
   //---------------------------------------------------------------------
@@ -143,30 +154,31 @@ const CycleCalc = async () => {
     return [month, year];
   };
 
+
+
   //sets Cycle Value given the Array of Data from Database, returns a value
   const setCycle = () => {
-    const mensItems = [4, 5, 7];
-    const cycleItems = [22, 26, 28];
+  
+    
     if (checkifAverage(mensItems, cycleItems) == true) {
       cycle = checkCycleAverage(cycleItems);
       console.log("individual", cycle);
       return cycle;
     } else {
-      cycle = 28;
+      cycle = cyclusLength;
       return cycle;
     }
   };
 
   //sets Mens Value given the Array of Data from Database, returns a value
   const setMens = () => {
-    const mensItems = [4, 5, 7];
-    const cycleItems = [22, 26, 28];
+
     if (checkifAverage(mensItems, cycleItems) == true) {
       mens = checkMensAverage(mensItems);
       console.log("individual", mens);
       return mens;
     } else {
-      mens = 5;
+      mens = mensLength;
       return mens;
     }
   };

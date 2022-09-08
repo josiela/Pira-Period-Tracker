@@ -52,8 +52,8 @@ const EntryScreen = (props) => {
     //Altes Array löschen, neues speichern
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
-    startCalculatingMensLengths();
-    //CycleCalc();
+    await startCalculatingMensLengths();
+    CycleCalc();
   };
 
   //Zieht Array aus Datenbank

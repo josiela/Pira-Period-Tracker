@@ -67,6 +67,7 @@ const IndexCal = (props) => {
         <Calendar
           theme={{
             arrowColor: colors.accBlue,
+            backgroundColor:colors.mainLG,
             calendarBackground: colors.mainLG,
           }}
           markingType={"period"}

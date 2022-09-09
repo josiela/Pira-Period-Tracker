@@ -42,9 +42,11 @@ const ChoosePwScreen = (props) => {
       await storeMyStuff("@cyclusLength", cyclusLength);
     }
     if (cyclusLength === null && mensLength === null) {
-      alert("Bitte gib Daten ein, um sie zu speichern");
+      Alert.alert(null, "Bitte gib Daten ein, um sie zu speichern");
     } else {
-      alert("Danke! Deine Angaben wurden gespeichert!");
+      //Alert.alert("Danke! Deine Angaben wurden gespeichert!");
+      console.log("useless yay");
+      
     }
   };
 

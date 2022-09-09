@@ -25,7 +25,7 @@ export const getMyStringStuff = async (key) => {
     return AsyncStorage.getItem(key);
   } else {
     console.log("Nothing found here");
-    Alert("No String found in Database");
+    alert("No String found in Database");
   }
 };
 
@@ -62,5 +62,5 @@ export const getAllKeys = async () => {
 //Deletes everything in the database
 export const deleteAll = async () => {
   AsyncStorage.clear();
-  alert("Deine Daten wurden gelöscht");
+  Alert.alert(null, "Deine Daten wurden gelöscht");
 };

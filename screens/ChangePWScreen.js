@@ -62,12 +62,15 @@ const ChangePWScreen = (props) => {
       if (confirmValue === confirmConfirmNumber) {
         removeMyStuff("@passwordKey");
         storeMyStuff("@passwordKey", confirmValue);
-        alert("Danke!\nDein neues Passwort wurde gespeichert");
+        resetInputHandler();
+        Alert.alert(null, "Danke!\nDein neues Passwort wurde gespeichert");
       } else {
-        alert("Die Widerholung der neuen Pin ist inkorrekt");
+        resetInputHandler();
+        Alert.alert(null,"Die Wiederholung der neuen Pin ist inkorrekt");
       }
     } else {
-      alert("Überprüfe die aktuelle Pin");
+      resetInputHandler;
+      Alert.alert(null,"Überprüfe die aktuelle Pin");
       console.log(oldPW);
     }
   };

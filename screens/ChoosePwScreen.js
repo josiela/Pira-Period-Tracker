@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Pressable, Text } from "react-native";
+import { View, StyleSheet, Image, Pressable, Text, Alert } from "react-native";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
@@ -28,11 +28,11 @@ const ChoosePwScreen = (props) => {
   const storeNewPassword = async () => {
     if (confirmNumber === enteredValue) {
       storeMyStuff("@passwordKey", enteredValue);
-      alert("Danke Dir!\nDein Passwort wurde gespeichert");
+      Alert.alert(null,"Danke Dir!\nDein Passwort wurde gespeichert");
       props.navigation.navigate("9");
-    } else {
-      alert("Die Widerholung des Passworts ist inkorrekt");
-    }
+    } else{
+       Alert.alert(null,"Die Widerholung des Passworts ist inkorrekt");
+       }
   };
 
   //validates Numbers only

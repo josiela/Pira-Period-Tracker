@@ -6,6 +6,7 @@ import {
   Text,
   Keyboard,
   Image,
+  Alert,
 } from "react-native";
 import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
@@ -17,6 +18,7 @@ import {
   getMyStringStuff,
 } from "../database/CreateDatabase";
 import { normalizeH } from "../constants/fontResponsive";
+import { NativeEventEmitter } from "react-native-web";
 /**
  * InputScreen for Mens and Cycle Length CHANGE
  *
@@ -76,13 +78,22 @@ const MensCycleChangeScreen = (props) => {
 
   const inputHandler = () => {
     console.log("gotcha");
-    const mens = parseInt(mensLength);
-    const cycle = parseInt(cyclusLength);
-    console.log("mens " + mens + " cycle " + cycle);
-    setMensLength("");
-    setCyclusLength("");
-    storeLengths();
-    Keyboard.dismiss();
+    let mens = parseInt(mensLength);
+    let cycle = parseInt(cyclusLength);
+    console.log("mens " + mens + " cycle " + cycle);  
+    if(mens >= 0 && cycle >=0 ){
+      setMensLength("");
+      setCyclusLength("");
+      storeLengths();
+      Keyboard.dismiss();
+      Alert.alert(null, "changes have been saved", [{text: "okay",onPress: ()=>props.navigation.navigate("SettingsScreen")}]);
+    }else{
+      Alert.alert(null, "no entry fetched", [{text: "close"}]);
+ 
+    }
+       //
+    
+  
   };
   useEffect(() => {
     getOldStuff();

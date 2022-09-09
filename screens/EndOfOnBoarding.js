@@ -19,7 +19,15 @@ const EndOfOnBoarding = (props) => {
         <Text style={styles.text}>{content.endOnb}</Text>
       </View>
       <View style={styles.button}>
-        <Pressable style={styles.button1} onPress={props.updateState}>
+        <Pressable style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? colors.accBlue
+              : colors.primBlue
+              
+          },
+          styles.button1
+        ]} onPress={props.updateState}>
           <Text style={styles.text2}>Einrichtung beenden</Text>
         </Pressable>
       </View>
@@ -39,7 +47,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textBox: {
-    marginTop: "26%",
+    marginTop: "14%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: "flex-start",
@@ -48,19 +56,18 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: normalizeH(9),
     color: colors.mainG,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
   text2: {
     lineHeight: normalizeH(9),
     color: colors.mainLG,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
 
   button1: {
     borderRadius: 8,
     height: 40,
     elevation: 3,
-    backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
-    marginTop: "18%",
+    marginTop: "15%",
     color: colors.accBlue,
-    fontSize: normalizeH(15),
+    fontSize: normalizeH(14),
     lineHeight: normalizeH(22),
   },
 
   textBox: {
-    marginTop: "15%",
+    marginTop: "2%",
     width: "100%",
     paddingTop: normalizeH(8),
     alignSelf: "flex-start",

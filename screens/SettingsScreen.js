@@ -88,7 +88,7 @@ const SettingsScreen = (props) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: "18%",
+    marginTop: "14%",
     color: colors.accBlue,
     fontSize: normalizeH(15),
     lineHeight: normalizeH(22),
@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
     height: "6.5%",
   },
   text: {
-    lineHeight: normalizeH(9),
+    lineHeight: normalizeH(10),
     color: colors.mainBlk,
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(9),
   },
 
   container: {

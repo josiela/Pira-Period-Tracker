@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
     width: 250,
-    height: 50,
-    fontSize: normalizeH(8),
+    height: 40,
+    fontSize: normalizeH(7.5),
   },
 });
 

@@ -113,7 +113,13 @@ const MensCycleChangeScreen = (props) => {
             />
 
             <View style={styles.button}>
-              <Pressable style={styles.button1} onPress={inputHandler}>
+              <Pressable style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? colors.accBlue
+              : colors.primBlue
+          },styles.button1
+        ]} onPress={inputHandler}>
                 <Text style={styles.textButton}>{"speichern"}</Text>
               </Pressable>
             </View>
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.mainG,
     lineHeight: normalizeH(9),
-    fontSize: normalizeH(7),
+    fontSize: normalizeH(7.5),
   },
   text2: {
     marginTop: "15%",
@@ -196,7 +202,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: "flex-start",
 
-    marginTop: "20%",
+    marginTop: "15%",
     width: normalizeH(31),
     height: normalizeH(35),
   },
@@ -207,7 +213,6 @@ const styles = StyleSheet.create({
     height: normalize(40),
     width: normalize(100),
     elevation: 3,
-    backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
   },

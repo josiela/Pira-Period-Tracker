@@ -1,15 +1,27 @@
 import React from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable, Alert } from "react-native";
 import UILogo from "./UILogo";
 
+
+const functiom=(props)=>{
+  if(props.date[1]===undefined){
+    
+    Alert.alert(null, "Bitte wähle einen Tag für deinen Eintrag");
+  }else{
+    props.navigation.navigate("AddEntryScreen", {
+      date: props.date,
+     })
+
+  }
+};
 const AddButton = (props) => {
   return (
     <View>
       <Pressable
         onPress={() =>
-          props.navigation.navigate("AddEntryScreen", {
-            date: props.date,
-          })
+          functiom(props)
+         
+          
         }
       >
         <UILogo src={props.icon} styleType={props.sizeStyle} />

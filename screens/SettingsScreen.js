@@ -1,4 +1,4 @@
-import React from "react";
+import {useEffect, React }from "react";
 import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
 import Settings from "../components/Settings";
 import colors from "../constants/colors";
@@ -43,7 +43,10 @@ const SettingsScreen = (props) => {
       onPress: () => props.navigation.navigate("DeleteScreen"),
     },
   ];
-
+  useEffect(() => {
+    console.log("SettingScreen, hah!");
+    
+  }, []);
   return (
     <View style={styles.container}>
       <View>
@@ -110,24 +113,24 @@ const styles = StyleSheet.create({
     height: "80%",
   },
   icon: {
-    marginBottom: "50%",
-    width: "70%",
-    height: "12%",
+    marginBottom: "45%",
+    width: normalizeH(22),
+    height: normalizeH(22),
   },
   icon2: {
-    marginBottom: "50%",
-    width: "78%",
-    height: "12%",
+    marginBottom: "45%",
+    width: normalizeH(19.7),
+    height: normalizeH(22),
   },
   icon3: {
-    marginBottom: "50%",
-    width: "90%",
-    height: "11%",
+    marginBottom: "45%",
+    width: normalizeH(23),
+    height: normalizeH(20),
   },
   icon4: {
-    marginBottom: "50%",
-    width: "100%",
-    height: "6.5%",
+    marginBottom: "45%",
+    width: normalizeH(23),
+    height: normalizeH(23),
   },
   text: {
     lineHeight: normalizeH(10),

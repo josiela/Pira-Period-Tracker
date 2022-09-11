@@ -13,7 +13,7 @@ export const hey = "Hallo!";
 export const Passwort =
   "Möchtest du deine App mit einem Passwort schützen? \n\nDas würde deine Inhalte vor Fremden schützen, sollten diese dein Endgerät bedienen.\nEs wird bei jedem App-Start abgefragt werden. ";
 export const Passwort2 =
-  "\nEin Passwort ermöglicht dir, deine Inhalte vor Fremden zu schützen, sollten sie dein Endgerät bedienen.\n\nSolltest du noch kein Passwort haben, lass das Feld einfach leer";
+  "\nEin Passwort ermöglicht dir, deine Inhalte vor Fremden zu schützen, sollten sie dein Endgerät bedienen.\n\nSolltest du bis jetzt noch kein Passwort haben, lass das obere Feld einfach leer";
 export const ZuM1 =
   "Unsere Voraussagen basieren auf den von dir eingetragenen Daten. \nFalls du sie kennst, kannst du hier deine durchschnittlichen Zyklus- und Menstruationslänge eintragen.";
 export const ZuM2 =

@@ -45,16 +45,24 @@ const ChangePWScreen = (props) => {
   const [confirmConfirmNumber, setConfirmConfirmNumber] = useState();
   const [selectedNumber, setSelectedNumber] = useState();
   const [confirmed, setConfirmed] = useState(false);
+  const [gibtsPasswort,setGibtsaltesPasswort]=useState("Kein Passwort festgelegt");
 
   //My New Stuff
   const getPassword = async () => {
     await getMyStringStuff("@passwordKey").then((returnedValue) => {
       if (returnedValue !== null) {
+        console.log("Altes PW vorhanden");
+        setGibtsaltesPasswort("alte Pin");
         setOldPW(JSON.parse(returnedValue));
       } else {
         setOldPW(0);
       }
     });
+  };
+
+  const navigate =()=>{
+    props.navigation.navigate("SettingsScreen");
+    getPassword();
   };
 
   const storeNewPassword = async () => {
@@ -63,7 +71,7 @@ const ChangePWScreen = (props) => {
         removeMyStuff("@passwordKey");
         storeMyStuff("@passwordKey", confirmValue);
         resetInputHandler();
-        Alert.alert(null, "Danke!\nDein neues Passwort wurde gespeichert");
+        Alert.alert(null, "Danke!\nDein neues Passwort wurde gespeichert", [{text: "okay",onPress: ()=>navigate()}]);
       } else {
         resetInputHandler();
         Alert.alert(null,"Die Wiederholung der neuen Pin ist inkorrekt");
@@ -146,7 +154,7 @@ const ChangePWScreen = (props) => {
       </View>
 
       <Input
-        title={content.pin2}
+        title={gibtsPasswort}
         onChangeText={numberInputHandler}
         value={enteredValue}
       />

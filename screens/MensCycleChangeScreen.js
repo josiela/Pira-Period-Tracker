@@ -76,6 +76,11 @@ const MensCycleChangeScreen = (props) => {
     });
   };
 
+  const navigate =()=>{
+    props.navigation.navigate("SettingsScreen");
+    getOldStuff();
+  };
+
   const inputHandler = () => {
     console.log("gotcha");
     let mens = parseInt(mensLength);
@@ -86,7 +91,7 @@ const MensCycleChangeScreen = (props) => {
       setCyclusLength("");
       storeLengths();
       Keyboard.dismiss();
-      Alert.alert(null, "changes have been saved", [{text: "okay",onPress: ()=>props.navigation.navigate("SettingsScreen")}]);
+      Alert.alert(null, "changes have been saved", [{text: "okay",onPress: ()=>navigate()}]);
     }else{
       Alert.alert(null, "no entry fetched", [{text: "close"}]);
  
@@ -96,6 +101,7 @@ const MensCycleChangeScreen = (props) => {
   
   };
   useEffect(() => {
+    console.log("Ausgegeben, hah!");
     getOldStuff();
   }, []);
   return (

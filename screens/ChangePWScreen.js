@@ -60,6 +60,15 @@ const ChangePWScreen = (props) => {
     });
   };
 
+  const [state, setState] = useState({});
+
+  useEffect(() => {
+      getPassword();
+      return () => {
+        setState({}); 
+      };
+  }, []);
+
   const navigate =()=>{
     props.navigation.navigate("SettingsScreen");
     getPassword();
@@ -77,7 +86,7 @@ const ChangePWScreen = (props) => {
         Alert.alert(null,"Die Wiederholung der neuen Pin ist inkorrekt");
       }
     } else {
-      resetInputHandler;
+      resetInputHandler();
       Alert.alert(null,"Überprüfe die aktuelle Pin");
       console.log(oldPW);
     }
@@ -142,6 +151,8 @@ const ChangePWScreen = (props) => {
   }
   useEffect(() => {
     getPassword();
+    return () => setState({});
+  
   }, []);
 
   return (

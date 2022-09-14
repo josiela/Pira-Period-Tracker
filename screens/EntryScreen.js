@@ -54,6 +54,7 @@ const EntryScreen = (props) => {
     storeMyStuff("@entryArrayKey", entryArray);
     await startCalculatingMensLengths();
     CycleCalc();
+    props.navigation.navigate("Calendar");
   };
 
   //Zieht Array aus Datenbank

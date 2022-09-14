@@ -24,14 +24,18 @@ import { storeMyStuff } from "../database/CreateDatabase";
 const ChoosePwScreen = (props) => {
   const [enteredValue, setEnteredValue] = useState();
   const [confirmNumber, setConfirmNumber] = useState();
+  let k = false;
 
   const storeNewPassword = async () => {
     if (confirmNumber === enteredValue) {
       storeMyStuff("@passwordKey", enteredValue);
-      Alert.alert(null,"Danke Dir!\nDein Passwort wurde gespeichert");
       props.navigation.navigate("9");
-    } else{
-       Alert.alert(null,"Die Widerholung des Passworts ist inkorrekt");
+    } 
+    if (isNaN(confirmNumber) || isNaN(enteredValue)){
+      Alert.alert(null,"Bitte gib in beiden Feldern dein passwort ein");
+      k= true;
+    } if (confirmNumber !== enteredValue && k === false){
+       Alert.alert(null,"Die Wiederholung des Passworts ist inkorrekt");
        }
   };
 

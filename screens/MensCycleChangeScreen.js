@@ -100,9 +100,14 @@ const MensCycleChangeScreen = (props) => {
     
   
   };
+  const [thisState, setState] = useState({});
+
   useEffect(() => {
     console.log("Ausgegeben, hah!");
     getOldStuff();
+    return ()=>  {
+      setState({}); 
+    };
   }, []);
   return (
     <View style={styles.container}>

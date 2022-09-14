@@ -70,7 +70,7 @@ const ChangePWScreen = (props) => {
   }, []);
 
   const navigate =()=>{
-    props.navigation.navigate("SettingsScreen");
+    props.navigation.navigate("Settings");
     getPassword();
   };
 

@@ -77,7 +77,7 @@ const MensCycleChangeScreen = (props) => {
   };
 
   const navigate =()=>{
-    props.navigation.navigate("SettingsScreen");
+    props.navigation.navigate("Settings");
     getOldStuff();
   };
 

@@ -23,11 +23,7 @@ import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
 
 /**
- * The MASTER APP.
- * We can do it! *peptalk*
- * Note: we still need an Navigation Component and the entire Logic
- *
- * @returns
+ * @returns all the Screens
  */
 
 //-----HOW THE SWIPE NAVIGATION MUST BE STRUCTURED------//
@@ -49,7 +45,7 @@ const slides = [
 export default function App() {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
-  const [showHomePage, setShowHomePage] = useState(true);
+  const [showHomePage, setShowHomePage] = useState(false);
   const updateOnBoarding = () => {
     setShowHomePage(true);
   };

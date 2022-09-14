@@ -63,7 +63,8 @@ const ChangePWScreen = (props) => {
         removeMyStuff("@passwordKey");
         storeMyStuff("@passwordKey", confirmValue);
         resetInputHandler();
-        Alert.alert(null, "Danke!\nDein neues Passwort wurde gespeichert");
+        Alert.alert(null, "Danke!\nDein neues Passwort wurde gespeichert", [{text: "okay",onPress: ()=>props.navigation.navigate("SettingsScreen")}]);
+      
       } else {
         resetInputHandler();
         Alert.alert(null,"Die Wiederholung der neuen Pin ist inkorrekt");

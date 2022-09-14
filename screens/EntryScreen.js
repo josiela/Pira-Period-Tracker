@@ -52,6 +52,7 @@ const EntryScreen = (props) => {
     //Altes Array löschen, neues speichern
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
+    props.navigation.navigate("Calendar");
     await startCalculatingMensLengths();
     CycleCalc();
   };

@@ -46,6 +46,7 @@ const ChoosePwScreen = (props) => {
     } else {
       //Alert.alert("Danke! Deine Angaben wurden gespeichert!");
       console.log("useless yay");
+      props.navigation.navigate("6");
       
     }
   };

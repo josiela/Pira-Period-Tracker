@@ -12,7 +12,7 @@ import EntryScreen from "../../screens/EntryScreen";
 import AddButton from "../AddButton";
 import LateAboutUsScreen from "../../screens/LateAboutUsScreen";
 import DeleteScreen from "../../screens/DeleteScreen";
-import SettingsScreen from "../../screens/SettingsScreen";
+import IndexCal from "../../screens/IndexCal";
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = (props) => {
@@ -33,7 +33,6 @@ const StackNavigation = (props) => {
       <Stack.Screen name="AddButton" component={AddButton} />
       <Stack.Screen name="AddEntryScreen" component={EntryScreen} />
       <Stack.Screen name="DeleteScreen" component={DeleteScreen} />
-      <Stack.Screen name="SettingsScreen" component={SettingsScreen}/>
     </Stack.Navigator>
   );
 };

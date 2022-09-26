@@ -44,7 +44,6 @@ const SettingsScreen = (props) => {
     },
   ];
   useEffect(() => {
-    console.log("SettingScreen, hah!");
   }, []);
   return (
     <View style={styles.container}>

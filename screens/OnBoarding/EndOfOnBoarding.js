@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
-import { normalizeH } from "../constants/fontResponsive";
-import * as content from "../constants/texts";
-import colors from "../constants/colors";
+import { normalizeH } from "../../constants/fontResponsive";
+import * as content from "../../constants/texts";
+import colors from "../../constants/colors";
 
 /**
  * @author Josie <joseffa.steuernagel@haw-hamburg.de>

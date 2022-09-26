@@ -2,13 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import colors from "../../constants/colors";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import LogoScreen from "../../screens/LogoScreen";
-import AboutUsScreen from "../../screens/AboutUsScreen";
+import LogoScreen from "../../screens/OnBoarding/LogoScreen";
+import AboutUsScreen from "../../screens/OnBoarding/AboutUsScreen";
+import CalendarScreen from "../../screens/OnBoarding/CalendarScreen";
+import ChoosePWScreen from "../../screens/OnBoarding/ChoosePwScreen";
+import MensCycleScreen from "../../screens/OnBoarding/MensCycleScreen";
+import EndOfOnBoarding from "../../screens/OnBoarding/EndOfOnBoarding";
 import InfoTextScreen from "../../screens/InfoTextScreen";
-import MensCycleScreen from "../../screens/MensCycleScreen";
-import EndOfOnBoarding from "../../screens/EndOfOnBoarding";
-import CalendarScreen from "../../screens/CalendarScreen";
-import ChoosePWScreen from "../../screens/ChoosePwScreen";
 import InfoWOButtScreen from "../../screens/InfoWOButtScreen";
 /**
  *

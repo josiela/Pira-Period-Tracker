@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
-import colors from "../constants/colors";
+import colors from "../../constants/colors"
 import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
-import { normalizeH } from "../constants/fontResponsive";
+import { normalizeH } from "../../constants/fontResponsive";
 /**
  * This is the CalendarScreen for OnBoarding
  *

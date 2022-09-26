@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
-import { normalizeH } from "../constants/fontResponsive";
+import { normalizeH } from "../../constants/fontResponsive";
 
-import colors from "../constants/colors";
+import colors from "../../constants/colors";
 /**
  * LogoScreen for OnBoarding
  *
@@ -17,7 +17,7 @@ import colors from "../constants/colors";
 const LogoScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/logo.png")} />
+      <Image style={styles.logo} source={require("../../assets/logo.png")} />
 
       <View style={styles.textBox}>
         <Text style={styles.text}>Willkommen!</Text>

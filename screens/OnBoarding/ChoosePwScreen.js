@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Pressable, Text, Alert } from "react-native";
-import colors from "../constants/colors";
-import Input from "../components/Input";
-import * as content from "../constants/texts";
-import { normalizeH } from "../constants/fontResponsive";
-import { normalize } from "../constants/fontResponsive";
-import { storeMyStuff } from "../database/CreateDatabase";
+import colors from "../../constants/colors";
+import Input from "../../components/Input";
+import * as content from "../../constants/texts";
+import { normalizeH } from "../../constants/fontResponsive";
+import { normalize } from "../../constants/fontResponsive";
+import { storeMyStuff } from "../../database/CreateDatabase";
 
 /**
  *  ChoosePwScreen for OnBoarding
@@ -47,10 +47,10 @@ const ChoosePwScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/lock.png")} />
+      <Image style={styles.logo} source={require("../../assets/lock.png")} />
 
       <View style={styles.textBox}>
-        <Text style={styles.title}>Passwort-Sicherung</Text>
+        <Text style={styles.title}>Passwort</Text>
 
         <Text style={styles.text}>{content.Passwort}</Text>
       </View>

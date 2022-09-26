@@ -8,15 +8,15 @@ import {
   AppState,
 } from "react-native";
 import InfoTextScreen from "./screens/InfoTextScreen";
-import LogoScreen from "./screens/LogoScreen";
-import MensCycleScreen from "./screens/MensCycleScreen";
+import LogoScreen from "./screens/OnBoarding/LogoScreen";
+import MensCycleScreen from "./screens/OnBoarding/MensCycleScreen";
 import ChangePWScreen from "./screens/ChangePWScreen";
 import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
-import AboutUsScreen from "./screens/AboutUsScreen";
+import AboutUsScreen from "./screens/OnBoarding/AboutUsScreen";
 
 /**
  * Pira App

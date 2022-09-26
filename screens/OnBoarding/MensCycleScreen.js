@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-import InputNumber from "../components/InputNumber";
+import InputNumber from "../../components/InputNumber";
 import { View, StyleSheet, Image, Pressable, Text } from "react-native";
-import colors from "../constants/colors";
-import * as content from "../constants/texts";
-import { normalizeH } from "../constants/fontResponsive";
-import { normalize } from "../constants/fontResponsive";
-import { storeMyStuff } from "../database/CreateDatabase";
+import colors from "../../constants/colors";
+import * as content from "../../constants/texts";
+import { normalizeH } from "../../constants/fontResponsive";
+import { normalize } from "../../constants/fontResponsive";
+import { storeMyStuff } from "../../database/CreateDatabase";
 
 /**
  *  Mens- Cycle Screen for OnBoarding
@@ -48,7 +48,7 @@ const MensCycleScreen = (props) => {
     <View style={styles.container}>
       <Image
         style={styles.logo}
-        source={require("../assets/PeriodenundZykluslänge.png")}
+        source={require("../../assets/PeriodenundZykluslänge.png")}
       />
 
       <View style={styles.textBox}>

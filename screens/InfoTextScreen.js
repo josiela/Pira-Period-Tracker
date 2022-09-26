@@ -5,12 +5,11 @@ import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
- * InfoTextScreen for Starters!
+ * InfoTextScreen for OnBoarding
  * takes the Navigation Component and a WoT
  *
- *
- * ToDo: Navigation Bar
- * Decide on a diff Font?
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final Style
  *
  * @param {*} props
  * @returns

@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 import colors from "../constants/colors";
 import IndexCal from "../screens/IndexCal";
 import SettingsScreen from "../screens/SettingsScreen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import IndexCircle from "../screens/IndexCircle";
+
+/**
+ * SwipeNavigation Component for the HomeScreens
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ *
+ */
 
 const Tab = createMaterialTopTabNavigator();
 

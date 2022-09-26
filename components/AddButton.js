@@ -2,6 +2,12 @@ import React from "react";
 import { View, Pressable, Alert } from "react-native";
 import UILogo from "./UILogo";
 
+/**
+ * AddButton to navigate to the EntryScreen
+ * @author Mona <mona.vonhein@haw-hamburg.de>
+ * 
+ * @param {*} props 
+ */
 
 const functiom=(props)=>{
   if(props.date[1]===undefined){

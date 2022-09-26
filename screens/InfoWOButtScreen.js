@@ -5,21 +5,22 @@ import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
- * InfoTextWithoutButton YAY
- * for the setting sheet along with ABOUT US a whole blabla Screen. :)
+ * InfoText Screen OnBoarding and for Settings
+ * 
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for responsive Style
  *
- * ToDo Styles I guess evtl Scrollable?
  *
  * @param {*} props
- * @returns
+ * @returns InfoWOButtScreen
  */
 
 const InfoWOButtScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Medizinisches</Text>
+      <Text style={styles.title}>über.. </Text>
 
-      <Text style={styles.title2}>Zykluslängen</Text>
+      <Text style={styles.title2}>Zyklus- und Menstruationslängen</Text>
       <View style={styles.textBox}>
         <Text style={styles.text}>{content.ZuM2}</Text>
         <View style={styles.textBoxQuote}>

@@ -7,14 +7,10 @@ import {
   TouchableOpacity,
   AppState,
 } from "react-native";
-import colors from "./constants/colors";
 import InfoTextScreen from "./screens/InfoTextScreen";
 import LogoScreen from "./screens/LogoScreen";
-
 import MensCycleScreen from "./screens/MensCycleScreen";
-
 import ChangePWScreen from "./screens/ChangePWScreen";
-
 import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -23,11 +19,13 @@ import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/AboutUsScreen";
 
 /**
- * The MASTER APP.
- * We can do it! *peptalk*
- * Note: we still need an Navigation Component and the entire Logic
+ * Pira App
+ * Menstruationtracker
+ * @author Mona, Josie, Aiden
+ * HAW Hamburg - Fakultät DMI
+ * Projekt B
  *
- * @returns
+ * @returns Pira
  */
 
 //-----HOW THE SWIPE NAVIGATION MUST BE STRUCTURED------//
@@ -77,20 +75,14 @@ export default function App() {
   if (appStateVisible === "active") {
     if (!showHomePage) {
       return (
-        
         <NavigationContainer>
-   
           <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
-         
         </NavigationContainer>
-      
       );
     }
     return (
       <NavigationContainer>
-      
         <StackNavigation date={currentDate} />
-
       </NavigationContainer>
     );
   } else {

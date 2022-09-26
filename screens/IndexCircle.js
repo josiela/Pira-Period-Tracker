@@ -4,11 +4,16 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { normalizeH } from "../constants/fontResponsive";
 import {
   getMyStringStuff,
-  getMyObjectStuff,
-  removeMyStuff,
-  storeMyStringStuff,
-  storeMyStuff,
 } from "../database/CreateDatabase";
+
+/**
+ * 
+ * IndexCircle HomeScreen
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de> 
+ * 
+ * @param {*} props 
+ * @returns IndexCircle
+ */
 
 const IndexCircle = (props) => {
   var degree = "80deg";

@@ -3,27 +3,22 @@ import React, { useState } from "react";
 import InputNumber from "../components/InputNumber";
 import { View, StyleSheet, Image, Pressable, Text } from "react-native";
 import colors from "../constants/colors";
-import Input from "../components/Input";
 import * as content from "../constants/texts";
 import { normalizeH } from "../constants/fontResponsive";
 import { normalize } from "../constants/fontResponsive";
 import { storeMyStuff } from "../database/CreateDatabase";
 
 /**
- *  ChoosePwScreen for Starters!
+ *  Mens- Cycle Screen for OnBoarding
  *  takes the UILogo & Input Component.
- *
- *
- * ToDo: Navigation Bar
- * may find another solution for the marked Dates, it's just a dummy rn
- * also find a way to get the input outta it but that's prob. a diff issue
+ *  @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for Style and Database Connection
  *
  * @param {} props
- * @returns
+ * @returns MensCycleScreen
  */
-//Auch hier: Aiden, hilfe die Variablen zu übernehmen um sie zu Speichern!
-//Josie: kein-passwort knopf muss weiterleiten auf nächsten slide, ist das möglich?
-const ChoosePwScreen = (props) => {
+
+const MensCycleScreen = (props) => {
   const [mensLength, setMensLength] = useState();
   const [cyclusLength, setCyclusLength] = useState();
   const mensHandler = (inputText) => {
@@ -44,10 +39,8 @@ const ChoosePwScreen = (props) => {
     if (cyclusLength === null && mensLength === null) {
       Alert.alert(null, "Bitte gib Daten ein, um sie zu speichern");
     } else {
-      //Alert.alert("Danke! Deine Angaben wurden gespeichert!");
-      console.log("useless yay");
+      console.log("Angaben wurden gespeichert");
       props.navigation.navigate("6");
-      
     }
   };
 
@@ -65,7 +58,7 @@ const ChoosePwScreen = (props) => {
       </View>
 
       <InputNumber
-        title="Menstruationslänge: "
+        title="Menstruationslänge "
         onChangeText={mensHandler}
         value={mensLength}
       />
@@ -77,15 +70,15 @@ const ChoosePwScreen = (props) => {
       />
 
       <View style={styles.button}>
-        <Pressable style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? colors.accBlue
-              : colors.primBlue
-              
-          },
-          styles.button1
-        ]} onPress={() => storeNewLengths()}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? colors.accBlue : colors.primBlue,
+            },
+            styles.button1,
+          ]}
+          onPress={() => storeNewLengths()}
+        >
           <Text style={styles.textButton}>{"speichern"}</Text>
         </Pressable>
       </View>
@@ -165,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChoosePwScreen;
+export default MensCycleScreen;

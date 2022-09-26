@@ -4,11 +4,17 @@ import { normalizeH } from "../constants/fontResponsive";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
 
-/* 
-This is an example page for the last page of the OnBoarding pages. 
-Here the transition to the start page is handled (at the moment by a button click). 
-This communicates to <OnBoarding>, and from there on to App.js via props
-*/
+/**
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ * @author Mona <mona.vonHein@haw-hamburg.de> for final Style
+ * @param {*} props
+ * @returns EndOfOnBoarding
+ *
+ * This is an example page for the last page of the OnBoarding pages.
+ * Here the transition to the start page is handled (at the moment by a button click).
+ * This communicates to <OnBoarding>, and from there on to App.js via props
+ */
+
 const EndOfOnBoarding = (props) => {
   // onPress triggers the updateState function in OnBoarding
   return (
@@ -19,15 +25,15 @@ const EndOfOnBoarding = (props) => {
         <Text style={styles.text}>{content.endOnb}</Text>
       </View>
       <View style={styles.button}>
-        <Pressable style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? colors.accBlue
-              : colors.primBlue
-              
-          },
-          styles.button1
-        ]} onPress={props.updateState}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? colors.accBlue : colors.primBlue,
+            },
+            styles.button1,
+          ]}
+          onPress={props.updateState}
+        >
           <Text style={styles.text2}>Einrichtung beenden</Text>
         </Pressable>
       </View>

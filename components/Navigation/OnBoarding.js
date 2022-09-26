@@ -10,10 +10,12 @@ import EndOfOnBoarding from "../../screens/EndOfOnBoarding";
 import CalendarScreen from "../../screens/CalendarScreen";
 import ChoosePWScreen from "../../screens/ChoosePwScreen";
 import InfoWOButtScreen from "../../screens/InfoWOButtScreen";
-/*
-This component holds the navigation for the OnBoarding page. 
-The functionality is the same as from the SwipeNavigation.
-*/
+/**
+ *
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ * This component holds the navigation for the OnBoarding page.
+ * The functionality is the same as from the SwipeNavigation.
+ */
 
 const Tab = createMaterialTopTabNavigator();
 

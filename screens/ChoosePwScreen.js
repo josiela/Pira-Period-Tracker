@@ -8,19 +8,15 @@ import { normalize } from "../constants/fontResponsive";
 import { storeMyStuff } from "../database/CreateDatabase";
 
 /**
- *  ChoosePwScreen for Starters!
+ *  ChoosePwScreen for OnBoarding
  *  takes the UILogo & Input Component.
- *
- *
- * ToDo: Navigation Bar
- * may find another solution for the marked Dates, it's just a dummy rn
- * also find a way to get the input outta it but that's prob. a diff issue
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for Style and Database Connectivity
  *
  * @param {} props
- * @returns
+ * @returns ChoosePwScreen
  */
-//Auch hier: Aiden, hilfe die Variablen zu übernehmen um sie zu Speichern!
-//Josie: kein-passwort knopf muss weiterleiten auf nächsten slide, ist das möglich?
+
 const ChoosePwScreen = (props) => {
   const [enteredValue, setEnteredValue] = useState();
   const [confirmNumber, setConfirmNumber] = useState();
@@ -30,13 +26,14 @@ const ChoosePwScreen = (props) => {
     if (confirmNumber === enteredValue) {
       storeMyStuff("@passwordKey", enteredValue);
       props.navigation.navigate("9");
-    } 
-    if (isNaN(confirmNumber) || isNaN(enteredValue)){
-      Alert.alert(null,"Bitte gib in beiden Feldern dein passwort ein");
-      k= true;
-    } if (confirmNumber !== enteredValue && k === false){
-       Alert.alert(null,"Die Wiederholung des Passworts ist inkorrekt");
-       }
+    }
+    if (isNaN(confirmNumber) || isNaN(enteredValue)) {
+      Alert.alert(null, "Bitte gib in beiden Feldern dein passwort ein");
+      k = true;
+    }
+    if (confirmNumber !== enteredValue && k === false) {
+      Alert.alert(null, "Die Wiederholung des Passworts ist inkorrekt");
+    }
   };
 
   //validates Numbers only
@@ -70,15 +67,15 @@ const ChoosePwScreen = (props) => {
       />
 
       <View style={styles.button}>
-        <Pressable style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? colors.accBlue
-              : colors.primBlue
-              
-          },
-          styles.button1
-        ]} onPress={() => storeNewPassword()}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? colors.accBlue : colors.primBlue,
+            },
+            styles.button1,
+          ]}
+          onPress={() => storeNewPassword()}
+        >
           <Text style={styles.textButton}>{"speichern"}</Text>
         </Pressable>
       </View>

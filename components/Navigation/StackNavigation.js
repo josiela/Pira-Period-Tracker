@@ -12,7 +12,14 @@ import EntryScreen from "../../screens/EntryScreen";
 import AddButton from "../AddButton";
 import LateAboutUsScreen from "../../screens/LateAboutUsScreen";
 import DeleteScreen from "../../screens/DeleteScreen";
-import IndexCal from "../../screens/IndexCal";
+
+/**
+ * StackNavigation used by buttons and Settings
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ *
+ * @return StackNavigation
+ */
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = (props) => {

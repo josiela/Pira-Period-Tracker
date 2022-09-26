@@ -5,10 +5,12 @@ import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
- * ABOUT US
- * a little Screen with blabla About Us.
+ * About Us for OnBoarding purposes.
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final Style
+ *
  * @param {*} props
- * @returns
+ * @returns AboutUsScreen
  */
 
 const AboutUsScreen = (props) => {

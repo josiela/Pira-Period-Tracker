@@ -1,45 +1,37 @@
 import {
-  getMyObjectStuff,
   getMyStringStuff,
-  removeMyStuff,
   storeMyStringStuff,
-  storeMyStuff,
 } from "../database/CreateDatabase";
-import {  useState } from "react";
+
 /**
- * Cycle Calc. Returns dates in format DD/MM/YY
+ * Cycle Calculation
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for database connectivity
+ * Takes a date and returns dates in format DD/MM/YY
  *
  * @param {*} props
- * @returns
+ * @returns firstDay, lastDay
  */
 
- 
 //Funktion um aus 9 eine 09 zu machen und so
-const fixDate =(number)=>{
+const fixDate = (number) => {
   let fixedNumber;
-  fixedNumber: number<10
-  ? fixedNumber= "0"+number
-  : fixedNumber = JSON.stringify(number);
+  fixedNumber: number < 10
+    ? (fixedNumber = "0" + number)
+    : (fixedNumber = JSON.stringify(number));
   return fixedNumber;
-}
+};
 
-
-  //Holt Arrays aus DB
- 
-  
- 
-
-  
 const CycleCalc = async () => {
-  let arrayOfMensLengths=[];
-  let arrayOfCyclusLengths=[];
-  let day=2;
-  let year =2022;
-  let month=2;
+  let arrayOfMensLengths = [];
+  let arrayOfCyclusLengths = [];
+  let day = 2;
+  let year = 2022;
+  let month = 2;
   console.log("Yey CycleCalc wird aufgerufen");
   //let [entryArray, setEntryArray] = useState([]);
-  let mensLength=5;
-  let cyclusLength=28;
+  let mensLength = 5;
+  let cyclusLength = 28;
   const long = [1, 3, 5, 7, 8, 10, 12];
   const short = [4, 6, 9, 11];
   const special = [2];
@@ -48,24 +40,21 @@ const CycleCalc = async () => {
 
   await getMyStringStuff("@mensLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
-      console.log("Hier kommt die menslength"+returnedValue);
-      mensItems= JSON.parse(returnedValue);
+      console.log("Hier kommt die menslength" + returnedValue);
+      mensItems = JSON.parse(returnedValue);
     } else {
       console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
-
 
   await getMyStringStuff("@cyclusLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
-      cyclusItems= JSON.parse(returnedValue);
-      console.log("Hier kommt die Zykluslength"+returnedValue);
-      
+      cyclusItems = JSON.parse(returnedValue);
+      console.log("Hier kommt die Zykluslength" + returnedValue);
     } else {
       console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
-
 
   const monthLong = 31;
   const monthShort = 30;
@@ -78,32 +67,29 @@ const CycleCalc = async () => {
   // Gets the Array of Entrys from DB
   await getMyStringStuff("@entryArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
-     // setEntryArray(JSON.parse(returnedValue));
+      // setEntryArray(JSON.parse(returnedValue));
     } else {
-     // setEntryArray([]);
+      // setEntryArray([]);
     }
   });
 
-  
-    await getMyStringStuff("@mensLength").then((returnedValue) => {
-      console.log("Old Length: " + JSON.parse(returnedValue));
-      if (returnedValue !== null) {
-        mensLength=JSON.parse(returnedValue);
-      } else {
-        mensLength=5;
-      }
-    });
+  await getMyStringStuff("@mensLength").then((returnedValue) => {
+    console.log("Old Length: " + JSON.parse(returnedValue));
+    if (returnedValue !== null) {
+      mensLength = JSON.parse(returnedValue);
+    } else {
+      mensLength = 5;
+    }
+  });
 
-    await getMyStringStuff("@cyclusLength").then((returnedValue) => {
-      console.log("Old Length: " + JSON.parse(returnedValue));
-      if (returnedValue !== null) {
-        cyclusLength=JSON.parse(returnedValue);
-      } else {
-        cyclusLength=28;
-      }
-    });
-
-
+  await getMyStringStuff("@cyclusLength").then((returnedValue) => {
+    console.log("Old Length: " + JSON.parse(returnedValue));
+    if (returnedValue !== null) {
+      cyclusLength = JSON.parse(returnedValue);
+    } else {
+      cyclusLength = 28;
+    }
+  });
 
   //---------------------------------------------------------------------
   //checks for LeapYear is given the year
@@ -154,12 +140,8 @@ const CycleCalc = async () => {
     return [month, year];
   };
 
-
-
   //sets Cycle Value given the Array of Data from Database, returns a value
   const setCycle = () => {
-  
-    
     if (checkifAverage(mensItems, cycleItems) == true) {
       cycle = checkCycleAverage(cycleItems);
       console.log("individual", cycle);
@@ -172,7 +154,6 @@ const CycleCalc = async () => {
 
   //sets Mens Value given the Array of Data from Database, returns a value
   const setMens = () => {
-
     if (checkifAverage(mensItems, cycleItems) == true) {
       mens = checkMensAverage(mensItems);
       console.log("individual", mens);
@@ -224,45 +205,45 @@ const CycleCalc = async () => {
         }
       }
     }
-      console.log("Y ist : "+y);
-      if (y != NaN) {
-        switch (y) {
-          case 0:
-            y = month;
-            k = [x, [y, year]];
-            console.log("Hier ist k: "+k);
-            break;
-          case 1:
-            month += 1;
-            k = [x, checkYear(month, year)];
-            console.log("Hier ist k: "+k);
-            break;
-          case 2:
-            month += 2;
-            k = [x, checkYear(month, year)];
-            console.log("Hier ist k: "+k);
-            break;
-          case 3:
-            month += 3;
-            k = [x, checkYear(month, year)];
-            console.log("Hier ist k: "+k);
-            break;
-          case y == 4:
-            month += 4;
-            k = [x, checkYear(month, year)];
-            console.log("Hier ist k: "+k);
-            break;
-          case y == 5:
-            month += 5;
-            k = [x, checkYear(month, year)];
-            console.log("Hier ist k: "+k);
-            break;
-          default:
-            console.log("You Failed me");
-        }
+    console.log("Y ist : " + y);
+    if (y != NaN) {
+      switch (y) {
+        case 0:
+          y = month;
+          k = [x, [y, year]];
+          console.log("Hier ist k: " + k);
+          break;
+        case 1:
+          month += 1;
+          k = [x, checkYear(month, year)];
+          console.log("Hier ist k: " + k);
+          break;
+        case 2:
+          month += 2;
+          k = [x, checkYear(month, year)];
+          console.log("Hier ist k: " + k);
+          break;
+        case 3:
+          month += 3;
+          k = [x, checkYear(month, year)];
+          console.log("Hier ist k: " + k);
+          break;
+        case y == 4:
+          month += 4;
+          k = [x, checkYear(month, year)];
+          console.log("Hier ist k: " + k);
+          break;
+        case y == 5:
+          month += 5;
+          k = [x, checkYear(month, year)];
+          console.log("Hier ist k: " + k);
+          break;
+        default:
+          console.log("You Failed me");
+      }
     }
-    
-    console.log("TEEEEXT "+ endOfMensCalc(k));
+
+    console.log("TEEEEXT " + endOfMensCalc(k));
     return k;
   };
 
@@ -355,19 +336,28 @@ const CycleCalc = async () => {
   //console.log("Rangebastelter Text"+firstDay[0]);
   let lastDay = endOfMensCalc(firstDay);
   //console.log("First Day " + firstDay + " lastday " + lastDay);
-  
+
   //Rausgefundene Daten Werden in DB übertragen
-  let firstDayString = firstDay[1][1] + "-"+ fixDate(firstDay[1][0])+"-"+fixDate(firstDay[0]);
-  console.log(firstDayString+" ist das Anfangs-Datum, und der Datentyp: "+ typeof(firstDayString));
+  let firstDayString =
+    firstDay[1][1] + "-" + fixDate(firstDay[1][0]) + "-" + fixDate(firstDay[0]);
+  console.log(
+    firstDayString +
+      " ist das Anfangs-Datum, und der Datentyp: " +
+      typeof firstDayString
+  );
   storeMyStringStuff("@firstDayKey", firstDayString);
 
-  let lastDayString = lastDay[1][1] + "-"+fixDate(lastDay[1][0])+"-"+fixDate(lastDay[0]);
-  console.log(lastDayString+" ist das End-Datum, und der Datentyp: "+ typeof(lastDayString));
+  let lastDayString =
+    lastDay[1][1] + "-" + fixDate(lastDay[1][0]) + "-" + fixDate(lastDay[0]);
+  console.log(
+    lastDayString +
+      " ist das End-Datum, und der Datentyp: " +
+      typeof lastDayString
+  );
   storeMyStringStuff("@lastDayKey", lastDayString);
-  
+
   return firstDay, lastDay;
-  //Diese beiden Variablen müssen in die Datenbank und im Index-Calc aufgerufen werden. 
-  
+  //Diese beiden Variablen müssen in die Datenbank und im Index-Calc aufgerufen werden.
 };
 
 export default CycleCalc;

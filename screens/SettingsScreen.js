@@ -1,16 +1,16 @@
-import {useEffect, React }from "react";
-import { View, StyleSheet, Image, Alert, Pressable, Text } from "react-native";
+import { useEffect, React } from "react";
+import { View, StyleSheet, Image, Text } from "react-native";
 import Settings from "../components/Settings";
 import colors from "../constants/colors";
 import { normalizeH } from "../constants/fontResponsive";
-//evtl als subtitle die aktuelle Einstellung eingeben
 
 /**
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for Style
  * SettingsScreen taking the Settings component. Hands over an array of input, subTitle and onPress events
- * styles the Title "Einstellungen"
- * evtl Daten löschen als Pressable? damits rot ist und scary? :i
+ *
  * @param {*} props
- * @returns
+ * @returns Settingsscreen
  *
  * */
 
@@ -22,7 +22,7 @@ const SettingsScreen = (props) => {
       onPress: () => props.navigation.navigate("ChangePW"),
     },
     {
-      title: "Menstruations- und Zykluslänge",
+      title: "Mens- und Zykluslänge ändern",
       subTitle: null,
       onPress: () => props.navigation.navigate("MensundZyklus"),
     },
@@ -33,7 +33,7 @@ const SettingsScreen = (props) => {
       onPress: () => props.navigation.navigate("LateAboutUs"),
     },
     {
-      title: "Medizinisches",
+      title: "über Längen und Verhütung",
       subTitle: null,
       onPress: () => props.navigation.navigate("Info"),
     },
@@ -45,7 +45,6 @@ const SettingsScreen = (props) => {
   ];
   useEffect(() => {
     console.log("SettingScreen, hah!");
-    
   }, []);
   return (
     <View style={styles.container}>

@@ -6,18 +6,14 @@ import { normalizeH } from "../constants/fontResponsive";
 import { normalize } from "react-native-elements";
 import { deleteAll } from "../database/CreateDatabase";
 /**
- *  ChangePWScreen!
+ *  Delete Screen!
  *  takes the UILogo & Input Component.
- *  to change Password with some describing Text.
- *  Keyboard dismisses as soon as you tab the screen so you can switch to the next field
- *
- * ToDo Styling
- *
- * ToDo Logik, checks old and new Input and fetches it from the database.
+ *  calls the deleteAll() Function from DB
+ * @author Mona <mona.vonhein@haw-hamburg.de>
  *
  *
- * @param {} props
- * @returns
+ * @param {*} props
+ * @returns DeleteScreen
  */
 
 const DeleteScreen = (props) => {
@@ -31,13 +27,15 @@ const DeleteScreen = (props) => {
       </View>
 
       <View style={styles.button}>
-        <Pressable style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? colors.accBlue
-              : colors.accOrange
-          },styles.button1
-        ]} onPress={() => deleteAll()}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? colors.accBlue : colors.accOrange,
+            },
+            styles.button1,
+          ]}
+          onPress={() => deleteAll()}
+        >
           <Text style={styles.textButton}>{"zurücksetzen"}</Text>
         </Pressable>
       </View>

@@ -2,10 +2,12 @@ import React from "react";
 import { View, Image } from "react-native";
 
 /**
- * UILogo Component for two screens.
- * 1 Lock Symbol and the preferences Screen.
+ * UILogo Component
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ *
  * @param {*} props
- * @returns
+ * @returns UI Logo
  */
 const UILogo = (props) => {
   // set logo path dependent on what prop name was given
@@ -17,7 +19,7 @@ const UILogo = (props) => {
 
   switch (props.src) {
     case "lock":
-      ImgSrc = require("../assets/iE-wdltA.png");
+      ImgSrc = require("../assets/lock.png");
       break;
     case "plus":
       ImgSrc = require("../assets/plus.png");

@@ -1,18 +1,15 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
-import { normalizeH, normalize } from "../constants/fontResponsive";
+import { normalizeH } from "../constants/fontResponsive";
 
 /**
  * Settings Component
  * sets up a map for the given array. It has a Touchable Opacity and styles the Array
  * in case of a subtitle it get's displayed
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final Style
+ *
  * @param {settingOptions} param
  * @returns
  */

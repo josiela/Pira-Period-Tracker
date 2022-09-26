@@ -4,12 +4,14 @@ import colors from "../constants/colors";
 import { normalizeH, normalize } from "../constants/fontResponsive";
 
 /**
- * Input Component 
+ * Input Component
  * numbers only to gain information about f.e. cycle length and menstruation length
- 
- * 
+ *
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final style
+ *
  * @param {*} props
- * @returns Component
+ * @returns InputNumber
  */
 const InputNumber = (props) => {
   return (

@@ -7,11 +7,8 @@ import { normalizeH } from "../constants/fontResponsive";
  * Password Input Component
  * maxLength currently at 8
  *
- * ToDo:
- * Style
- * eventually lower the placeholder on the line, so it doesn't hover above it that awkwardly.
- * Also when toggled/pressed change color mebbe..
- * & Logic ofc.. need to sort the min 4 PIN out
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final style
  *
  * @param {*} props
  * @returns Component

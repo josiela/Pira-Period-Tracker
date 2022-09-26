@@ -1,15 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
-import { normalize } from "react-native-elements";
 import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
- * LogoScreen for STARTERS omg. WELCOME
+ * LogoScreen for OnBoarding
  *
  * takes the Image Source of our Logo and has a future Navigation Component
  *
- * ToDo: Navigation and create a Logo. The Image is a dummy rn.
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for finishing Style
  *
  * @param {*} props
  * @returns

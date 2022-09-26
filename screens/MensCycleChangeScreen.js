@@ -12,20 +12,18 @@ import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
 import { normalize } from "../constants/fontResponsive";
-import {
-  storeMyStuff,
-  getMyObjectStuff,
-  getMyStringStuff,
-} from "../database/CreateDatabase";
+import { storeMyStuff, getMyStringStuff } from "../database/CreateDatabase";
 import { normalizeH } from "../constants/fontResponsive";
-import { NativeEventEmitter } from "react-native-web";
+
 /**
- * InputScreen for Mens and Cycle Length CHANGE
+ * Mens and Cyclus Change for Settingsnavigation
  *
- * Style I suppose..
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for Style and Database connection
+ *
  *
  * @param {*} props
- * @returns
+ * @returns MensCycleChangeScreen
  */
 
 const MensCycleChangeScreen = (props) => {
@@ -76,7 +74,7 @@ const MensCycleChangeScreen = (props) => {
     });
   };
 
-  const navigate =()=>{
+  const navigate = () => {
     props.navigation.navigate("Settings");
     getOldStuff();
   };
@@ -85,28 +83,26 @@ const MensCycleChangeScreen = (props) => {
     console.log("gotcha");
     let mens = parseInt(mensLength);
     let cycle = parseInt(cyclusLength);
-    console.log("mens " + mens + " cycle " + cycle);  
-    if(mens >= 0 && cycle >=0 ){
+    console.log("mens " + mens + " cycle " + cycle);
+    if (mens >= 0 && cycle >= 0) {
       setMensLength("");
       setCyclusLength("");
       storeLengths();
       Keyboard.dismiss();
-      Alert.alert(null, "changes have been saved", [{text: "okay",onPress: ()=>navigate()}]);
-    }else{
-      Alert.alert(null, "no entry fetched", [{text: "close"}]);
- 
+      Alert.alert(null, "changes have been saved", [
+        { text: "okay", onPress: () => navigate() },
+      ]);
+    } else {
+      Alert.alert(null, "no entry fetched", [{ text: "close" }]);
     }
-       //
-    
-  
+    //
   };
   const [thisState, setState] = useState({});
 
   useEffect(() => {
-    console.log("Ausgegeben, hah!");
     getOldStuff();
-    return ()=>  {
-      setState({}); 
+    return () => {
+      setState({});
     };
   }, []);
   return (
@@ -135,13 +131,15 @@ const MensCycleChangeScreen = (props) => {
             />
 
             <View style={styles.button}>
-              <Pressable style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? colors.accBlue
-              : colors.primBlue
-          },styles.button1
-        ]} onPress={inputHandler}>
+              <Pressable
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? colors.accBlue : colors.primBlue,
+                  },
+                  styles.button1,
+                ]}
+                onPress={inputHandler}
+              >
                 <Text style={styles.textButton}>{"speichern"}</Text>
               </Pressable>
             </View>

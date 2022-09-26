@@ -1,7 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 
-//Erklärung unter: https://react-native-async-storage.github.io/async-storage/docs/api
+/**
+ * CreateDatabase creates a database and holds all it's functions to store, get, remove, update and delete Data.
+ *
+ * @author Mona <mona.vonhein@haw-hamburg.de>
+ * used library: https://react-native-async-storage.github.io/async-storage/docs/api
+ *
+ * @param {*} key
+ * @param {*} stuff
+ * @returns
+ */
+
 export const storeMyStuff = async (key, stuff) => {
   try {
     const jsonValue = JSON.stringify(stuff);

@@ -5,13 +5,17 @@ import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
 import { normalizeH } from "../constants/fontResponsive";
 /**
- * This is the Calendar Screen for Starters.
- * It holds the "When you had your last mens?" Question ft. the
- * Calendar component.
+ * This is the CalendarScreen for OnBoarding
  *
- * ToDo: Navigation Bar
- * may find another solution for the marked Dates, it's just a dummy rn
- * also find a way to get the input outta it but that's prob. a diff issue
+ * This Calendar is a module for react-native.
+ * https://github.com/wix/react-native-calendars
+ *
+ * @author Tautvilas Mecinskas
+ * @author Katrin Zotchev
+ *
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de> logic and calendar
+ * @author Aiden <aiden.roessler@haw-hamburg.de> init
+ * @author Mona <mona.vonhein@haw-hamburg.de> final touches in style
  *
  */
 LocaleConfig.locales["de"] = {

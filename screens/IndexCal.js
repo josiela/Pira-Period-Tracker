@@ -3,13 +3,20 @@ import { View, StyleSheet } from "react-native";
 import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
 import { Calendar } from "react-native-calendars";
-//import CycleCalc from "../components/CycleCalc";
 
-/* 
-TODO: 
+/**
+ * IndexCalendar Screen
+ * 
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ * 
+ * @return IndexCal
+ * 
+ * TODO: 
 - Heutigen Tag anzeigen
 - Periode berechnen und in mark schreiben
-*/
+ */
+
+
 
 
 const IndexCal = (props) => {

@@ -58,7 +58,7 @@ const EntryScreen = (props) => {
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
     await startCalculatingMensLengths();
-    CycleCalc();
+    CycleCalc(); //TODO Hier muss ein Datum als Prop übergeben werden
     props.navigation.navigate("Calendar");
   };
 

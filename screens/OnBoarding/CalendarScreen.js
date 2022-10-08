@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
-import colors from "../../constants/colors"
+import colors from "../../constants/colors";
 import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
 import { normalizeH } from "../../constants/fontResponsive";
+import CycleCalc from "../../components/CycleCalc";
 /**
  * This is the CalendarScreen for OnBoarding
  *
@@ -72,6 +73,24 @@ const CalendarScreen = (props) => {
     setSelectedDay(day);
   }
 
+  function confirmInput() {
+    let dateArray = convertDateStringToArray(selectedDay);
+    CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+    props.navigation.navigate("7");
+  }
+
+  function convertDateStringToArray(dateString) {
+    // Returns Array from Calender Entry
+    // type number year-month-day
+    try {
+      let stringArray = dateString.split("-");
+      let numberArray = stringArray.map(Number);
+      return numberArray;
+    } catch (e) {
+      console.log("No date selected");
+    }
+  }
+
   return (
     //props.header is given when calling the Screen
     <View style={styles.container}>
@@ -92,11 +111,8 @@ const CalendarScreen = (props) => {
         }}
       />
       <View style={styles.button}>
-        <Pressable
-          style={styles.button1}
-          onPress={() => props.navigation.navigate("7")}
-        >
-          <Text style={styles.text}>{props.title}</Text>
+        <Pressable style={styles.button1} onPress={() => confirmInput()}>
+          <Text style={styles.text}>Weiter</Text>
         </Pressable>
       </View>
     </View>

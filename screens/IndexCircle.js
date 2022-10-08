@@ -1,31 +1,27 @@
-import {useEffect, React} from "react";
+import { useEffect, React } from "react";
 import colors from "../constants/colors";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { normalizeH } from "../constants/fontResponsive";
-import {
-  getMyStringStuff,
-} from "../database/CreateDatabase";
+import { getMyStringStuff } from "../database/CreateDatabase";
 
 /**
- * 
+ *
  * IndexCircle HomeScreen
- * @author Josie <joseffa.steuernagel@haw-hamburg.de> 
- * 
- * @param {*} props 
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ *
+ * @param {*} props
  * @returns IndexCircle
  */
 
 const IndexCircle = (props) => {
   var degree = "80deg";
 
-  console.log("Heute ist: " + props.date);
-
   // get date aus Datenbank später:
 
   //------------//
   //Nächste Mens Anfang und Ende
-  var nextMensBeginning=[];
-  var nextMensEnd=[];
+  var nextMensBeginning = [];
+  var nextMensEnd = [];
   //Menstruationslänge
   var mensLength = 6; // aus Datenbank, TYPE=NUMBER
   //gesamte Zycluslänge
@@ -43,38 +39,35 @@ const IndexCircle = (props) => {
   //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
   const getOldStuff = async () => {
     await getMyStringStuff("@mensLength").then((returnedValue) => {
-      console.log("Old Length: " + JSON.parse(returnedValue));
       if (returnedValue !== null) {
-        mensLength=JSON.parse(returnedValue);
+        mensLength = JSON.parse(returnedValue);
       } else {
-        mensLength=6;
+        mensLength = 6;
       }
     });
 
     await getMyStringStuff("@cyclusLength").then((returnedValue) => {
-      console.log("Old Length: " + JSON.parse(returnedValue));
       if (returnedValue !== null) {
-        totalLength=JSON.parse(returnedValue);
+        totalLength = JSON.parse(returnedValue);
       } else {
-        totalLength=28;
+        totalLength = 28;
       }
     });
 
     await getMyStringStuff("@firstDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
-        nextMensBeginning=returnedValue;
+        nextMensBeginning = returnedValue;
       } else {
         console.log("NextMensBeginning ist leer");
       }
     });
     await getMyStringStuff("@lastDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
-        nextMensEnd=returnedValue;
+        nextMensEnd = returnedValue;
       } else {
         console.log("NextMensEnd ist leer");
       }
     });
-
   };
   // Datenbank Abschnitt zu Ende-------------------------------
 
@@ -85,11 +78,9 @@ const IndexCircle = (props) => {
     const oneDay = 1000 * 60 * 60 * 24;
 
     var daysLeft = Math.round((nextCycle - props.date) / oneDay);
-    console.log("Total Days left: " + daysLeft);
     //-----------------------------//
 
     if (daysLeft > gF) {
-      console.log("noch in mens");
       status = "";
       // noch in Menstruation
       imgSrc = require("../assets/Circle/Indicators/spotting.png");
@@ -104,7 +95,6 @@ const IndexCircle = (props) => {
         // Position auf Kreis muss berechnet werden
         var mensLeft = daysLeft - gF;
         setCycleDaysLeft = mensLeft;
-        console.log("MensDays left: " + mensLeft);
         if (mensLeft > mensLength) {
           var einTag = kreisabschnittBerechnung(90, mensLeft);
         } else {
@@ -122,15 +112,12 @@ const IndexCircle = (props) => {
         days = "Tage";
       }
       status = "bis zur nächsten Periode";
-      console.log("in FollikelPhase");
       setCycleDaysLeft = daysLeft;
       // in Follikelphase
       imgSrc = require("../assets/Circle/Indicators/empty.png");
       // Berechnung des Abstands zum roten Balken
       var einTag = kreisabschnittBerechnung(270, gF);
-      console.log("Ein Tag: " + einTag);
       var bogenPosition = einTag * daysLeft + 80;
-      console.log("Bogenposition: " + (bogenPosition + 80));
       var resultToString = bogenPosition.toString();
       degree = resultToString + "deg";
       return degree;
@@ -147,7 +134,7 @@ const IndexCircle = (props) => {
   }, []);
   return (
     <View style={styles.container}>
-      <View >
+      <View>
         <Text style={styles.title}>Zyklus-Übersicht</Text>
       </View>
       <View style={styles.bigView}>
@@ -178,8 +165,8 @@ const IndexCircle = (props) => {
 
 const styles = StyleSheet.create({
   text: {
-   // textAlign: "center",
-   alignSelf: "center",
+    // textAlign: "center",
+    alignSelf: "center",
     lineHeight: normalizeH(9),
     color: colors.primBlue,
     fontSize: normalizeH(9),
@@ -195,10 +182,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: "7%",
     height: "100%",
     width: "100%",
-    
   },
   circleContainer: {
-    paddingTop:"30%",
+    paddingTop: "30%",
     position: "relative",
     display: "flex",
     flexWrap: "nowrap",
@@ -207,7 +193,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   indicator: {
-    
     position: "absolute",
     alignSelf: "center",
     top: "30%",
@@ -218,8 +203,7 @@ const styles = StyleSheet.create({
   },
   bigView: {
     height: "90%",
-
-  }
+  },
 });
 
 export default IndexCircle;

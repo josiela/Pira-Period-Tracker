@@ -22,12 +22,12 @@ const fixDate = (number) => {
   return fixedNumber;
 };
 
-const CycleCalc = async () => {
+const CycleCalc = async (props) => {
   let arrayOfMensLengths = [];
   let arrayOfCyclusLengths = [];
-  let day = 2;
-  let year = 2022;
-  let month = 2;
+  let day = props.day;
+  let year = props.year;
+  let month = props.month;
   console.log("Yey CycleCalc wird aufgerufen");
   //let [entryArray, setEntryArray] = useState([]);
   let mensLength = 5;

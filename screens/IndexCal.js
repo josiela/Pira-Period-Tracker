@@ -16,16 +16,30 @@ import { Calendar } from "react-native-calendars";
 - Periode berechnen und in mark schreiben
  */
 
-
-
-
 const IndexCal = (props) => {
-  const [selectedDay, setSelectedDay] = useState("");
   const [selectedDayNumber, setSelectedDayNumber] = useState(1);
   const [selectedMonthNumber, setSelectedMonthNumber] = useState(1);
   const [selectedYearNumber, setSelectedYearNumber] = useState(2022);
+
+  const convertDate = () => {
+    // converts date to calender date string
+    let convertedDate = new Date();
+    let ISOString = convertedDate.toISOString();
+    let splitISOString = ISOString.slice(0, ISOString.indexOf("T"));
+    return splitISOString;
+  };
+
+  const [selectedDay, setSelectedDay] = useState(convertDate());
+
   let mark = {
     [selectedDay]: {
+      selected: true,
+      color: colors.accBlue,
+      startingDay: true,
+      endingDay: true,
+      textColor: "white",
+    },
+    [convertDate()]: {
       selected: true,
       color: colors.accBlue,
       startingDay: true,
@@ -75,7 +89,7 @@ const IndexCal = (props) => {
         <Calendar
           theme={{
             arrowColor: colors.accBlue,
-            backgroundColor:colors.mainLG,
+            backgroundColor: colors.mainLG,
             calendarBackground: colors.mainLG,
           }}
           markingType={"period"}

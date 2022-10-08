@@ -14,27 +14,27 @@ import { getMyStringStuff } from "../database/CreateDatabase";
  */
 
 const IndexCircle = (props) => {
-  var degree = "80deg";
+  let degree = "80deg";
 
   // get date aus Datenbank später:
 
   //------------//
   //Nächste Mens Anfang und Ende
-  var nextMensBeginning = [];
-  var nextMensEnd = [];
+  let nextMensBeginning = [];
+  let nextMensEnd = [];
   //Menstruationslänge
-  var mensLength = 6; // aus Datenbank, TYPE=NUMBER
+  let mensLength = 6; // aus Datenbank, TYPE=NUMBER
   //gesamte Zycluslänge
-  var totalLength = 28; // aus Datenbank TYPE=NUMBER
+  let totalLength = 28; // aus Datenbank TYPE=NUMBER
   // Timestamp des nächsten Zyklusbeginns
-  var nextCycle = new Date(2022, 7, 30).getTime(); // aus Datenbank
+  let nextCycle = new Date(2022, 7, 30).getTime(); // aus Datenbank
   //-----------//
 
-  var setCycleDaysLeft = totalLength;
-  var days = "Tage";
-  var status = "bis zur nächsten Periode";
+  let setCycleDaysLeft = totalLength;
+  let days = "Tage";
+  let status = "bis zur nächsten Periode";
 
-  var imgSrc;
+  let imgSrc;
 
   //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
   const getOldStuff = async () => {
@@ -73,11 +73,11 @@ const IndexCircle = (props) => {
 
   function cyclusPositionBerechnung(cycleLength, menstruationLength) {
     // Follikel und Luteal Länge (gF)
-    var gF = cycleLength - menstruationLength;
+    let gF = cycleLength - menstruationLength;
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
 
-    var daysLeft = Math.round((nextCycle - props.date) / oneDay);
+    let daysLeft = Math.round((nextCycle - props.date) / oneDay);
     //-----------------------------//
 
     if (daysLeft > gF) {
@@ -93,15 +93,15 @@ const IndexCircle = (props) => {
       } else {
         days = "Tage";
         // Position auf Kreis muss berechnet werden
-        var mensLeft = daysLeft - gF;
+        let mensLeft = daysLeft - gF;
         setCycleDaysLeft = mensLeft;
         if (mensLeft > mensLength) {
-          var einTag = kreisabschnittBerechnung(90, mensLeft);
+          let einTag = kreisabschnittBerechnung(90, mensLeft);
         } else {
-          var einTag = kreisabschnittBerechnung(90, mensLength);
+          let einTag = kreisabschnittBerechnung(90, mensLength);
         }
-        var bogenPosition = einTag * mensLeft;
-        var resultToString = bogenPosition.toString();
+        let bogenPosition = einTag * mensLeft;
+        let resultToString = bogenPosition.toString();
         degree = resultToString + "deg";
         return degree;
       }
@@ -116,16 +116,16 @@ const IndexCircle = (props) => {
       // in Follikelphase
       imgSrc = require("../assets/Circle/Indicators/empty.png");
       // Berechnung des Abstands zum roten Balken
-      var einTag = kreisabschnittBerechnung(270, gF);
-      var bogenPosition = einTag * daysLeft + 80;
-      var resultToString = bogenPosition.toString();
+      let einTag = kreisabschnittBerechnung(270, gF);
+      let bogenPosition = einTag * daysLeft + 80;
+      let resultToString = bogenPosition.toString();
       degree = resultToString + "deg";
       return degree;
     }
   }
 
   function kreisabschnittBerechnung(grad, tage) {
-    var abschnitt = grad / tage;
+    let abschnitt = grad / tage;
     return abschnitt;
   }
 

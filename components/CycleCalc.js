@@ -28,7 +28,6 @@ const CycleCalc = async (props) => {
   let day = props.day;
   let year = props.year;
   let month = props.month;
-  console.log("Yey CycleCalc wird aufgerufen");
   //let [entryArray, setEntryArray] = useState([]);
   let mensLength = 5;
   let cyclusLength = 28;

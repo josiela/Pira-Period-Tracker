@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     marginBottom: "15%",
     marginTop: "18%",
     color: colors.accBlue,
-    fontSize: normalizeH(15),
+    fontSize: normalizeH(10),
     lineHeight: normalizeH(22),
   },
 

@@ -75,7 +75,8 @@ const CalendarScreen = (props) => {
 
   function confirmInput() {
     let dateArray = convertDateStringToArray(selectedDay);
-    CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+    // CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+    CycleCalc();
     props.navigation.navigate("7");
   }
 

@@ -25,9 +25,9 @@ const fixDate = (number) => {
 const CycleCalc = async (props) => {
   let arrayOfMensLengths = [];
   let arrayOfCyclusLengths = [];
-  let day = props.day;
-  let year = props.year;
-  let month = props.month;
+  let day = 12;
+  let year = 2022;
+  let month = 11;
   //let [entryArray, setEntryArray] = useState([]);
   let mensLength = 5;
   let cyclusLength = 28;
@@ -167,7 +167,7 @@ const CycleCalc = async (props) => {
   const nextDayCalc = (day, month, year) => {
     let y = NaN;
     let x = NaN;
-    let firstDay;
+    let k;
     cycle = setCycle();
     console.log("cycle before iffff " + cycle);
 
@@ -227,18 +227,18 @@ const CycleCalc = async (props) => {
           k = [x, checkYear(month, year)];
           console.log("Hier ist k: " + k);
           break;
-        case y == 4:
+        case 4:
           month += 4;
           k = [x, checkYear(month, year)];
           console.log("Hier ist k: " + k);
           break;
-        case y == 5:
+        case 5:
           month += 5;
           k = [x, checkYear(month, year)];
           console.log("Hier ist k: " + k);
           break;
         default:
-          console.log("You Failed me");
+          console.log("Y of nextDayCalc is is not NUN but non 0-5");
       }
     }
 
@@ -263,7 +263,6 @@ const CycleCalc = async (props) => {
     mens = setMens();
     if (long.includes(month)) {
       y = parseInt((day + mens) / monthLong);
-      console.log(y + " hdashdhakjs");
       x = (day + mens) % monthLong;
       if (x == 0 && y != 0) {
         x = monthLong;

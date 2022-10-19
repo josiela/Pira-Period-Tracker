@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
     marginTop: "14%",
     color: colors.accBlue,
-    fontSize: normalizeH(15),
+    fontSize: normalizeH(10),
     lineHeight: normalizeH(22),
   },
   title2: {
     color: colors.accBlue,
-    fontSize: normalizeH(7.5),
+    fontSize: normalizeH(10),
     lineHeight: normalizeH(12),
   },
 

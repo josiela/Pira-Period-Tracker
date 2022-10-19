@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import * as content from "../constants/texts";
 import { normalizeH } from "../constants/fontResponsive";
 
@@ -17,6 +17,7 @@ import colors from "../constants/colors";
 const LateAboutUsScreen = (props) => {
   return (
     <View style={styles.container}>
+      <Image style={styles.logo} source={require("../assets/ueberuns.png")} />
       <Text style={styles.title}>{content.au4}</Text>
 
       <View style={styles.textBox}>
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: "15%",
     color: colors.accBlue,
-    fontSize: normalizeH(14),
+    fontSize: normalizeH(10),
     lineHeight: normalizeH(22),
   },
 
@@ -51,6 +52,12 @@ const styles = StyleSheet.create({
     lineHeight: normalizeH(9),
     color: colors.mainG,
     fontSize: normalizeH(7),
+  },
+  logo: {
+    alignSelf: "flex-start",
+    marginTop: "15%",
+    width: normalizeH(40),
+    height: normalizeH(35),
   },
 });
 

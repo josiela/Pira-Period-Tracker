@@ -75,7 +75,8 @@ const CalendarScreen = (props) => {
 
   function confirmInput() {
     let dateArray = convertDateStringToArray(selectedDay);
-    CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+    // CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+    CycleCalc();
     props.navigation.navigate("7");
   }
 
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     marginBottom: "15%",
     marginTop: "18%",
     color: colors.accBlue,
-    fontSize: normalizeH(15),
+    fontSize: normalizeH(10),
     lineHeight: normalizeH(22),
   },
 

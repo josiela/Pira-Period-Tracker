@@ -52,7 +52,8 @@ export default function App() {
     setShowHomePage(true);
   };
   const [currentDate, setCurrentDate] = useState(
-    new Date().setHours(0, 0, 0, 0)
+    // Timezoneoffset
+    new Date().setHours(2, 0, 0, 0)
   );
 
   useEffect(() => {

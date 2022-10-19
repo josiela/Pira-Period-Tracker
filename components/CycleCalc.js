@@ -172,6 +172,9 @@ const CycleCalc = async (props) => {
     cycle = setCycle();
     console.log("cycle before iffff " + cycle);
 
+    //Kommentar für Aiden: Die funktion scheint y nicht richtig zu berechnen, zumindest machen wir in der App valide Angaben und y wird auf 40 gesetzt.
+    //Die endofMens scheint das gleiche Problem zu haben, falls du es hier gefixed hast, wär es also lieb wenn du da auch nochmal reinschaust
+
     if (long.includes(month)) {
       y = parseInt((day + cycle) / monthLong);
       console.log(" ich bin eine " + y);

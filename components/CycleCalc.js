@@ -11,6 +11,7 @@ import {
  *
  * @param {*} props
  * @returns firstDay, lastDay
+ * 
  */
 
 //Funktion um aus 9 eine 09 zu machen und so
@@ -25,17 +26,22 @@ const fixDate = (number) => {
 const CycleCalc = async (props) => {
   let arrayOfMensLengths = [];
   let arrayOfCyclusLengths = [];
-  let day = 12;
-  let year = 2022;
-  let month = 11;
+
   //let [entryArray, setEntryArray] = useState([]);
-  let mensLength = 5;
-  let cyclusLength = 28;
+  let mensLength;
+  let cyclusLength;
   const long = [1, 3, 5, 7, 8, 10, 12];
   const short = [4, 6, 9, 11];
   const special = [2];
   let mensItems = [];
   let cycleItems = [];
+
+  const monthLong = 31;
+  const monthShort = 30;
+  const monthSpecial = 29;
+  const monthNotSpecial = 28;
+
+  let cycle;
 
   await getMyStringStuff("@mensLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
@@ -48,19 +54,14 @@ const CycleCalc = async (props) => {
 
   await getMyStringStuff("@cyclusLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
-      cyclusItems = JSON.parse(returnedValue);
+      cycleItems = JSON.parse(returnedValue);
       console.log("Hier kommt die Zykluslength" + returnedValue);
     } else {
       console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
 
-  const monthLong = 31;
-  const monthShort = 30;
-  const monthSpecial = 29;
-  const monthNotSpecial = 28;
 
-  let cycle;
 
   //----------------------------------DB SECTION----------------------
   // Gets the Array of Entrys from DB
@@ -73,18 +74,20 @@ const CycleCalc = async (props) => {
   });
 
   await getMyStringStuff("@mensLength").then((returnedValue) => {
-    console.log("Old Length: " + JSON.parse(returnedValue));
+    console.log("Old MensLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       mensLength = JSON.parse(returnedValue);
+      mensLength=parseInt(mensLength);
     } else {
       mensLength = 5;
     }
   });
 
   await getMyStringStuff("@cyclusLength").then((returnedValue) => {
-    console.log("Old Length: " + JSON.parse(returnedValue));
+    console.log("Old CyclusLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       cyclusLength = JSON.parse(returnedValue);
+      cyclusLength=parseInt(cyclusLength);
     } else {
       cyclusLength = 28;
     }
@@ -122,7 +125,7 @@ const CycleCalc = async (props) => {
   const checkifAverage = (mensItems, cycleItems) => {
     const lenMen = mensItems.length;
     const lenCycle = cycleItems.length;
-    if (lenMen && lenCycle < 5) {
+    if ((lenMen && lenCycle )<= 5) {
       return false;
     } else {
       return true;
@@ -131,7 +134,7 @@ const CycleCalc = async (props) => {
 
   //checks if the next cycle hit's next year
   const checkYear = (month, year) => {
-    if (month >= 12) {
+    if (month > 12) {
       year += 1;
       month = month % 12;
       nextYear = true;
@@ -143,7 +146,6 @@ const CycleCalc = async (props) => {
   const setCycle = () => {
     if (checkifAverage(mensItems, cycleItems) == true) {
       cycle = checkCycleAverage(cycleItems);
-      console.log("individual", cycle);
       return cycle;
     } else {
       cycle = cyclusLength;
@@ -168,17 +170,12 @@ const CycleCalc = async (props) => {
     let y = NaN;
     let x = NaN;
     let k;
+    //cycle = setCycle() - doesn't work rn always returns NaN for whatever Reasonr
     cycle = setCycle();
-    console.log("cycle before iffff " + cycle);
-
-    //Kommentar für Aiden: Die funktion scheint y nicht richtig zu berechnen, zumindest machen wir in der App valide Angaben und y wird auf 40 gesetzt.
-    //Die endofMens scheint das gleiche Problem zu haben, falls du es hier gefixed hast, wär es also lieb wenn du da auch nochmal reinschaust
 
     if (long.includes(month)) {
       y = parseInt((day + cycle) / monthLong);
-      console.log(" ich bin eine " + y);
       x = (day + cycle) % monthLong;
-
       if (x == 0 && y != 0) {
         x = monthLong;
         y = 0;
@@ -207,102 +204,90 @@ const CycleCalc = async (props) => {
         }
       }
     }
-    console.log("Y ist : " + y);
     if (y != NaN) {
       switch (y) {
         case 0:
           y = month;
           k = [x, [y, year]];
-          console.log("Hier ist k: " + k);
           break;
         case 1:
           month += 1;
           k = [x, checkYear(month, year)];
-          console.log("Hier ist k: " + k);
           break;
         case 2:
           month += 2;
           k = [x, checkYear(month, year)];
-          console.log("Hier ist k: " + k);
           break;
         case 3:
           month += 3;
           k = [x, checkYear(month, year)];
-          console.log("Hier ist k: " + k);
           break;
         case 4:
           month += 4;
           k = [x, checkYear(month, year)];
-          console.log("Hier ist k: " + k);
           break;
         case 5:
           month += 5;
           k = [x, checkYear(month, year)];
-          console.log("Hier ist k: " + k);
           break;
         default:
           console.log("Y of nextDayCalc is is not NUN but non 0-5");
       }
     }
-
-    console.log("TEEEEXT " + endOfMensCalc(k));
     return k;
   };
 
   //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
     console.log("EndofMensCalc wird aufgerufen ");
-    let y = NaN;
+    let z = NaN;
     let x = NaN;
     let lastDay;
     let day = date[0];
-    console.log("EndofMensCalc wird weitergeführt");
     let month = date[1][0];
     let year = date[1][1];
-    console.log(
-      "Tag " + day + " monnat " + month + " year " + year + " DATE:   " + date
-    );
 
+ 
     mens = setMens();
+
     if (long.includes(month)) {
-      y = parseInt((day + mens) / monthLong);
+      z = parseInt((day + mens) / monthLong);
       x = (day + mens) % monthLong;
-      if (x == 0 && y != 0) {
+      if (x == 0 && z != 0) {
         x = monthLong;
-        y = 0;
+        z = 0;
       }
     } else if (short.includes(month)) {
-      y = parseInt((day + mens) / monthShort);
+      z = parseInt((day + mens) / monthShort);
       x = (day + mens) % monthShort;
-      if (x == 0 && y != 0) {
+      if (x == 0 && z != 0) {
         x = monthShort;
-        y = 0;
+        z= 0;
       }
     } else if (special.includes(month)) {
       if (isLeapYear(year) == true) {
-        y = parseInt((day + mens) / monthSpecial);
+        z = parseInt((day + mens) / monthSpecial);
         x = (day + mens) % monthSpecial;
-        if (x == 0 && y != 0) {
+        if (x == 0 && z != 0) {
           x = monthSpecial;
-          y = 0;
+          z = 0;
         }
       } else {
-        y = parseInt((day + mens) / monthNotSpecial);
-        console.log("pick me!" + y);
+        z = parseInt((day + mens) / monthNotSpecial);
+        
         x = (day + mens) % monthNotSpecial;
-        if (x == 0 && y != 0) {
+        if (x == 0 && z != 0) {
           x = monthNotSpecial;
-          y = 0;
+          z = 0;
         }
       }
     }
-    console.log("what is y? " + y);
 
-    if (y != NaN) {
-      switch (y) {
+    if (z != NaN) {
+      switch (z) {
         case 0:
-          y = month;
-          lastDay = [x, [y, year]];
+          z = month;
+          lastDay = [x, [z, year]];
           break;
         case 1:
           month += 1;
@@ -331,12 +316,13 @@ const CycleCalc = async (props) => {
     return lastDay;
   };
 
-  //calls nextDayCalc function with current date
-  //nextDayCalc(30, 12, 2021);
-  let firstDay = nextDayCalc(day, month, year);
-  //console.log("Rangebastelter Text"+firstDay[0]);
+  //calls nextDayCalc function with a currently hard coded Date. ENTER THE FIRST DAY OF (LAST) MENSTRUATION and calculates 
+  //the first day of NEXT Menstruation or onBoardingScreen Day if one was passed.
+  let firstDay = nextDayCalc(1 , 11, 2022);
+
+  //calls the Calculation of the end of the next Menstruation. Takes the first day of NEXT Menstruation and returns the Last Day of Menstruation of the
+  // NEXT Cyclus. 
   let lastDay = endOfMensCalc(firstDay);
-  //console.log("First Day " + firstDay + " lastday " + lastDay);
 
   //Rausgefundene Daten Werden in DB übertragen
   let firstDayString =
@@ -362,7 +348,3 @@ const CycleCalc = async (props) => {
 };
 
 export default CycleCalc;
-//Ich brauche: Abstand von erstem zu letztem mens tag
-//Abstand von erstem zu erstem oder letztem zu nächstem ersten (Also zykluslänge)
-//-> Das in Arrays packen
-//-> Help?

@@ -23,7 +23,10 @@ import { useIsFocused } from "@react-navigation/native";
  */
 
 const IndexCal = (props) => {
+<<<<<<< HEAD
   // to check if screen is active
+=======
+>>>>>>> a143f0a (updates marked dates on new entry)
   const isFocused = useIsFocused();
   const [selectedDayNumber, setSelectedDayNumber] = useState(1);
   const [selectedMonthNumber, setSelectedMonthNumber] = useState(1);
@@ -66,6 +69,9 @@ const IndexCal = (props) => {
       textColor: "white",
     },
   };
+  useEffect(() => {
+    getArray();
+  }, [isFocused]);
 
   // gets data from database when screen is focused
   useEffect(() => {

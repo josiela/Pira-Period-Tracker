@@ -209,7 +209,6 @@ const EntryScreen = (props) => {
       setMood(myEntry.mood);
       setBlood(myEntry.blood);
     } else {
-      console.log("notes nicht vorhanden");
     }
   }, [entryArray]);
 

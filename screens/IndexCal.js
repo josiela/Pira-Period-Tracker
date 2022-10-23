@@ -3,6 +3,11 @@ import { View, StyleSheet } from "react-native";
 import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
 import { Calendar } from "react-native-calendars";
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStuff,
+} from "../database/CreateDatabase";
 
 /**
  * IndexCalendar Screen
@@ -30,6 +35,7 @@ const IndexCal = (props) => {
   };
 
   const [selectedDay, setSelectedDay] = useState(convertDate());
+  const [entryArray, setEntryArray] = useState([]);
 
   let mark = {
     [selectedDay]: {
@@ -65,16 +71,35 @@ const IndexCal = (props) => {
     },
   };
 
-  function setDay(day) {
+  const setDay = (day) => {
     setSelectedDay(day);
-  }
+  };
 
-  function setDateNumbers(day) {
+  const setDateNumbers = (day) => {
     setSelectedDayNumber(day.day);
     setSelectedMonthNumber(day.month);
     setSelectedYearNumber(day.year);
     //calculateDates();
-  }
+  };
+
+  // Get EntryArray from database
+  const getArray = async () => {
+    await getMyStringStuff("@entryArrayKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        setEntryArray(JSON.parse(returnedValue));
+      } else {
+        setEntryArray([]);
+      }
+    });
+  };
+
+  console.log("aufrufen");
+  getArray();
+  console.log("done");
+  console.log(
+    "Hallo I versuch hier grad Daten zu ziehen: " +
+      JSON.stringify(entryArray[0])
+  );
 
   /*function calculateDates() {
     console.log(

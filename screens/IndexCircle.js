@@ -27,7 +27,7 @@ const IndexCircle = (props) => {
   //gesamte Zycluslänge
   let totalLength = 28; // aus Datenbank TYPE=NUMBER
   // Timestamp des nächsten Zyklusbeginns
-  let nextCycle = new Date(2022, 7, 30).getTime(); // aus Datenbank
+  let nextCycle = new Date(2022, 10, 30).getTime(); // aus Datenbank
   //-----------//
 
   let setCycleDaysLeft = totalLength;
@@ -42,6 +42,7 @@ const IndexCircle = (props) => {
       if (returnedValue !== null) {
         mensLength = JSON.parse(returnedValue);
       } else {
+        console.log("Error: No Menslength set");
         mensLength = 6;
       }
     });
@@ -50,6 +51,7 @@ const IndexCircle = (props) => {
       if (returnedValue !== null) {
         totalLength = JSON.parse(returnedValue);
       } else {
+        console.log("Error: No Cycle Length set");
         totalLength = 28;
       }
     });
@@ -72,12 +74,16 @@ const IndexCircle = (props) => {
   // Datenbank Abschnitt zu Ende-------------------------------
 
   function cyclusPositionBerechnung(cycleLength, menstruationLength) {
+    getOldStuff();
     // Follikel und Luteal Länge (gF)
     let gF = cycleLength - menstruationLength;
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
 
     let daysLeft = Math.round((nextCycle - props.date) / oneDay);
+    console.log("Next Cycle: ", nextCycle);
+    console.log("Date: " + props.date);
+    console.log("Next: " + nextMensBeginning);
     //-----------------------------//
 
     if (daysLeft > gF) {
@@ -94,11 +100,12 @@ const IndexCircle = (props) => {
         days = "Tage";
         // Position auf Kreis muss berechnet werden
         let mensLeft = daysLeft - gF;
+        let einTag;
         setCycleDaysLeft = mensLeft;
         if (mensLeft > mensLength) {
-          let einTag = kreisabschnittBerechnung(90, mensLeft);
+          einTag = kreisabschnittBerechnung(90, mensLeft);
         } else {
-          let einTag = kreisabschnittBerechnung(90, mensLength);
+          einTag = kreisabschnittBerechnung(90, mensLength);
         }
         let bogenPosition = einTag * mensLeft;
         let resultToString = bogenPosition.toString();

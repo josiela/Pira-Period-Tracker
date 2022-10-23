@@ -11,7 +11,7 @@ import {
  *
  * @param {*} props
  * @returns firstDay, lastDay
- * 
+ *
  */
 
 //Funktion um aus 9 eine 09 zu machen und so
@@ -61,8 +61,6 @@ const CycleCalc = async (props) => {
     }
   });
 
-
-
   //----------------------------------DB SECTION----------------------
   // Gets the Array of Entrys from DB
   await getMyStringStuff("@entryArrayKey").then((returnedValue) => {
@@ -77,7 +75,7 @@ const CycleCalc = async (props) => {
     console.log("Old MensLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       mensLength = JSON.parse(returnedValue);
-      mensLength=parseInt(mensLength);
+      mensLength = parseInt(mensLength);
     } else {
       mensLength = 5;
     }
@@ -87,7 +85,7 @@ const CycleCalc = async (props) => {
     console.log("Old CyclusLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       cyclusLength = JSON.parse(returnedValue);
-      cyclusLength=parseInt(cyclusLength);
+      cyclusLength = parseInt(cyclusLength);
     } else {
       cyclusLength = 28;
     }
@@ -125,7 +123,7 @@ const CycleCalc = async (props) => {
   const checkifAverage = (mensItems, cycleItems) => {
     const lenMen = mensItems.length;
     const lenCycle = cycleItems.length;
-    if ((lenMen && lenCycle )<= 5) {
+    if ((lenMen && lenCycle) <= 5) {
       return false;
     } else {
       return true;
@@ -247,7 +245,6 @@ const CycleCalc = async (props) => {
     let month = date[1][0];
     let year = date[1][1];
 
- 
     mens = setMens();
 
     if (long.includes(month)) {
@@ -262,7 +259,7 @@ const CycleCalc = async (props) => {
       x = (day + mens) % monthShort;
       if (x == 0 && z != 0) {
         x = monthShort;
-        z= 0;
+        z = 0;
       }
     } else if (special.includes(month)) {
       if (isLeapYear(year) == true) {
@@ -274,7 +271,7 @@ const CycleCalc = async (props) => {
         }
       } else {
         z = parseInt((day + mens) / monthNotSpecial);
-        
+
         x = (day + mens) % monthNotSpecial;
         if (x == 0 && z != 0) {
           x = monthNotSpecial;
@@ -316,12 +313,12 @@ const CycleCalc = async (props) => {
     return lastDay;
   };
 
-  //calls nextDayCalc function with a currently hard coded Date. ENTER THE FIRST DAY OF (LAST) MENSTRUATION and calculates 
+  //calls nextDayCalc function with a currently hard coded Date. ENTER THE FIRST DAY OF (LAST) MENSTRUATION and calculates
   //the first day of NEXT Menstruation or onBoardingScreen Day if one was passed.
-  let firstDay = nextDayCalc(1 , 11, 2022);
+  let firstDay = nextDayCalc(1, 11, 2022);
 
   //calls the Calculation of the end of the next Menstruation. Takes the first day of NEXT Menstruation and returns the Last Day of Menstruation of the
-  // NEXT Cyclus. 
+  // NEXT Cyclus.
   let lastDay = endOfMensCalc(firstDay);
 
   //Rausgefundene Daten Werden in DB übertragen

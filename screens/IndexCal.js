@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import colors from "../constants/colors";
 import AddButton from "../components/AddButton";
@@ -8,6 +8,7 @@ import {
   removeMyStuff,
   storeMyStuff,
 } from "../database/CreateDatabase";
+import { useIsFocused } from "@react-navigation/native";
 
 /**
  * IndexCalendar Screen
@@ -22,6 +23,7 @@ import {
  */
 
 const IndexCal = (props) => {
+  const isFocused = useIsFocused();
   const [selectedDayNumber, setSelectedDayNumber] = useState(1);
   const [selectedMonthNumber, setSelectedMonthNumber] = useState(1);
   const [selectedYearNumber, setSelectedYearNumber] = useState(2022);
@@ -70,6 +72,9 @@ const IndexCal = (props) => {
       textColor: "white",
     },
   };
+  useEffect(() => {
+    getArray();
+  }, [isFocused]);
 
   const setDay = (day) => {
     setSelectedDay(day);
@@ -88,18 +93,20 @@ const IndexCal = (props) => {
       if (returnedValue !== null) {
         setEntryArray(JSON.parse(returnedValue));
       } else {
+        console.log("No data in EntryArray");
         setEntryArray([]);
       }
     });
   };
 
-  console.log("aufrufen");
-  getArray();
-  console.log("done");
-  console.log(
-    "Hallo I versuch hier grad Daten zu ziehen: " +
-      JSON.stringify(entryArray[0])
-  );
+  for (const element of entryArray) {
+    mark[element.date] = {
+      color: colors.mainG,
+      startingDay: true,
+      endingDay: true,
+      textColor: "white",
+    };
+  }
 
   /*function calculateDates() {
     console.log(

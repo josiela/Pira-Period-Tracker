@@ -1,8 +1,10 @@
-import { useEffect, React } from "react";
+import { useEffect, React, useState } from "react";
 import colors from "../constants/colors";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { normalizeH } from "../constants/fontResponsive";
 import { getMyStringStuff } from "../database/CreateDatabase";
+import { useIsFocused } from "@react-navigation/native";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
 
 /**
  *
@@ -14,20 +16,21 @@ import { getMyStringStuff } from "../database/CreateDatabase";
  */
 
 const IndexCircle = (props) => {
+  // to check if screen is active
+  const isFocused = useIsFocused();
+
   let degree = "80deg";
 
   // get date aus Datenbank später:
 
   //------------//
   //Nächste Mens Anfang und Ende
-  let nextMensBeginning = [];
-  let nextMensEnd = [];
+  const [nextMensBeginning, setNextMensBeginning] = useState("");
+  const [nextMensEnd, setNextMensEnd] = useState("");
   //Menstruationslänge
-  let mensLength = 6; // aus Datenbank, TYPE=NUMBER
+  const [mensLength, setMensLength] = useState(6);
   //gesamte Zycluslänge
-  let totalLength = 28; // aus Datenbank TYPE=NUMBER
-  // Timestamp des nächsten Zyklusbeginns
-  let nextCycle = new Date(2022, 10, 30).getTime(); // aus Datenbank
+  const [totalLength, setTotalLength] = useState(28);
   //-----------//
 
   let setCycleDaysLeft = totalLength;
@@ -37,51 +40,49 @@ const IndexCircle = (props) => {
   let imgSrc;
 
   //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
-  const getOldStuff = async () => {
+  const getData = async () => {
     await getMyStringStuff("@mensLength").then((returnedValue) => {
       if (returnedValue !== null) {
-        mensLength = JSON.parse(returnedValue);
+        setMensLength(JSON.parse(returnedValue));
       } else {
         console.log("Error: No Menslength set");
-        mensLength = 6;
+        setMensLength(6);
       }
     });
 
     await getMyStringStuff("@cyclusLength").then((returnedValue) => {
       if (returnedValue !== null) {
-        totalLength = JSON.parse(returnedValue);
+        setTotalLength(JSON.parse(returnedValue));
       } else {
         console.log("Error: No Cycle Length set");
-        totalLength = 28;
+        setTotalLength(28);
       }
     });
 
     await getMyStringStuff("@firstDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
-        nextMensBeginning = returnedValue;
+        setNextMensBeginning(new Date(returnedValue).getTime());
       } else {
         console.log("NextMensBeginning ist leer");
       }
     });
     await getMyStringStuff("@lastDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
-        nextMensEnd = returnedValue;
+        setNextMensEnd(new Date(returnedValue).getTime());
       } else {
         console.log("NextMensEnd ist leer");
       }
     });
   };
   // Datenbank Abschnitt zu Ende-------------------------------
-
   function cyclusPositionBerechnung(cycleLength, menstruationLength) {
-    getOldStuff();
     // Follikel und Luteal Länge (gF)
     let gF = cycleLength - menstruationLength;
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
 
-    let daysLeft = Math.round((nextCycle - props.date) / oneDay);
-    console.log("Next Cycle: ", nextCycle);
+    let daysLeft = Math.round((nextMensBeginning - props.date) / oneDay);
+    console.log("Next Cycle: ", nextMensBeginning);
     console.log("Date: " + props.date);
     console.log("Next: " + nextMensBeginning);
     //-----------------------------//
@@ -137,8 +138,9 @@ const IndexCircle = (props) => {
   }
 
   useEffect(() => {
-    getOldStuff();
-  }, []);
+    getData();
+  }, [isFocused]);
+
   return (
     <View style={styles.container}>
       <View>

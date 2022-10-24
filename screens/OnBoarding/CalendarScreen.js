@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
 import colors from "../../constants/colors";
 import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
@@ -68,16 +68,21 @@ const CalendarScreen = (props) => {
     [selectedDay]: { selected: true, selectedColor: colors.accBlue },
   };
 
+  // get selected day
   function setDay(day) {
     console.log("function: " + day);
     setSelectedDay(day);
   }
 
+  // converts selected date and passes it to cyclecalc
   function confirmInput() {
-    let dateArray = convertDateStringToArray(selectedDay);
-    // CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
-    CycleCalc();
-    props.navigation.navigate("7");
+    if (selectedDay != "") {
+      let dateArray = convertDateStringToArray(selectedDay);
+      CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+      props.navigation.navigate("7");
+    } else {
+      Alert.alert("Bitte gib den Tag deiner letzten Periode ein");
+    }
   }
 
   function convertDateStringToArray(dateString) {

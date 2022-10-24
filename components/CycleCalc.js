@@ -23,7 +23,7 @@ const fixDate = (number) => {
   return fixedNumber;
 };
 
-const CycleCalc = async (props) => {
+const CycleCalc = async (day, month, year) => {
   let arrayOfMensLengths = [];
   let arrayOfCyclusLengths = [];
 
@@ -315,7 +315,7 @@ const CycleCalc = async (props) => {
 
   //calls nextDayCalc function with a currently hard coded Date. ENTER THE FIRST DAY OF (LAST) MENSTRUATION and calculates
   //the first day of NEXT Menstruation or onBoardingScreen Day if one was passed.
-  let firstDay = nextDayCalc(1, 11, 2022);
+  let firstDay = nextDayCalc(day, month, year);
 
   //calls the Calculation of the end of the next Menstruation. Takes the first day of NEXT Menstruation and returns the Last Day of Menstruation of the
   // NEXT Cyclus.

@@ -72,11 +72,6 @@ const IndexCal = (props) => {
     getDBData();
   }, [isFocused]);
 
-  // gets data from database when screen is focused
-  useEffect(() => {
-    getDBData();
-  }, [isFocused]);
-
   // calculate days of period if mensLength or nextMensBeginning changes
   useEffect(() => {
     calculatePeriodDates(nextMensBeginning);
@@ -92,7 +87,6 @@ const IndexCal = (props) => {
         console.log("NextMensBeginning ist leer");
       }
     });
-
     //length of menstruation
     await getMyStringStuff("@mensLength").then((returnedValue) => {
       if (returnedValue !== null) {

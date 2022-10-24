@@ -34,7 +34,10 @@ const DeleteScreen = (props) => {
             },
             styles.button1,
           ]}
-          onPress={() => deleteAll()}
+          onPress={() => {
+            deleteAll();
+            props.resetOnBoarding();
+          }}
         >
           <Text style={styles.textButton}>{"zurücksetzen"}</Text>
         </Pressable>

@@ -58,7 +58,7 @@ const EntryScreen = (props) => {
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
     await startCalculatingMensLengths();
-    CycleCalc(); //TODO Hier muss ein Datum als Prop übergeben werden
+    // CycleCalc(); Brauchen wir das?
     props.navigation.navigate("Calendar");
   };
 
@@ -209,7 +209,6 @@ const EntryScreen = (props) => {
       setMood(myEntry.mood);
       setBlood(myEntry.blood);
     } else {
-      console.log("notes nicht vorhanden");
     }
   }, [entryArray]);
 

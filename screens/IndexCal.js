@@ -23,14 +23,7 @@ import { useIsFocused } from "@react-navigation/native";
  */
 
 const IndexCal = (props) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
   // to check if screen is active
-=======
->>>>>>> a143f0a (updates marked dates on new entry)
-=======
-  // to check if screen is active
->>>>>>> 6d2c90e (Displaying Period in Calendar, reseting OnBoarding)
   const isFocused = useIsFocused();
   const [selectedDayNumber, setSelectedDayNumber] = useState(1);
   const [selectedMonthNumber, setSelectedMonthNumber] = useState(1);
@@ -79,24 +72,11 @@ const IndexCal = (props) => {
     getDBData();
   }, [isFocused]);
 
-<<<<<<< HEAD
-  // gets data from database when screen is focused
-  useEffect(() => {
-    getDBData();
-  }, [isFocused]);
-
   // calculate days of period if mensLength or nextMensBeginning changes
   useEffect(() => {
     calculatePeriodDates(nextMensBeginning);
   }, [mensLength || nextMensBeginning]);
 
-=======
-  // calculate days of period if mensLength or nextMensBeginning changes
-  useEffect(() => {
-    calculatePeriodDates(nextMensBeginning);
-  }, [mensLength || nextMensBeginning]);
-
->>>>>>> 6d2c90e (Displaying Period in Calendar, reseting OnBoarding)
   // get Period Date from database
   const getDBData = async () => {
     // day of next menstruation beginning

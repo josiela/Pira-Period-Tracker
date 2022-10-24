@@ -39,7 +39,13 @@ const StackNavigation = (props) => {
       <Stack.Screen name="Info" component={InfoWOButtScreen} />
       <Stack.Screen name="AddButton" component={AddButton} />
       <Stack.Screen name="AddEntryScreen" component={EntryScreen} />
-      <Stack.Screen name="DeleteScreen" component={DeleteScreen} />
+      <Stack.Screen
+        name="DeleteScreen"
+        children={() => (
+          //delete triggers the resetOnBoarding function one component higher (App.js)
+          <DeleteScreen resetOnBoarding={props.resetOnBoarding} />
+        )}
+      />
     </Stack.Navigator>
   );
 };

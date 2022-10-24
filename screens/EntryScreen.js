@@ -58,8 +58,27 @@ const EntryScreen = (props) => {
     removeMyStuff("@entryArrayKey");
     storeMyStuff("@entryArrayKey", entryArray);
     await startCalculatingMensLengths();
-    // CycleCalc(); Brauchen wir das?
+    // Array für CycleCalc, NumberArray aus dem übergebenen Datum
+    let convertedDateArray = convertDateStringToArray(props.route.params.date);
+    // Hier wird das Datum aus den Props (vom angewählten Tag) übergeben
+    CycleCalc(
+      convertedDateArray[2],
+      convertedDateArray[1],
+      convertedDateArray[0]
+    );
     props.navigation.navigate("Calendar");
+  };
+
+  //konvertiert Date-String zu NumberArray für CycleCalc
+  const convertDateStringToArray = (dateString) => {
+    // type=number year-month-day
+    try {
+      let stringArray = dateString.split("-");
+      let numberArray = stringArray.map(Number);
+      return numberArray;
+    } catch (e) {
+      console.log("Kein Datum wurde übergeben");
+    }
   };
 
   //Zieht Array aus Datenbank

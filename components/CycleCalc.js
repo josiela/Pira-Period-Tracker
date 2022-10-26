@@ -23,6 +23,10 @@ const fixDate = (number) => {
   return fixedNumber;
 };
 
+let year;
+let month;
+let day;
+
 const CycleCalc = async () => {
 
   let dbDateOfFirstDayLastPeriod='01-01-1111';
@@ -31,7 +35,6 @@ const CycleCalc = async () => {
     if (returnedValue !== null) {
      // console.log("Hier kommt der erste Tag der letzten Periode" + returnedValue);
       dbDateOfFirstDayLastPeriod = JSON.parse(returnedValue);
-      dbDateOfFirstDayLastPeriod= JSON.stringify(dbDateOfFirstDayLastPeriod);
     } else {
     //  console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
@@ -39,13 +42,13 @@ const CycleCalc = async () => {
 
 
   let yearVar = dbDateOfFirstDayLastPeriod[0] + dbDateOfFirstDayLastPeriod[1] + dbDateOfFirstDayLastPeriod[2] + dbDateOfFirstDayLastPeriod[3];
-  let year = parseInt(yearVar);
-
+  year = parseInt(yearVar);
+  console.log("BBBBBBBBBBBB"+ yearVar);
   let tryVar = dbDateOfFirstDayLastPeriod[5] + dbDateOfFirstDayLastPeriod[6];
-  let month = parseInt(tryVar);
+  month = parseInt(tryVar);
 
   let dayVar = dbDateOfFirstDayLastPeriod[8] + dbDateOfFirstDayLastPeriod[9];
-  let day = parseInt(dayVar);
+  day = parseInt(dayVar);
   console.log("der erste tag der letzten Periode war: "+ dbDateOfFirstDayLastPeriod);
 
   //let [entryArray, setEntryArray] = useState([]);
@@ -338,7 +341,9 @@ const CycleCalc = async () => {
 
   //calls nextDayCalc function with a currently hard coded Date. ENTER THE FIRST DAY OF (LAST) MENSTRUATION and calculates
   //the first day of NEXT Menstruation or onBoardingScreen Day if one was passed.
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAA "+month);
   let firstDay = nextDayCalc(day, month, year);
+  console.log("Geben wir einmal den first Day "+firstDay);
 
   //calls the Calculation of the end of the next Menstruation. Takes the first day of NEXT Menstruation and returns the Last Day of Menstruation of the
   // NEXT Cyclus.

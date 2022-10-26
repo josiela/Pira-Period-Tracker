@@ -323,7 +323,7 @@ const calculateFirstDayOfLastPeriod=async()=>{
 
   let latestDayNumber = parseInt(dayVar);
 
-  for (let i=1;i<firstMensDaysArray.length;i++){
+  for (let i=0;i<firstMensDaysArray.length;i++){
     let myEntry= new Entry;
     //console.log(myEntry.date+" wi88888888888888888rd verglichen mit altem Wert "+ latestEntry.date);
     myEntry=firstMensDaysArray[i];

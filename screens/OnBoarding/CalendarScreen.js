@@ -5,7 +5,7 @@ import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
 import { normalizeH } from "../../constants/fontResponsive";
 import CycleCalc from "../../components/CycleCalc";
-import {storeMyStuff} from "../../database/CreateDatabase";
+import { storeMyStuff } from "../../database/CreateDatabase";
 import { startCalculatingMensLengths } from "../../components/calculateMensArrays";
 /**
  * This is the CalendarScreen for OnBoarding
@@ -80,16 +80,14 @@ const CalendarScreen = (props) => {
   function confirmInput() {
     if (selectedDay != "") {
       let dateArray = convertDateStringToArray(selectedDay);
-      CycleCalc(dateArray[2], dateArray[1], dateArray[0]);
+      storeMyStuff("@firstDayOfLastPeriod", selectedDay);
+      console.log("Day wurde gespeichert" + selectedDay);
+      startCalculatingMensLengths();
+      CycleCalc();
       props.navigation.navigate("7");
     } else {
       Alert.alert("Bitte gib den Tag deiner letzten Periode ein");
     }
-    
-    storeMyStuff("@firstDayOfLastPeriod", selectedDay);
-    console.log("Day wurde gespeichert"+ selectedDay);
-    startCalculatingMensLengths();
-    CycleCalc();
   }
 
   function convertDateStringToArray(dateString) {

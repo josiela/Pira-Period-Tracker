@@ -28,28 +28,28 @@ let month;
 let day;
 
 const CycleCalc = async () => {
+  let dbDateOfFirstDayLastPeriod = "01-01-1111";
 
-  let dbDateOfFirstDayLastPeriod='01-01-1111';
-  
   await getMyStringStuff("@firstDayOfLastPeriod").then((returnedValue) => {
     if (returnedValue !== null) {
-     // console.log("Hier kommt der erste Tag der letzten Periode" + returnedValue);
+      // console.log("Hier kommt der erste Tag der letzten Periode" + returnedValue);
       dbDateOfFirstDayLastPeriod = JSON.parse(returnedValue);
     } else {
-    //  console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+      //  console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
 
-
-  let yearVar = dbDateOfFirstDayLastPeriod[0] + dbDateOfFirstDayLastPeriod[1] + dbDateOfFirstDayLastPeriod[2] + dbDateOfFirstDayLastPeriod[3];
+  let yearVar =
+    dbDateOfFirstDayLastPeriod[0] +
+    dbDateOfFirstDayLastPeriod[1] +
+    dbDateOfFirstDayLastPeriod[2] +
+    dbDateOfFirstDayLastPeriod[3];
   year = parseInt(yearVar);
-  console.log("BBBBBBBBBBBB"+ yearVar);
   let tryVar = dbDateOfFirstDayLastPeriod[5] + dbDateOfFirstDayLastPeriod[6];
   month = parseInt(tryVar);
 
   let dayVar = dbDateOfFirstDayLastPeriod[8] + dbDateOfFirstDayLastPeriod[9];
   day = parseInt(dayVar);
-  console.log("der erste tag der letzten Periode war: "+ dbDateOfFirstDayLastPeriod);
 
   //let [entryArray, setEntryArray] = useState([]);
 
@@ -77,13 +77,12 @@ const CycleCalc = async () => {
     }
   });
 
-
   await getMyStringStuff("@cyclusLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
       cycleItems = JSON.parse(returnedValue);
-     // console.log("Hier kommt die Zykluslength" + returnedValue);
+      // console.log("Hier kommt die Zykluslength" + returnedValue);
     } else {
-     // console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+      // console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
 
@@ -98,7 +97,7 @@ const CycleCalc = async () => {
   });
 
   await getMyStringStuff("@mensLength").then((returnedValue) => {
-  //  console.log("Old MensLength: " + JSON.parse(returnedValue));
+    //  console.log("Old MensLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       mensLength = JSON.parse(returnedValue);
       mensLength = parseInt(mensLength);
@@ -108,7 +107,7 @@ const CycleCalc = async () => {
   });
 
   await getMyStringStuff("@cyclusLength").then((returnedValue) => {
- //   console.log("Old CyclusLength: " + JSON.parse(returnedValue));
+    //   console.log("Old CyclusLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       cyclusLength = JSON.parse(returnedValue);
       cyclusLength = parseInt(cyclusLength);
@@ -181,7 +180,7 @@ const CycleCalc = async () => {
   const setMens = () => {
     if (checkifAverage(mensItems, cycleItems) == true) {
       mens = checkMensAverage(mensItems);
-     // console.log("individual", mens);
+      // console.log("individual", mens);
       return mens;
     } else {
       mens = mensLength;
@@ -263,7 +262,7 @@ const CycleCalc = async () => {
 
   //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
-   // console.log("EndofMensCalc wird aufgerufen ");
+    // console.log("EndofMensCalc wird aufgerufen ");
     let z = NaN;
     let x = NaN;
     let lastDay;
@@ -333,7 +332,7 @@ const CycleCalc = async () => {
           lastDay = [x, checkYear(month, year)];
           break;
         default:
-  //        console.log("You Failed twice");
+        //        console.log("You Failed twice");
       }
     }
     return lastDay;
@@ -341,9 +340,7 @@ const CycleCalc = async () => {
 
   //calls nextDayCalc function with a currently hard coded Date. ENTER THE FIRST DAY OF (LAST) MENSTRUATION and calculates
   //the first day of NEXT Menstruation or onBoardingScreen Day if one was passed.
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAA "+month);
   let firstDay = nextDayCalc(day, month, year);
-  console.log("Geben wir einmal den first Day "+firstDay);
 
   //calls the Calculation of the end of the next Menstruation. Takes the first day of NEXT Menstruation and returns the Last Day of Menstruation of the
   // NEXT Cyclus.
@@ -352,7 +349,7 @@ const CycleCalc = async () => {
   //Rausgefundene Daten Werden in DB übertragen
   let firstDayString =
     firstDay[1][1] + "-" + fixDate(firstDay[1][0]) + "-" + fixDate(firstDay[0]);
- console.log(
+  console.log(
     firstDayString +
       " ist das Anfangs-Datum, und der Datentyp: " +
       typeof firstDayString

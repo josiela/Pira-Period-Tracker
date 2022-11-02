@@ -25,9 +25,6 @@ import { useIsFocused } from "@react-navigation/native";
 const IndexCal = (props) => {
   // to check if screen is active
   const isFocused = useIsFocused();
-  const [selectedDayNumber, setSelectedDayNumber] = useState(1);
-  const [selectedMonthNumber, setSelectedMonthNumber] = useState(1);
-  const [selectedYearNumber, setSelectedYearNumber] = useState(2022);
 
   const convertDate = () => {
     // converts date to calender date string
@@ -44,6 +41,7 @@ const IndexCal = (props) => {
   const [daysOfPeriod, setDaysOfPeriod] = useState([]);
 
   let mark = {
+    //ausgewählter Tag
     [selectedDay]: {
       selected: true,
       color: colors.accBlue,
@@ -51,6 +49,7 @@ const IndexCal = (props) => {
       endingDay: true,
       textColor: "white",
     },
+    //heute
     [convertDate()]: {
       selected: true,
       color: colors.accBlue,
@@ -58,6 +57,7 @@ const IndexCal = (props) => {
       endingDay: true,
       textColor: "white",
     },
+    //Beginn der nächsten Menstruation
     [nextMensBeginning]: {
       selected: true,
       color: colors.accOrange,
@@ -67,15 +67,21 @@ const IndexCal = (props) => {
     },
   };
 
+  // Reagiert auf Anlegen eines neuen Eintrags und zieht darauf hin die neuen Daten
+  useEffect(() => {
+    getDBData();
+  }, [props.route.params?.update]);
+
+  // Berechnet die Periodentage nachdem die Daten aus der DB gezogen wurden
+  useEffect(() => {
+    calculatePeriodDates(nextMensBeginning);
+  }, [nextMensBeginning]);
+
   // gets data from database when screen is focused
   useEffect(() => {
     getDBData();
-  }, [isFocused]);
-
-  // calculate days of period if mensLength or nextMensBeginning changes
-  useEffect(() => {
     calculatePeriodDates(nextMensBeginning);
-  }, [mensLength || nextMensBeginning]);
+  }, [isFocused]);
 
   // get Period Date from database
   const getDBData = async () => {
@@ -110,49 +116,6 @@ const IndexCal = (props) => {
   const setDay = (day) => {
     setSelectedDay(day);
   };
-
-  const setDateNumbers = (day) => {
-    setSelectedDayNumber(day.day);
-    setSelectedMonthNumber(day.month);
-    setSelectedYearNumber(day.year);
-    //calculateDates();
-  };
-
-  // add entries to mark
-  for (const element of entryArray) {
-    mark[element.date] = {
-      color: colors.mainG,
-      startingDay: true,
-      endingDay: true,
-      textColor: "white",
-    };
-  }
-
-  // Tage der nächsten Periode markieren
-  for (const [index, day] of daysOfPeriod.entries()) {
-    if (index === 0) {
-      mark[day] = {
-        color: colors.accOrange,
-        startingDay: true,
-        endingDay: false,
-        textColor: "white",
-      };
-    } else if (index === daysOfPeriod.length - 1) {
-      mark[day] = {
-        color: colors.accOrange,
-        startingDay: false,
-        endingDay: true,
-        textColor: "white",
-      };
-    } else {
-      mark[day] = {
-        color: colors.accOrange,
-        startingDay: false,
-        endingDay: false,
-        textColor: "white",
-      };
-    }
-  }
 
   //berechnet die einzelnen Tage der Periode und fasst sie im Array DaysOfPeriod zusammen
   //date muss format yyyy-mm-dd type=string haben
@@ -240,6 +203,41 @@ const IndexCal = (props) => {
     setDaysOfPeriod(newDateArray);
   };
 
+  // add entries to mark
+  for (const element of entryArray) {
+    mark[element.date] = {
+      color: colors.mainG,
+      startingDay: true,
+      endingDay: true,
+      textColor: "white",
+    };
+  }
+
+  // Tage der nächsten Periode markieren
+  for (const [index, day] of daysOfPeriod.entries()) {
+    if (index === 0) {
+      mark[day] = {
+        color: colors.accOrange,
+        startingDay: true,
+        endingDay: false,
+        textColor: "white",
+      };
+    } else if (index === daysOfPeriod.length - 1) {
+      mark[day] = {
+        color: colors.accOrange,
+        startingDay: false,
+        endingDay: true,
+        textColor: "white",
+      };
+    } else {
+      mark[day] = {
+        color: colors.accOrange,
+        startingDay: false,
+        endingDay: false,
+        textColor: "white",
+      };
+    }
+  }
   return (
     <View style={styles.imageBox}>
       <View style={styles.calBox}>
@@ -256,17 +254,12 @@ const IndexCal = (props) => {
           onDayPress={(day) => {
             const date = day.dateString;
             setDay(date);
-            setDateNumbers(day);
           }}
           onDayLongPress={(day) => {
             setDay(day.dateString);
             props.navigation.navigate("AddEntryScreen", {
               date: day.dateString,
             });
-          }}
-          // Handler which gets executed when visible month changes in calendar. Default = undefined
-          onMonthChange={(month) => {
-            console.log("month changed", month);
           }}
           // Do not show days of other months in month page. Default = false
           hideExtraDays={true}

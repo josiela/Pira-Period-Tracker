@@ -82,9 +82,6 @@ const IndexCircle = (props) => {
     const oneDay = 1000 * 60 * 60 * 24;
 
     let daysLeft = Math.round((nextMensBeginning - props.date) / oneDay);
-    console.log("Next Cycle: ", nextMensBeginning);
-    console.log("Date: " + props.date);
-    console.log("Next: " + nextMensBeginning);
     //-----------------------------//
 
     if (daysLeft > gF) {

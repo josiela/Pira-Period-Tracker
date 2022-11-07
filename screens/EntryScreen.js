@@ -60,13 +60,15 @@ const EntryScreen = (props) => {
     await startCalculatingMensLengths();
     // Array für CycleCalc, NumberArray aus dem übergebenen Datum
     let convertedDateArray = convertDateStringToArray(props.route.params.date);
+    startCalculatingMensLengths();
+
     // Hier wird das Datum aus den Props (vom angewählten Tag) übergeben
-    CycleCalc(
-      convertedDateArray[2],
-      convertedDateArray[1],
-      convertedDateArray[0]
-    );
-    props.navigation.navigate("Calendar");
+    await CycleCalc().then(() => {
+      props.navigation.navigate({
+        name: "Calendar",
+        params: { update: Math.random() },
+      });
+    });
   };
 
   //konvertiert Date-String zu NumberArray für CycleCalc

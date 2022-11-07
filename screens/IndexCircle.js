@@ -5,6 +5,7 @@ import { normalizeH } from "../constants/fontResponsive";
 import { getMyStringStuff } from "../database/CreateDatabase";
 import { useIsFocused } from "@react-navigation/native";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
+import CycleCalc from "../components/CycleCalc";
 
 /**
  *
@@ -38,6 +39,13 @@ const IndexCircle = (props) => {
   let status = "bis zur nächsten Periode";
 
   let imgSrc;
+
+  useEffect(() => {
+    //TODO: Hier funktioniert die CycleCalc noch nicht
+    if (setCycleDaysLeft <= 0) {
+      CycleCalc();
+    }
+  }, [setCycleDaysLeft]);
 
   //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
   const getData = async () => {
@@ -75,25 +83,22 @@ const IndexCircle = (props) => {
     });
   };
   // Datenbank Abschnitt zu Ende-------------------------------
-  function cyclusPositionBerechnung(cycleLength, menstruationLength) {
+  const cyclusPositionBerechnung = (cycleLength, menstruationLength) => {
     // Follikel und Luteal Länge (gF)
     let gF = cycleLength - menstruationLength;
     //--- übrige Tage berechnen ---//
     const oneDay = 1000 * 60 * 60 * 24;
-
+    // Anfang der Periode - heute
     let daysLeft = Math.round((nextMensBeginning - props.date) / oneDay);
-    console.log("Next Cycle: ", nextMensBeginning);
-    console.log("Date: " + props.date);
-    console.log("Next: " + nextMensBeginning);
     //-----------------------------//
 
-    if (daysLeft > gF) {
+    if (daysLeft <= 0) {
       status = "";
       // noch in Menstruation
       imgSrc = require("../assets/Circle/Indicators/spotting.png");
       // Berechnung der Position des roten Balkens
-      if (daysLeft == 1) {
-        setCycleDaysLeft = 1;
+      if (daysLeft == -1) {
+        setCycleDaysLeft = Number(menstruationLength) + daysLeft;
         days = "Tag";
         // erster Tag, Ausgangsposition kann automatisch eingestellt werden
         return "80deg";
@@ -102,13 +107,9 @@ const IndexCircle = (props) => {
         // Position auf Kreis muss berechnet werden
         let mensLeft = daysLeft - gF;
         let einTag;
-        setCycleDaysLeft = mensLeft;
-        if (mensLeft > mensLength) {
-          einTag = kreisabschnittBerechnung(90, mensLeft);
-        } else {
-          einTag = kreisabschnittBerechnung(90, mensLength);
-        }
-        let bogenPosition = einTag * mensLeft;
+        setCycleDaysLeft = Number(menstruationLength) + daysLeft;
+        einTag = kreisabschnittBerechnung(90, mensLength);
+        let bogenPosition = einTag * setCycleDaysLeft - 10;
         let resultToString = bogenPosition.toString();
         degree = resultToString + "deg";
         return degree;
@@ -130,12 +131,12 @@ const IndexCircle = (props) => {
       degree = resultToString + "deg";
       return degree;
     }
-  }
+  };
 
-  function kreisabschnittBerechnung(grad, tage) {
+  const kreisabschnittBerechnung = (grad, tage) => {
     let abschnitt = grad / tage;
     return abschnitt;
-  }
+  };
 
   useEffect(() => {
     getData();

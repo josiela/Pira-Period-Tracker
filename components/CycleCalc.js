@@ -23,11 +23,36 @@ const fixDate = (number) => {
   return fixedNumber;
 };
 
-const CycleCalc = async (day, month, year) => {
-  let arrayOfMensLengths = [];
-  let arrayOfCyclusLengths = [];
+let year;
+let month;
+let day;
+
+const CycleCalc = async () => {
+  let dbDateOfFirstDayLastPeriod = "01-01-1111";
+
+  await getMyStringStuff("@firstDayOfLastPeriod").then((returnedValue) => {
+    if (returnedValue !== null) {
+      // console.log("Hier kommt der erste Tag der letzten Periode" + returnedValue);
+      dbDateOfFirstDayLastPeriod = JSON.parse(returnedValue);
+    } else {
+      //  console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+    }
+  });
+
+  let yearVar =
+    dbDateOfFirstDayLastPeriod[0] +
+    dbDateOfFirstDayLastPeriod[1] +
+    dbDateOfFirstDayLastPeriod[2] +
+    dbDateOfFirstDayLastPeriod[3];
+  year = parseInt(yearVar);
+  let tryVar = dbDateOfFirstDayLastPeriod[5] + dbDateOfFirstDayLastPeriod[6];
+  month = parseInt(tryVar);
+
+  let dayVar = dbDateOfFirstDayLastPeriod[8] + dbDateOfFirstDayLastPeriod[9];
+  day = parseInt(dayVar);
 
   //let [entryArray, setEntryArray] = useState([]);
+
   let mensLength;
   let cyclusLength;
   const long = [1, 3, 5, 7, 8, 10, 12];
@@ -45,19 +70,19 @@ const CycleCalc = async (day, month, year) => {
 
   await getMyStringStuff("@mensLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
-      console.log("Hier kommt die menslength" + returnedValue);
+      //console.log("Hier kommt die menslength" + returnedValue);
       mensItems = JSON.parse(returnedValue);
     } else {
-      console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+      //console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
 
   await getMyStringStuff("@cyclusLengthArrayKey").then((returnedValue) => {
     if (returnedValue !== null) {
       cycleItems = JSON.parse(returnedValue);
-      console.log("Hier kommt die Zykluslength" + returnedValue);
+      // console.log("Hier kommt die Zykluslength" + returnedValue);
     } else {
-      console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
+      // console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }
   });
 
@@ -72,7 +97,7 @@ const CycleCalc = async (day, month, year) => {
   });
 
   await getMyStringStuff("@mensLength").then((returnedValue) => {
-    console.log("Old MensLength: " + JSON.parse(returnedValue));
+    //  console.log("Old MensLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       mensLength = JSON.parse(returnedValue);
       mensLength = parseInt(mensLength);
@@ -82,7 +107,7 @@ const CycleCalc = async (day, month, year) => {
   });
 
   await getMyStringStuff("@cyclusLength").then((returnedValue) => {
-    console.log("Old CyclusLength: " + JSON.parse(returnedValue));
+    //   console.log("Old CyclusLength: " + JSON.parse(returnedValue));
     if (returnedValue !== null) {
       cyclusLength = JSON.parse(returnedValue);
       cyclusLength = parseInt(cyclusLength);
@@ -155,7 +180,7 @@ const CycleCalc = async (day, month, year) => {
   const setMens = () => {
     if (checkifAverage(mensItems, cycleItems) == true) {
       mens = checkMensAverage(mensItems);
-      console.log("individual", mens);
+      // console.log("individual", mens);
       return mens;
     } else {
       mens = mensLength;
@@ -237,7 +262,7 @@ const CycleCalc = async (day, month, year) => {
 
   //called after nextDayCalc passed the date and saves the date in lastDay
   const endOfMensCalc = (date) => {
-    console.log("EndofMensCalc wird aufgerufen ");
+    // console.log("EndofMensCalc wird aufgerufen ");
     let z = NaN;
     let x = NaN;
     let lastDay;
@@ -307,7 +332,7 @@ const CycleCalc = async (day, month, year) => {
           lastDay = [x, checkYear(month, year)];
           break;
         default:
-          console.log("You Failed twice");
+        //        console.log("You Failed twice");
       }
     }
     return lastDay;

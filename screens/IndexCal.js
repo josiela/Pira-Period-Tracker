@@ -205,37 +205,82 @@ const IndexCal = (props) => {
 
   // add entries to mark
   for (const element of entryArray) {
-    mark[element.date] = {
-      color: colors.mainG,
-      startingDay: true,
-      endingDay: true,
-      textColor: "white",
-    };
+    if (element.date !== selectedDay && element.date !== convertDate()) {
+      if (element.blood === "") {
+        mark[element.date] = {
+          color: colors.mainG,
+          startingDay: true,
+          endingDay: true,
+          textColor: "white",
+        };
+      } else {
+        mark[element.date] = {
+          color: colors.accOrange,
+          startingDay: true,
+          endingDay: true,
+          textColor: "white",
+        };
+      }
+    } else {
+      mark[element.date] = {
+        color: colors.accBlue,
+        startingDay: true,
+        endingDay: true,
+        textColor: "white",
+      };
+    }
   }
 
   // Tage der nächsten Periode markieren
   for (const [index, day] of daysOfPeriod.entries()) {
     if (index === 0) {
-      mark[day] = {
-        color: colors.accOrange,
-        startingDay: true,
-        endingDay: false,
-        textColor: "white",
-      };
+      if (day !== selectedDay && day !== convertDate()) {
+        mark[day] = {
+          color: colors.accOrange,
+          startingDay: true,
+          endingDay: false,
+          textColor: "white",
+        };
+      } else {
+        mark[day] = {
+          color: colors.accBlue,
+          startingDay: true,
+          endingDay: false,
+          textColor: "white",
+        };
+      }
     } else if (index === daysOfPeriod.length - 1) {
-      mark[day] = {
-        color: colors.accOrange,
-        startingDay: false,
-        endingDay: true,
-        textColor: "white",
-      };
+      if (day !== selectedDay && day !== convertDate()) {
+        mark[day] = {
+          color: colors.accOrange,
+          startingDay: false,
+          endingDay: true,
+          textColor: "white",
+        };
+      } else {
+        mark[day] = {
+          color: colors.accBlue,
+          startingDay: false,
+          endingDay: true,
+          textColor: "white",
+        };
+      }
     } else {
-      mark[day] = {
-        color: colors.accOrange,
-        startingDay: false,
-        endingDay: false,
-        textColor: "white",
-      };
+      if (day !== selectedDay && day !== convertDate()) {
+        mark[day] = {
+          color: colors.accOrange,
+          startingDay: false,
+          endingDay: false,
+          textColor: "white",
+        };
+      } else {
+        mark[day] = {
+          color: colors.accBlue,
+          startingDay: false,
+          endingDay: false,
+          textColor: "white",
+        };
+      }
     }
   }
   return (

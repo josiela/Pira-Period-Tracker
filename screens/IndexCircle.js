@@ -43,7 +43,7 @@ const IndexCircle = (props) => {
   useEffect(() => {
     //TODO: Hier funktioniert die CycleCalc noch nicht
     if (setCycleDaysLeft <= 0) {
-      CycleCalc();
+      //CycleCalc();
     }
   }, [setCycleDaysLeft]);
 

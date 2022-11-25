@@ -13,10 +13,16 @@ import MensCycleScreen from "./screens/OnBoarding/MensCycleScreen";
 import ChangePWScreen from "./screens/ChangePWScreen";
 import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStuff,
+} from "./database/CreateDatabase";
 
 //OnBoarding
 import OnBoarding from "./components/Navigation/OnBoarding";
 import AboutUsScreen from "./screens/OnBoarding/AboutUsScreen";
+import PasswordCheck from "./screens/PasswordCheck";
 
 /**
  * Pira App
@@ -52,6 +58,8 @@ export default function App() {
     // Timezoneoffset
     new Date().setHours(2, 0, 0, 0)
   );
+  const [passwordState, setPasswordState] = useState(false);
+  const [appBlocked, setAppBlocked] = useState(true);
 
   const updateOnBoarding = () => {
     setShowHomePage(true);
@@ -61,10 +69,25 @@ export default function App() {
     setShowHomePage(false);
   };
 
+  const getPassword = async () => {
+    await getMyStringStuff("@passwordKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        setAppBlocked(true);
+      } else {
+        setAppBlocked(false);
+      }
+    });
+  };
+
+  const unblockApp = () => {
+    setAppBlocked(false);
+  };
+
   useEffect(() => {
     const _handleAppStateChange = AppState.addEventListener(
       "change",
       (nextAppState) => {
+        getPassword();
         console.log("In App.js. Fetched Date.");
         setCurrentDate(new Date().setHours(0, 0, 0, 0));
         appState.current = nextAppState;
@@ -85,12 +108,21 @@ export default function App() {
           <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
         </NavigationContainer>
       );
-    }
-    return (
-      <NavigationContainer>
-        <StackNavigation date={currentDate} resetOnBoarding={resetOnBoarding} />
-      </NavigationContainer>
-    );
+    } else if (appBlocked) {
+      return (
+        <NavigationContainer>
+          <PasswordCheck unblockApp={unblockApp}></PasswordCheck>
+        </NavigationContainer>
+      );
+    } else if (!appBlocked)
+      return (
+        <NavigationContainer>
+          <StackNavigation
+            date={currentDate}
+            resetOnBoarding={resetOnBoarding}
+          />
+        </NavigationContainer>
+      );
   } else {
     return <LogoScreen />;
   }

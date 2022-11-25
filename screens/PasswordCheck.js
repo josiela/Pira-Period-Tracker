@@ -1,9 +1,14 @@
-import React from "react";
+import React, { forwardRef, useState } from "react";
 import { View, StyleSheet, Alert, Pressable, Text } from "react-native";
 import UILogo from "../components/UILogo";
 import colors from "../constants/colors";
 import Input from "../components/Input";
 import * as content from "../constants/texts";
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStuff,
+} from "../database/CreateDatabase";
 
 /**
  *  ChoosePwScreen for Starters!
@@ -19,6 +24,22 @@ import * as content from "../constants/texts";
  */
 
 const PasswordCheck = (props) => {
+  const [enteredPassword, setEnteredPassword] = useState("");
+
+  const checkPasswordText = async () => {
+    let storedPassword = await getMyStringStuff("@passwordKey");
+    if (storedPassword == enteredPassword) {
+      forward();
+    } else {
+      Alert.alert(
+        "Dein eingegebenes Password ist falsch. Bitte versuche es erneut"
+      );
+    }
+  };
+
+  const forward = () => {
+    props.unblockApp();
+  };
   return (
     <View style={styles.imageBox}>
       <View>
@@ -26,14 +47,14 @@ const PasswordCheck = (props) => {
         <View style={styles.title}>
           <Text style={styles.text2}>{content.checkPasswordText}</Text>
         </View>
-        <Input title="Passwort" />
+        <Input
+          title="Passwort"
+          onChangeText={(text) => setEnteredPassword('"' + text + '"')}
+        />
       </View>
 
       <View style={styles.button}>
-        <Pressable
-          style={styles.button1}
-          onPress={() => Alert.alert("am pressed omg")}
-        >
+        <Pressable style={styles.button1} onPress={() => checkPasswordText()}>
           <Text style={styles.text}>{props.title}</Text>
         </Pressable>
       </View>

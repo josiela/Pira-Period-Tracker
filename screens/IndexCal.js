@@ -7,6 +7,7 @@ import {
   getMyStringStuff,
   removeMyStuff,
   storeMyStuff,
+  getMyObjectStuff,
 } from "../database/CreateDatabase";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -39,6 +40,10 @@ const IndexCal = (props) => {
   const [nextMensBeginning, setNextMensBeginning] = useState("");
   const [mensLength, setMensLength] = useState(6);
   const [daysOfPeriod, setDaysOfPeriod] = useState([]);
+  const [daysOfPastMens, setDaysOfPastMens] = useState([]);
+  const [calculatedArrayOfPastMens, setCalculatedArrayOfPastMens] = useState(
+    []
+  );
 
   let mark = {
     //ausgewählter Tag
@@ -77,6 +82,13 @@ const IndexCal = (props) => {
     calculatePeriodDates(nextMensBeginning);
   }, [nextMensBeginning]);
 
+  useEffect(() => {
+    for (const element of daysOfPastMens) {
+      setCalculatedArrayOfPastMens(element.date);
+      calculatedPastPeriodDates(element.date);
+    }
+  }, [daysOfPastMens]);
+
   // gets data from database when screen is focused
   useEffect(() => {
     getDBData();
@@ -109,6 +121,14 @@ const IndexCal = (props) => {
       } else {
         console.log("No data in EntryArray");
         setEntryArray([]);
+      }
+    });
+
+    await getMyStringStuff("@firstMensDaysArray").then((returnedValue) => {
+      try {
+        setDaysOfPastMens(JSON.parse(returnedValue));
+      } catch (error) {
+        console.log("Can't get past mens dates");
       }
     });
   };
@@ -189,7 +209,10 @@ const IndexCal = (props) => {
 
       //Datum zusammen fügen
       let dayString;
-      let monthString = String(calculatedMonth);
+      let monthString;
+      if (calculatedMonth < 10) {
+        monthString = "0" + String(calculatedMonth);
+      } else monthString = String(calculatedMonth);
       let yearString = String(calculatedYear);
       if (calculatedDay < 10) {
         dayString = "0" + String(calculatedDay);
@@ -201,6 +224,92 @@ const IndexCal = (props) => {
       newDateArray.push(dateString);
     }
     setDaysOfPeriod(newDateArray);
+  };
+
+  const calculatedPastPeriodDates = (date) => {
+    //Datum in number unterteilen
+    const initialDateArray = date.split("-");
+    const day = Number(initialDateArray[2]);
+    const month = Number(initialDateArray[1]);
+    const year = Number(initialDateArray[0]);
+
+    let calculatedDay = day;
+    let calculatedMonth = month;
+    let calculatedYear = year;
+
+    //berechnung
+    for (let i = 1; i < mensLength; i++) {
+      let newDay = calculatedDay + 1;
+      let newMonth = calculatedMonth;
+      let newYear = calculatedYear;
+      if (
+        calculatedMonth === 1 ||
+        calculatedMonth === 3 ||
+        calculatedMonth === 5 ||
+        calculatedMonth === 7 ||
+        calculatedMonth === 8 ||
+        calculatedMonth === 10 ||
+        calculatedMonth === 12
+      ) {
+        if (newDay > 31) {
+          newDay = newDay % 31;
+          if (calculatedMonth < 12) {
+            newMonth = calculatedMonth + 1;
+          } else {
+            newMonth = (calculatedMonth + 1) % 12;
+            newYear = calculatedYear + 1;
+          }
+        }
+      } else if (calculatedMonth === 2) {
+        if (calculatedYear % 4 === 0) {
+          if (newDay > 29) {
+            newDay = newDay % 29;
+            newMonth = calculatedMonth + 1;
+          } else {
+            newMonth = calculatedMonth;
+          }
+        } else {
+          if (newDay > 28) {
+            newDay = newDay % 28;
+            newMonth = calculatedMonth + 1;
+          } else {
+            newMonth = calculatedMonth;
+          }
+        }
+      } else if (
+        calculatedMonth === 4 ||
+        calculatedMonth === 6 ||
+        calculatedMonth === 9 ||
+        calculatedMonth === 11
+      ) {
+        if (newDay > 30) {
+          newDay = newDay % 30;
+          newMonth = calculatedMonth + 1;
+        }
+      }
+      // neue Werte setzen
+      calculatedDay = newDay;
+      calculatedMonth = newMonth;
+      calculatedYear = newYear;
+
+      //Datum zusammen fügen
+      let dayString;
+      let monthString;
+      if (calculatedMonth < 10) {
+        monthString = "0" + String(calculatedMonth);
+      } else monthString = String(calculatedMonth);
+      let yearString = String(calculatedYear);
+      if (calculatedDay < 10) {
+        dayString = "0" + String(calculatedDay);
+      } else dayString = String(calculatedDay);
+
+      let dateString = yearString + "-" + monthString + "-" + dayString;
+
+      // add dateString to array
+      if (!calculatedArrayOfPastMens.includes(dateString)) {
+        setCalculatedArrayOfPastMens((oldArray) => [...oldArray, dateString]);
+      }
+    }
   };
 
   // add entries to mark
@@ -283,6 +392,60 @@ const IndexCal = (props) => {
       }
     }
   }
+
+  //letzte Perioden markieren
+  for (const [index, day] of calculatedArrayOfPastMens.entries()) {
+    if (index === 0) {
+      if (day !== selectedDay && day !== convertDate()) {
+        mark[day] = {
+          color: "#BF8E8A",
+          startingDay: true,
+          endingDay: false,
+          textColor: "white",
+        };
+      } else {
+        mark[day] = {
+          color: colors.accBlue,
+          startingDay: true,
+          endingDay: false,
+          textColor: "white",
+        };
+      }
+    } else if (index === daysOfPeriod.length - 1) {
+      if (day !== selectedDay && day !== convertDate()) {
+        mark[day] = {
+          color: "#BF8E8A",
+          startingDay: false,
+          endingDay: true,
+          textColor: "white",
+        };
+      } else {
+        mark[day] = {
+          color: colors.accBlue,
+          startingDay: false,
+          endingDay: true,
+          textColor: "white",
+        };
+      }
+    } else {
+      if (day !== selectedDay && day !== convertDate()) {
+        mark[day] = {
+          color: "#BF8E8A",
+          startingDay: false,
+          endingDay: false,
+          textColor: "white",
+        };
+      } else {
+        mark[day] = {
+          color: colors.accBlue,
+          startingDay: false,
+          endingDay: false,
+          textColor: "white",
+        };
+      }
+    }
+  }
+
   return (
     <View style={styles.imageBox}>
       <View style={styles.calBox}>

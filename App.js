@@ -15,8 +15,7 @@ import StackNavigation from "./components/Navigation/StackNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   getMyStringStuff,
-  removeMyStuff,
-  storeMyStuff,
+  storeMyStringStuff,
 } from "./database/CreateDatabase";
 
 //OnBoarding
@@ -60,13 +59,16 @@ export default function App() {
   );
   const [passwordState, setPasswordState] = useState(false);
   const [appBlocked, setAppBlocked] = useState(true);
+  const [openOnBoarding, setOpenOnboarding] = useState(true);
 
   const updateOnBoarding = () => {
-    setShowHomePage(true);
+    setOpenOnboarding(false);
+    storeMyStringStuff("@onboardingBooleanKey", "false");
   };
 
   const resetOnBoarding = () => {
-    setShowHomePage(false);
+    setOpenOnboarding(true);
+    storeMyStringStuff("@onboardingBooleanKey", "true");
   };
 
   const getPassword = async () => {
@@ -83,11 +85,22 @@ export default function App() {
     setAppBlocked(false);
   };
 
+  const getOnboardingValue = async () => {
+    await getMyStringStuff("@onboardingBooleanKey").then((returnedValue) => {
+      if (returnedValue !== null || returnedValue == "false") {
+        setOpenOnboarding(false);
+      } else {
+        setOpenOnboarding(true);
+      }
+    });
+  };
+
   useEffect(() => {
     const _handleAppStateChange = AppState.addEventListener(
       "change",
       (nextAppState) => {
         getPassword();
+        getOnboardingValue();
         console.log("In App.js. Fetched Date.");
         setCurrentDate(new Date().setHours(0, 0, 0, 0));
         appState.current = nextAppState;
@@ -100,21 +113,20 @@ export default function App() {
     };
   }, []);
 
-  // let content = <LoginPWScreen onSavePin={selectedNumber} />;
   if (appStateVisible === "active") {
-    if (!showHomePage) {
+    if (openOnBoarding) {
       return (
         <NavigationContainer>
           <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
         </NavigationContainer>
       );
-    } else if (appBlocked) {
+    } else if (!openOnBoarding && appBlocked) {
       return (
         <NavigationContainer>
           <PasswordCheck unblockApp={unblockApp}></PasswordCheck>
         </NavigationContainer>
       );
-    } else if (!appBlocked)
+    } else if (!openOnBoarding && !appBlocked)
       return (
         <NavigationContainer>
           <StackNavigation

@@ -17,7 +17,7 @@ let firstMensDaysArray = [];
 let mensLengthsArray = [];
 let cyclusLengthsArray = [];
 let counter = 1;
-let firstDayOfLastPeriod="01-01-1111";
+let firstDayOfLastPeriod = "01-01-1111";
 let oneDayBreakCounter = 0;
 
 //Holt EntryArray aus DB
@@ -31,8 +31,6 @@ const getArray = async () => {
     }
   });
 };
-
-
 
 //Macht aus 9 09 und so weiter für korrekte datenform
 const fixDate = (number) => {
@@ -134,7 +132,7 @@ const checkIfFirstDay = (entry) => {
       } else {
         //console.log("Zwei Tage vorher gab es auch keine Blutung, also ab in die DB: mit dem "+ entry.date);
         //TO DO: Schauen ob es einen oder zwei tage danach Blutung gab? Weil sonst könnte es ja eine Schmierblutung sein
-       
+
         firstMensDaysArray.push(entry);
       }
     }
@@ -298,36 +296,42 @@ const storeEverything = async () => {
   mensLengthsArray.forEach(justPrintTheArray);
   console.log("Zykluslängen:");
   cyclusLengthsArray.forEach(justPrintTheArray);
-  console.log("\nErster Tag der letzten Periode: "+firstDayOfLastPeriod);
+  console.log("\nErster Tag der letzten Periode: " + firstDayOfLastPeriod);
   removeMyStuff("@mensLengthArrayKey", mensLengthsArray);
   removeMyStuff("@cyclusLengthArrayKey", cyclusLengthsArray);
   removeMyStuff("@firstDayOfLastPeriod", firstDayOfLastPeriod);
+  removeMyStuff("@firstMensDaysArray", firstMensDaysArray);
 
   storeMyStuff("@mensLengthArrayKey", mensLengthsArray);
   storeMyStuff("@cyclusLengthArrayKey", cyclusLengthsArray);
   storeMyStuff("@firstDayOfLastPeriod", firstDayOfLastPeriod);
+  storeMyStuff("@firstMensDaysArray", firstMensDaysArray);
 };
 
-const calculateFirstDayOfLastPeriod=async()=>{
-  let latestEntry = new Entry;
-  latestEntry.date=firstDayOfLastPeriod;
-  
+const calculateFirstDayOfLastPeriod = async () => {
+  let latestEntry = new Entry();
+  latestEntry.date = firstDayOfLastPeriod;
 
-  let yearVar = latestEntry.date[0] + latestEntry.date[1] + latestEntry.date[2] + latestEntry.date[3];
+  let yearVar =
+    latestEntry.date[0] +
+    latestEntry.date[1] +
+    latestEntry.date[2] +
+    latestEntry.date[3];
   let latestYearNumber = parseInt(yearVar);
 
   let tryVar = latestEntry.date[5] + latestEntry.date[6];
   let latestMonthNumber = parseInt(tryVar);
- 
+
   let dayVar = latestEntry.date[8] + latestEntry.date[9];
 
   let latestDayNumber = parseInt(dayVar);
 
-  for (let i=0;i<firstMensDaysArray.length;i++){
-    let myEntry= new Entry;
+  for (let i = 0; i < firstMensDaysArray.length; i++) {
+    let myEntry = new Entry();
     //console.log(myEntry.date+" wi88888888888888888rd verglichen mit altem Wert "+ latestEntry.date);
-    myEntry=firstMensDaysArray[i];
-    let yearVar = myEntry.date[0] + myEntry.date[1] + myEntry.date[2] + myEntry.date[3];
+    myEntry = firstMensDaysArray[i];
+    let yearVar =
+      myEntry.date[0] + myEntry.date[1] + myEntry.date[2] + myEntry.date[3];
 
     let yearNumber = parseInt(yearVar);
 
@@ -336,21 +340,15 @@ const calculateFirstDayOfLastPeriod=async()=>{
     let dayVar = myEntry.date[8] + myEntry.date[9];
     let dayNumber = parseInt(dayVar);
 
-    if (yearNumber>latestYearNumber){
-     
-      latestEntry=myEntry;
-        
-    }else if(monthNumber>latestMonthNumber){
-      
-      latestEntry=myEntry;
-        
-    }else if(dayNumber>latestDayNumber){
-      latestEntry=myEntry;
-        
+    if (yearNumber > latestYearNumber) {
+      latestEntry = myEntry;
+    } else if (monthNumber > latestMonthNumber) {
+      latestEntry = myEntry;
+    } else if (dayNumber > latestDayNumber) {
+      latestEntry = myEntry;
     }
-
   }
-  firstDayOfLastPeriod=latestEntry.date;
+  firstDayOfLastPeriod = latestEntry.date;
 };
 
 export const startCalculatingMensLengths = async () => {
@@ -366,8 +364,10 @@ export const startCalculatingMensLengths = async () => {
   }
   await getMyStringStuff("@firstDayOfLastPeriod").then((returnedValue) => {
     if (returnedValue !== null) {
-      console.log("Hier kommt der erste Tag der letzten Periode" + returnedValue);
-      firstDayOfLastPeriod= JSON.parse(returnedValue);
+      console.log(
+        "Hier kommt der erste Tag der letzten Periode" + returnedValue
+      );
+      firstDayOfLastPeriod = JSON.parse(returnedValue);
     } else {
       console.log("DB Zugriff fehlgeschlagen, keine Daten vorhanden");
     }

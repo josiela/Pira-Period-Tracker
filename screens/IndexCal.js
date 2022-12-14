@@ -41,6 +41,7 @@ const IndexCal = (props) => {
   const [mensLength, setMensLength] = useState(6);
   const [daysOfPeriod, setDaysOfPeriod] = useState([]);
   const [daysOfPastMens, setDaysOfPastMens] = useState([]);
+  const [collectedDaysOfPastMens, setCollectedDaysOfPastMens] = useState([]);
   const [calculatedArrayOfPastMens, setCalculatedArrayOfPastMens] = useState(
     []
   );
@@ -84,9 +85,11 @@ const IndexCal = (props) => {
 
   useEffect(() => {
     for (const element of daysOfPastMens) {
-      setCalculatedArrayOfPastMens(element.date);
-      calculatedPastPeriodDates(element.date);
+      if (!collectedDaysOfPastMens.includes(element.date)) {
+        setCollectedDaysOfPastMens((oldArray) => [...oldArray, element.date]);
+      }
     }
+    calculatedPastPeriodDates();
   }, [daysOfPastMens]);
 
   // gets data from database when screen is focused
@@ -226,88 +229,93 @@ const IndexCal = (props) => {
     setDaysOfPeriod(newDateArray);
   };
 
-  const calculatedPastPeriodDates = (date) => {
+  const calculatedPastPeriodDates = () => {
+    console.log("Das ist das Array: ", collectedDaysOfPastMens);
     //Datum in number unterteilen
-    const initialDateArray = date.split("-");
-    const day = Number(initialDateArray[2]);
-    const month = Number(initialDateArray[1]);
-    const year = Number(initialDateArray[0]);
+    for (let i = 0; i < collectedDaysOfPastMens.length; i++) {
+      const date = collectedDaysOfPastMens[i];
 
-    let calculatedDay = day;
-    let calculatedMonth = month;
-    let calculatedYear = year;
+      const initialDateArray = date.split("-");
+      const day = Number(initialDateArray[2]);
+      const month = Number(initialDateArray[1]);
+      const year = Number(initialDateArray[0]);
 
-    //berechnung
-    for (let i = 1; i < mensLength; i++) {
-      let newDay = calculatedDay + 1;
-      let newMonth = calculatedMonth;
-      let newYear = calculatedYear;
-      if (
-        calculatedMonth === 1 ||
-        calculatedMonth === 3 ||
-        calculatedMonth === 5 ||
-        calculatedMonth === 7 ||
-        calculatedMonth === 8 ||
-        calculatedMonth === 10 ||
-        calculatedMonth === 12
-      ) {
-        if (newDay > 31) {
-          newDay = newDay % 31;
-          if (calculatedMonth < 12) {
-            newMonth = calculatedMonth + 1;
+      let calculatedDay = day;
+      let calculatedMonth = month;
+      let calculatedYear = year;
+
+      //berechnung
+      for (let i = 1; i < mensLength; i++) {
+        let newDay = calculatedDay + 1;
+        let newMonth = calculatedMonth;
+        let newYear = calculatedYear;
+        if (
+          calculatedMonth === 1 ||
+          calculatedMonth === 3 ||
+          calculatedMonth === 5 ||
+          calculatedMonth === 7 ||
+          calculatedMonth === 8 ||
+          calculatedMonth === 10 ||
+          calculatedMonth === 12
+        ) {
+          if (newDay > 31) {
+            newDay = newDay % 31;
+            if (calculatedMonth < 12) {
+              newMonth = calculatedMonth + 1;
+            } else {
+              newMonth = (calculatedMonth + 1) % 12;
+              newYear = calculatedYear + 1;
+            }
+          }
+        } else if (calculatedMonth === 2) {
+          if (calculatedYear % 4 === 0) {
+            if (newDay > 29) {
+              newDay = newDay % 29;
+              newMonth = calculatedMonth + 1;
+            } else {
+              newMonth = calculatedMonth;
+            }
           } else {
-            newMonth = (calculatedMonth + 1) % 12;
-            newYear = calculatedYear + 1;
+            if (newDay > 28) {
+              newDay = newDay % 28;
+              newMonth = calculatedMonth + 1;
+            } else {
+              newMonth = calculatedMonth;
+            }
+          }
+        } else if (
+          calculatedMonth === 4 ||
+          calculatedMonth === 6 ||
+          calculatedMonth === 9 ||
+          calculatedMonth === 11
+        ) {
+          if (newDay > 30) {
+            newDay = newDay % 30;
+            newMonth = calculatedMonth + 1;
           }
         }
-      } else if (calculatedMonth === 2) {
-        if (calculatedYear % 4 === 0) {
-          if (newDay > 29) {
-            newDay = newDay % 29;
-            newMonth = calculatedMonth + 1;
-          } else {
-            newMonth = calculatedMonth;
-          }
-        } else {
-          if (newDay > 28) {
-            newDay = newDay % 28;
-            newMonth = calculatedMonth + 1;
-          } else {
-            newMonth = calculatedMonth;
-          }
+        // neue Werte setzen
+        calculatedDay = newDay;
+        calculatedMonth = newMonth;
+        calculatedYear = newYear;
+
+        //Datum zusammen fügen
+        let dayString;
+        let monthString;
+        if (calculatedMonth < 10) {
+          monthString = "0" + String(calculatedMonth);
+        } else monthString = String(calculatedMonth);
+        let yearString = String(calculatedYear);
+        if (calculatedDay < 10) {
+          dayString = "0" + String(calculatedDay);
+        } else dayString = String(calculatedDay);
+
+        let dateString = yearString + "-" + monthString + "-" + dayString;
+
+        // add dateString to array
+        if (!calculatedArrayOfPastMens.includes(dateString)) {
+          setCalculatedArrayOfPastMens((oldArray) => [...oldArray, dateString]);
         }
-      } else if (
-        calculatedMonth === 4 ||
-        calculatedMonth === 6 ||
-        calculatedMonth === 9 ||
-        calculatedMonth === 11
-      ) {
-        if (newDay > 30) {
-          newDay = newDay % 30;
-          newMonth = calculatedMonth + 1;
-        }
-      }
-      // neue Werte setzen
-      calculatedDay = newDay;
-      calculatedMonth = newMonth;
-      calculatedYear = newYear;
-
-      //Datum zusammen fügen
-      let dayString;
-      let monthString;
-      if (calculatedMonth < 10) {
-        monthString = "0" + String(calculatedMonth);
-      } else monthString = String(calculatedMonth);
-      let yearString = String(calculatedYear);
-      if (calculatedDay < 10) {
-        dayString = "0" + String(calculatedDay);
-      } else dayString = String(calculatedDay);
-
-      let dateString = yearString + "-" + monthString + "-" + dayString;
-
-      // add dateString to array
-      if (!calculatedArrayOfPastMens.includes(dateString)) {
-        setCalculatedArrayOfPastMens((oldArray) => [...oldArray, dateString]);
       }
     }
   };
@@ -318,23 +326,23 @@ const IndexCal = (props) => {
       if (element.blood === "") {
         mark[element.date] = {
           color: colors.mainG,
-          startingDay: true,
-          endingDay: true,
+          startingDay: false,
+          endingDay: false,
           textColor: "white",
         };
       } else {
         mark[element.date] = {
           color: colors.accOrange,
-          startingDay: true,
-          endingDay: true,
+          startingDay: false,
+          endingDay: false,
           textColor: "white",
         };
       }
     } else {
       mark[element.date] = {
         color: colors.accBlue,
-        startingDay: true,
-        endingDay: true,
+        startingDay: false,
+        endingDay: false,
         textColor: "white",
       };
     }
@@ -398,7 +406,7 @@ const IndexCal = (props) => {
     if (index === 0) {
       if (day !== selectedDay && day !== convertDate()) {
         mark[day] = {
-          color: "#BF8E8A",
+          color: colors.accOrange,
           startingDay: true,
           endingDay: false,
           textColor: "white",
@@ -411,10 +419,10 @@ const IndexCal = (props) => {
           textColor: "white",
         };
       }
-    } else if (index === daysOfPeriod.length - 1) {
+    } else if (index === daysOfPeriod.length - 2) {
       if (day !== selectedDay && day !== convertDate()) {
         mark[day] = {
-          color: "#BF8E8A",
+          color: colors.accOrange,
           startingDay: false,
           endingDay: true,
           textColor: "white",
@@ -430,7 +438,7 @@ const IndexCal = (props) => {
     } else {
       if (day !== selectedDay && day !== convertDate()) {
         mark[day] = {
-          color: "#BF8E8A",
+          color: colors.accOrange,
           startingDay: false,
           endingDay: false,
           textColor: "white",

@@ -32,6 +32,8 @@ const IndexCircle = (props) => {
   const [mensLength, setMensLength] = useState(6);
   //gesamte Zycluslänge
   const [totalLength, setTotalLength] = useState(28);
+  const [daysOfPastMens, setDaysOfPastMens] = useState();
+  const [lastPeriod, setLastPeriod] = useState();
   //-----------//
 
   let setCycleDaysLeft = totalLength;
@@ -46,6 +48,21 @@ const IndexCircle = (props) => {
       //CycleCalc();
     }
   }, [setCycleDaysLeft]);
+
+  useEffect(() => {
+    console.log(daysOfPastMens);
+    if (daysOfPastMens != null || daysOfPastMens != undefined) {
+      getLastPeriod(daysOfPastMens);
+    }
+  }, [daysOfPastMens]);
+
+  const getLastPeriod = (daysOfMens) => {
+    const day = daysOfMens[daysOfMens.length - 1];
+    const date = day.date;
+    const dateFormatted = new Date(date);
+    const timestamp = dateFormatted.getTime();
+    setLastPeriod(timestamp);
+  };
 
   //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------
   const getData = async () => {
@@ -74,11 +91,20 @@ const IndexCircle = (props) => {
         console.log("NextMensBeginning ist leer");
       }
     });
+
     await getMyStringStuff("@lastDayKey").then((returnedValue) => {
       if (returnedValue !== null) {
         setNextMensEnd(new Date(returnedValue).getTime());
       } else {
         console.log("NextMensEnd ist leer");
+      }
+    });
+
+    await getMyStringStuff("@firstMensDaysArray").then((returnedValue) => {
+      try {
+        setDaysOfPastMens(JSON.parse(returnedValue));
+      } catch (error) {
+        console.log("Can't get past mens dates");
       }
     });
   };
@@ -90,9 +116,40 @@ const IndexCircle = (props) => {
     const oneDay = 1000 * 60 * 60 * 24;
     // Anfang der Periode - heute
     let daysLeft = Math.round((nextMensBeginning - props.date) / oneDay);
+    let daysSinceLastPeriod;
+    if (lastPeriod != undefined || lastPeriod != null) {
+      daysSinceLastPeriod = Math.round((props.date - lastPeriod) / oneDay);
+    }
+    console.log(daysSinceLastPeriod);
     //-----------------------------//
 
-    if (daysLeft <= 0) {
+    if (
+      daysSinceLastPeriod != undefined &&
+      daysSinceLastPeriod <= menstruationLength &&
+      daysSinceLastPeriod > 0
+    ) {
+      status = "";
+      // noch in Menstruation
+      imgSrc = require("../assets/Circle/Indicators/spotting.png");
+      // Berechnung der Position des roten Balkens
+      if (daysSinceLastPeriod == menstruationLength) {
+        setCycleDaysLeft = Number(menstruationLength) - daysSinceLastPeriod;
+        days = "Tag";
+        // erster Tag, Ausgangsposition kann automatisch eingestellt werden
+        return "80deg";
+      } else {
+        days = "Tage";
+        // Position auf Kreis muss berechnet werden
+        let mensLeft = Number(menstruationLength) - daysSinceLastPeriod;
+        let einTag;
+        setCycleDaysLeft = Number(menstruationLength) - daysSinceLastPeriod;
+        einTag = kreisabschnittBerechnung(90, mensLength);
+        let bogenPosition = einTag * setCycleDaysLeft - 10;
+        let resultToString = bogenPosition.toString();
+        degree = resultToString + "deg";
+        return degree;
+      }
+    } else if (daysLeft <= 0) {
       status = "";
       // noch in Menstruation
       imgSrc = require("../assets/Circle/Indicators/spotting.png");
@@ -139,6 +196,7 @@ const IndexCircle = (props) => {
   };
 
   useEffect(() => {
+    console.log("Fetching data in IndexCircle");
     getData();
   }, [isFocused]);
 

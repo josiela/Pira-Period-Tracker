@@ -84,12 +84,18 @@ const IndexCal = (props) => {
   }, [nextMensBeginning]);
 
   useEffect(() => {
-    for (const element of daysOfPastMens) {
-      if (!collectedDaysOfPastMens.includes(element.date)) {
-        setCollectedDaysOfPastMens((oldArray) => [...oldArray, element.date]);
+    if (
+      daysOfPastMens != undefined ||
+      daysOfPastMens != null ||
+      daysOfPastMens.length != 0
+    ) {
+      for (const element of daysOfPastMens) {
+        if (!collectedDaysOfPastMens.includes(element.date)) {
+          setCollectedDaysOfPastMens((oldArray) => [...oldArray, element.date]);
+        }
       }
+      calculatedPastPeriodDates();
     }
-    calculatedPastPeriodDates();
   }, [daysOfPastMens]);
 
   // gets data from database when screen is focused
@@ -230,7 +236,6 @@ const IndexCal = (props) => {
   };
 
   const calculatedPastPeriodDates = () => {
-    console.log("Das ist das Array: ", collectedDaysOfPastMens);
     //Datum in number unterteilen
     for (let i = 0; i < collectedDaysOfPastMens.length; i++) {
       const date = collectedDaysOfPastMens[i];

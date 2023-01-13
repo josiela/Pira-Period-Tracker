@@ -136,6 +136,9 @@ const IndexCal = (props) => {
     await getMyStringStuff("@firstMensDaysArray").then((returnedValue) => {
       try {
         setDaysOfPastMens(JSON.parse(returnedValue));
+        console.log(
+          "Das sind die past Daten aus der DB: " + JSON.stringify(returnedValue)
+        );
       } catch (error) {
         console.log("Can't get past mens dates");
       }
@@ -236,10 +239,14 @@ const IndexCal = (props) => {
   };
 
   const calculatedPastPeriodDates = () => {
+    console.log("Hier einmal die collected Dates: " + collectedDaysOfPastMens);
     //Datum in number unterteilen
     for (let i = 0; i < collectedDaysOfPastMens.length; i++) {
       const date = collectedDaysOfPastMens[i];
-
+      if (!calculatedArrayOfPastMens.includes(date)) {
+        ("eimmal hinzufügen bitte danke");
+        setCalculatedArrayOfPastMens((oldArray) => [...oldArray, date]);
+      }
       const initialDateArray = date.split("-");
       const day = Number(initialDateArray[2]);
       const month = Number(initialDateArray[1]);
@@ -316,6 +323,8 @@ const IndexCal = (props) => {
         } else dayString = String(calculatedDay);
 
         let dateString = yearString + "-" + monthString + "-" + dayString;
+
+        console.log("Das ist dann das errechnete Datum " + dateString);
 
         // add dateString to array
         if (!calculatedArrayOfPastMens.includes(dateString)) {
@@ -408,7 +417,7 @@ const IndexCal = (props) => {
 
   //letzte Perioden markieren
   for (const [index, day] of calculatedArrayOfPastMens.entries()) {
-    if (index === 0) {
+    if (index % parseInt(mensLength) === 0) {
       if (day !== selectedDay && day !== convertDate()) {
         mark[day] = {
           color: colors.accOrange,
@@ -424,7 +433,7 @@ const IndexCal = (props) => {
           textColor: "white",
         };
       }
-    } else if (index === daysOfPeriod.length - 2) {
+    } else if (index % parseInt(mensLength) === parseInt(mensLength) - 1) {
       if (day !== selectedDay && day !== convertDate()) {
         mark[day] = {
           color: colors.accOrange,

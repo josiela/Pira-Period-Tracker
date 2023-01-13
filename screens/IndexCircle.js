@@ -50,18 +50,19 @@ const IndexCircle = (props) => {
   }, [setCycleDaysLeft]);
 
   useEffect(() => {
-    console.log(daysOfPastMens);
     if (daysOfPastMens != null || daysOfPastMens != undefined) {
       getLastPeriod(daysOfPastMens);
     }
   }, [daysOfPastMens]);
 
   const getLastPeriod = (daysOfMens) => {
-    const day = daysOfMens[daysOfMens.length - 1];
-    const date = day.date;
-    const dateFormatted = new Date(date);
-    const timestamp = dateFormatted.getTime();
-    setLastPeriod(timestamp);
+    if (daysOfMens.length != 0) {
+      const day = daysOfMens[daysOfMens.length - 1];
+      const date = day.date;
+      const dateFormatted = new Date(date);
+      const timestamp = dateFormatted.getTime();
+      setLastPeriod(timestamp);
+    }
   };
 
   //Hier ist ein Abschnitt mit meinem Datenbank zeugs----------

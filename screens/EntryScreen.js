@@ -63,12 +63,19 @@ const EntryScreen = (props) => {
     startCalculatingMensLengths();
 
     // Hier wird das Datum aus den Props (vom angewählten Tag) übergeben
-    await CycleCalc().then(() => {
+    if (blood.length > 0) {
+      await CycleCalc().then(() => {
+        props.navigation.navigate({
+          name: "Calendar",
+          params: { update: Math.random() },
+        });
+      });
+    } else {
       props.navigation.navigate({
         name: "Calendar",
         params: { update: Math.random() },
       });
-    });
+    }
   };
 
   //konvertiert Date-String zu NumberArray für CycleCalc

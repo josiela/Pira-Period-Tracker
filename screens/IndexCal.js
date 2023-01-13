@@ -331,8 +331,8 @@ const IndexCal = (props) => {
       if (element.blood === "") {
         mark[element.date] = {
           color: colors.mainG,
-          startingDay: false,
-          endingDay: false,
+          startingDay: true,
+          endingDay: true,
           textColor: "white",
         };
       } else {
@@ -346,8 +346,8 @@ const IndexCal = (props) => {
     } else {
       mark[element.date] = {
         color: colors.accBlue,
-        startingDay: false,
-        endingDay: false,
+        startingDay: true,
+        endingDay: true,
         textColor: "white",
       };
     }

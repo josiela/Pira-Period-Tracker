@@ -121,15 +121,14 @@ const IndexCircle = (props) => {
     if (lastPeriod != undefined || lastPeriod != null) {
       daysSinceLastPeriod = Math.round((props.date - lastPeriod) / oneDay);
     }
-    console.log(daysSinceLastPeriod);
     //-----------------------------//
 
     if (
       daysSinceLastPeriod != undefined &&
       daysSinceLastPeriod <= menstruationLength &&
-      daysSinceLastPeriod > 0
+      daysSinceLastPeriod >= 0
     ) {
-      status = "";
+      status = "verbleibend";
       // noch in Menstruation
       imgSrc = require("../assets/Circle/Indicators/spotting.png");
       // Berechnung der Position des roten Balkens
@@ -151,7 +150,7 @@ const IndexCircle = (props) => {
         return degree;
       }
     } else if (daysLeft <= 0) {
-      status = "";
+      status = "verbleibend";
       // noch in Menstruation
       imgSrc = require("../assets/Circle/Indicators/spotting.png");
       // Berechnung der Position des roten Balkens
@@ -201,6 +200,15 @@ const IndexCircle = (props) => {
     getData();
   }, [isFocused]);
 
+  const displayDays = () => {
+    if (setCycleDaysLeft < 0) {
+      days = "";
+      return "Keine Angabe";
+    } else {
+      return setCycleDaysLeft;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -222,7 +230,7 @@ const IndexCircle = (props) => {
           <Image source={imgSrc} style={styles.indicator} />
           <View style={styles.daysLeftText}>
             <Text style={styles.text}>
-              {setCycleDaysLeft} {days}
+              {displayDays()} {days}
             </Text>
             <Text>{status}</Text>
           </View>

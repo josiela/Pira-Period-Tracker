@@ -3,7 +3,6 @@
  * @author Aiden <aiden.roessler@haw-hamburg.de>
  */
 
-
 export const ZL = "Zykluslänge";
 export const ML = "Menstruationslänge";
 export const pw = "Passwort";
@@ -70,6 +69,7 @@ export const endOnb =
 
 //Database Stuff
 export const checkPasswordText = "Wilkommen!";
+export const loginButton = "Einloggen";
 
 //Zurücksetzen
 export const getBack =

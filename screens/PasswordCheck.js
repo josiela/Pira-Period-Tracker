@@ -55,7 +55,7 @@ const PasswordCheck = (props) => {
 
       <View style={styles.button}>
         <Pressable style={styles.button1} onPress={() => checkPasswordText()}>
-          <Text style={styles.text}>{props.title}</Text>
+          <Text style={styles.text}>{content.loginButton}</Text>
         </Pressable>
       </View>
     </View>
@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.mainLG,
+    paddingStart: 15,
+    paddingEnd: 15,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
@@ -98,7 +100,6 @@ const styles = StyleSheet.create({
   button1: {
     borderRadius: 8,
     height: 40,
-    width: 80,
     elevation: 3,
     backgroundColor: colors.accBlue,
     alignItems: "center",

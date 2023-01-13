@@ -1,8 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable, Alert, Text } from "react-native";
 import { normalizeH } from "../../constants/fontResponsive";
 import * as content from "../../constants/texts";
 import colors from "../../constants/colors";
+import {
+  getMyStringStuff,
+  removeMyStuff,
+  storeMyStuff,
+  getMyObjectStuff,
+} from "../../database/CreateDatabase";
 
 /**
  * @author Josie <joseffa.steuernagel@haw-hamburg.de>
@@ -14,8 +20,18 @@ import colors from "../../constants/colors";
  * Here the transition to the start page is handled (at the moment by a button click).
  * This communicates to <OnBoarding>, and from there on to App.js via props
  */
-
 const EndOfOnBoarding = (props) => {
+  const checkData = async () => {
+    //length of menstruation
+    const mens = await getMyStringStuff("@mensLength");
+    const cyclus = await getMyStringStuff("@cyclusLength");
+    if (mens === null || cyclus === null) {
+      Alert.alert("Bitte gib deine Zyklus- und Menstruationslänge an");
+      return;
+    }
+    console.log(props);
+    props.updateState();
+  };
   // onPress triggers the updateState function in OnBoarding
   return (
     <View style={styles.container}>
@@ -32,7 +48,7 @@ const EndOfOnBoarding = (props) => {
             },
             styles.button1,
           ]}
-          onPress={props.updateState}
+          onPress={checkData}
         >
           <Text style={styles.text2}>Einrichtung beenden</Text>
         </Pressable>

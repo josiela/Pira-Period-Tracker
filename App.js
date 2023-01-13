@@ -62,6 +62,7 @@ export default function App() {
   const [openOnBoarding, setOpenOnboarding] = useState(true);
 
   const updateOnBoarding = () => {
+    console.log("Passieren hier Dinge?");
     setOpenOnboarding(false);
     storeMyStringStuff("@onboardingBooleanKey", "false");
   };
@@ -87,7 +88,7 @@ export default function App() {
 
   const getOnboardingValue = async () => {
     await getMyStringStuff("@onboardingBooleanKey").then((returnedValue) => {
-      if (returnedValue !== null || returnedValue == "false") {
+      if (returnedValue !== null && returnedValue == "false") {
         setOpenOnboarding(false);
       } else {
         setOpenOnboarding(true);

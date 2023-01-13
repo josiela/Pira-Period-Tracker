@@ -84,11 +84,8 @@ const IndexCal = (props) => {
   }, [nextMensBeginning]);
 
   useEffect(() => {
-    if (
-      daysOfPastMens != undefined ||
-      daysOfPastMens != null ||
-      daysOfPastMens.length != 0
-    ) {
+    console.log("********", daysOfPastMens);
+    if (daysOfPastMens != undefined || daysOfPastMens != null) {
       for (const element of daysOfPastMens) {
         if (!collectedDaysOfPastMens.includes(element.date)) {
           setCollectedDaysOfPastMens((oldArray) => [...oldArray, element.date]);
@@ -136,9 +133,6 @@ const IndexCal = (props) => {
     await getMyStringStuff("@firstMensDaysArray").then((returnedValue) => {
       try {
         setDaysOfPastMens(JSON.parse(returnedValue));
-        console.log(
-          "Das sind die past Daten aus der DB: " + JSON.stringify(returnedValue)
-        );
       } catch (error) {
         console.log("Can't get past mens dates");
       }
@@ -239,7 +233,6 @@ const IndexCal = (props) => {
   };
 
   const calculatedPastPeriodDates = () => {
-    console.log("Hier einmal die collected Dates: " + collectedDaysOfPastMens);
     //Datum in number unterteilen
     for (let i = 0; i < collectedDaysOfPastMens.length; i++) {
       const date = collectedDaysOfPastMens[i];
@@ -323,8 +316,6 @@ const IndexCal = (props) => {
         } else dayString = String(calculatedDay);
 
         let dateString = yearString + "-" + monthString + "-" + dayString;
-
-        console.log("Das ist dann das errechnete Datum " + dateString);
 
         // add dateString to array
         if (!calculatedArrayOfPastMens.includes(dateString)) {

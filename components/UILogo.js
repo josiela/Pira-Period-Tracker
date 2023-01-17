@@ -1,30 +1,41 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import React from "react";
+import { View, Image } from "react-native";
 
 /**
- * UILogo Component for two screens.
- * 1 Lock Symbol and the preferences Screen.
+ * UILogo Component
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Josie <joseffa.steuernagel@haw-hamburg.de>
+ *
  * @param {*} props
- * @returns
+ * @returns UI Logo
  */
 const UILogo = (props) => {
   // set logo path dependent on what prop name was given
-  var ImgSrc =
-    props.src === "lock"
-      ? require("../assets/iE-wdltA.png")
-      : require("../assets/settings.png");
+  var LogoStyle =
+    props.styleType === "tiny"
+      ? { width: 40, height: 50, resizeMode: "contain" }
+      : { width: 60, height: 70, resizeMode: "contain" };
+  var ImgSrc;
+
+  switch (props.src) {
+    case "lock":
+      ImgSrc = require("../assets/lock.png");
+      break;
+    case "plus":
+      ImgSrc = require("../assets/plus.png");
+      break;
+    case "gear":
+      ImgSrc = require("../assets/settings.png");
+      break;
+    default:
+      ImgSrc = require("../assets/settings.png");
+  }
+
   return (
     <View>
-      <Image style={styles.logo} source={ImgSrc} />
+      <Image style={LogoStyle} source={ImgSrc} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  logo: {
-    width: 60,
-    height: 70,
-  },
-});
 
 export default UILogo;

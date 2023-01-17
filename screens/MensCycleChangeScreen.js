@@ -1,31 +1,155 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Alert, Pressable, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Text,
+  Keyboard,
+  Image,
+  Alert,
+} from "react-native";
 import InputNumber from "../components/InputNumber";
 import * as content from "../constants/texts";
 import colors from "../constants/colors";
+import { normalize } from "../constants/fontResponsive";
+import { storeMyStuff, getMyStringStuff } from "../database/CreateDatabase";
+import { normalizeH } from "../constants/fontResponsive";
+
 /**
- * InputScreen for Mens and Cycle Length CHANGE
+ * Mens and Cyclus Change for Settingsnavigation
  *
- * Style I suppose..
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for Style and Database connection
+ *
  *
  * @param {*} props
- * @returns
+ * @returns MensCycleChangeScreen
  */
+
 const MensCycleChangeScreen = (props) => {
+  const [mensLength, setMensLength] = useState();
+  const [cyclusLength, setCyclusLength] = useState();
+
+  const [oldmensLength, setoldMensLength] = useState(44);
+  const [oldcyclusLength, setoldCyclusLength] = useState(44);
+
+  const mensHandler = (inputText) => {
+    setMensLength(inputText.replace(/[^0-9]/g, ""));
+  };
+
+  const cycleHandler = (inputText) => {
+    setCyclusLength(inputText.replace(/[^0-9]/g, ""));
+  };
+
+  const storeLengths = async () => {
+    if (mensLength === null) {
+      mensLength = oldmensLength;
+    }
+    if (cyclusLength === null) {
+      cyclusLength = oldcyclusLength;
+    }
+    console.log("Wird gestored" + mensLength + cyclusLength);
+    await storeMyStuff("@mensLength", mensLength);
+    await storeMyStuff("@cyclusLength", cyclusLength);
+    console.log(oldcyclusLength + " --- " + oldmensLength);
+  };
+
+  const getOldStuff = async () => {
+    await getMyStringStuff("@mensLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        setoldMensLength(JSON.parse(returnedValue));
+      } else {
+        setoldMensLength(0);
+      }
+    });
+
+    await getMyStringStuff("@cyclusLength").then((returnedValue) => {
+      console.log("Old Length: " + JSON.parse(returnedValue));
+      if (returnedValue !== null) {
+        setoldCyclusLength(JSON.parse(returnedValue));
+      } else {
+        setoldCyclusLength(0);
+      }
+    });
+  };
+
+  const navigate = () => {
+    props.navigation.navigate("Settings");
+    getOldStuff();
+  };
+
+  const inputHandler = () => {
+    console.log("gotcha");
+    let mens = parseInt(mensLength);
+    let cycle = parseInt(cyclusLength);
+    console.log("mens " + mens + " cycle " + cycle);
+    if (mens >= 0 && cycle >= 0) {
+      setMensLength("");
+      setCyclusLength("");
+      storeLengths();
+      Keyboard.dismiss();
+      Alert.alert(null, "changes have been saved", [
+        { text: "okay", onPress: () => navigate() },
+      ]);
+    } else {
+      Alert.alert(null, "no entry fetched", [{ text: "close" }]);
+    }
+    //
+  };
+  const [thisState, setState] = useState({});
+
+  useEffect(() => {
+    getOldStuff();
+    return () => {
+      setState({});
+    };
+  }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.text2}>{props.header}</Text>
-      <Text style={styles.text}>{content.ZuM1}</Text>
+      <Image
+        style={styles.logo}
+        source={require("../assets/PeriodenundZykluslänge.png")}
+      />
 
-      <InputNumber />
+      <View style={styles.textBox}>
+        <Text style={styles.title}>Menstruations- und Zykluslänge</Text>
 
-      <View style={styles.buttonBox}>
-        <Pressable
-          style={styles.buttonDesign}
-          onPress={() => Alert.alert(content.changeCheck)}
-        >
-          <Text style={styles.textButton}>{props.title}</Text>
-        </Pressable>
+        <Text style={styles.text}>{content.ZuM1}</Text>
+        <View style={styles.zweigeteiltes}>
+          <View style={styles.leftcontainer}>
+            <InputNumber
+              title="Menstruationslänge "
+              onChangeText={mensHandler}
+              value={mensLength}
+            />
+
+            <InputNumber
+              title="Zykluslänge"
+              onChangeText={cycleHandler}
+              value={cyclusLength}
+            />
+
+            <View style={styles.button}>
+              <Pressable
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? colors.accBlue : colors.primBlue,
+                  },
+                  styles.button1,
+                ]}
+                onPress={inputHandler}
+              >
+                <Text style={styles.textButton}>{"speichern"}</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.rightcontainer}>
+            <Text style={styles.text2}>Alter Wert: {oldmensLength}</Text>
+
+            <Text style={styles.text2}>Alter Wert: {oldcyclusLength}</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -33,23 +157,46 @@ const MensCycleChangeScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    justifyContent: "flex-start",
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
+    alignItems: "flex-start",
+    height: "100%",
     flexDirection: "column",
-    paddingHorizontal: 30,
-    paddingVertical: 50,
-
-    //justifyContent: 'space-around',
-    //alignItems: 'center'
+  },
+  zweigeteiltes: {
+    flexDirection: "row",
+  },
+  leftcontainer: {
+    width: "50%",
+  },
+  rightcontainer: {
+    width: "50%",
   },
   title: {
     color: colors.accBlue,
-    fontSize: 32,
+    fontSize: normalizeH(10),
     lineHeight: 36,
+    marginBottom: "5%",
+  },
+  textBox: {
+    marginTop: "10%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: "flex-start",
   },
 
   text: {
     color: colors.mainG,
-    fontSize: 20,
+    lineHeight: normalizeH(9),
+    fontSize: normalizeH(7.5),
+  },
+  text2: {
+    marginTop: "15%",
+    marginLeft: "30%",
+    color: colors.mainG,
+    lineHeight: normalizeH(13),
+    fontSize: normalizeH(7),
   },
 
   //Button Styles:
@@ -69,9 +216,29 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 40,
     elevation: 3,
-    backgroundColor: colors.accBlue,
     alignItems: "center",
     justifyContent: "center",
+  },
+  logo: {
+    alignSelf: "flex-start",
+
+    marginTop: "15%",
+    width: normalizeH(31),
+    height: normalizeH(35),
+  },
+
+  button1: {
+    borderRadius: 8,
+    marginTop: "10%",
+    height: normalize(40),
+    width: normalize(100),
+    elevation: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    width: "100%",
+    height: "100%",
   },
 });
 

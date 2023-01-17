@@ -1,56 +1,142 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import colors from "./constants/colors";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  AppState,
+} from "react-native";
 import InfoTextScreen from "./screens/InfoTextScreen";
-import LogoScreen from "./screens/LogoScreen";
-import ChoosePwScreen from "./screens/ChoosePwScreen";
-import CalendarScreen from "./screens/CalendarScreen";
-import NotificationScreen from "./screens/NotificationScreen";
-import MensCycleScreen from "./screens/MensCycleScreen";
-
-import * as content from "./constants/texts";
+import LogoScreen from "./screens/OnBoarding/LogoScreen";
+import MensCycleScreen from "./screens/OnBoarding/MensCycleScreen";
 import ChangePWScreen from "./screens/ChangePWScreen";
-import AboutUsScreen from "./screens/AboutUsScreen";
-import MensCycleChangeScreen from "./screens/MensCycleChangeScreen";
-import InfoWOButtScreen from "./screens/InfoWOButtScreen";
+import StackNavigation from "./components/Navigation/StackNavigation";
+import { NavigationContainer } from "@react-navigation/native";
+import {
+  getMyStringStuff,
+  storeMyStringStuff,
+} from "./database/CreateDatabase";
+
+//OnBoarding
+import OnBoarding from "./components/Navigation/OnBoarding";
+import AboutUsScreen from "./screens/OnBoarding/AboutUsScreen";
+import PasswordCheck from "./screens/PasswordCheck";
 
 /**
- * The MASTER APP.
- * We can do it! *peptalk*
- * Note: we still need an Navigation Component and the entire Logic
+ * Pira App
+ * Menstruationtracker
+ * @author Mona, Josie, Aiden
+ * HAW Hamburg - Fakultät DMI
+ * Projekt B
  *
- * @returns
+ * @returns Pira
  */
+
+//-----HOW THE SWIPE NAVIGATION MUST BE STRUCTURED------//
+/*
+Swipenavigation must be nested in <NavigationContainer>. That container HAS TO BE in App.js, don't ask me why but
+it doesnt want it in the SwipeNavigationContainer
+<NavigationContainer>
+  <SwipeNavigation></SwipeNavigation>
+</NavigationContainer>
+*/
+const slides = [
+  LogoScreen,
+  AboutUsScreen,
+  ChangePWScreen,
+  InfoTextScreen,
+  MensCycleScreen,
+];
+
 export default function App() {
-  return (
-      <View style={styles.container}>
-        <ChangePWScreen title="ändern"/>
-      </View>
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const [showHomePage, setShowHomePage] = useState(false);
+  const [currentDate, setCurrentDate] = useState(
+    // Timezoneoffset
+    new Date().setHours(2, 0, 0, 0)
   );
+  const [passwordState, setPasswordState] = useState(false);
+  const [appBlocked, setAppBlocked] = useState(true);
+  const [openOnBoarding, setOpenOnboarding] = useState(true);
+
+  const updateOnBoarding = () => {
+    console.log("Passieren hier Dinge?");
+    setOpenOnboarding(false);
+    storeMyStringStuff("@onboardingBooleanKey", "false");
+  };
+
+  const resetOnBoarding = () => {
+    setOpenOnboarding(true);
+    storeMyStringStuff("@onboardingBooleanKey", "true");
+  };
+
+  const getPassword = async () => {
+    await getMyStringStuff("@passwordKey").then((returnedValue) => {
+      if (returnedValue !== null) {
+        setAppBlocked(true);
+      } else {
+        setAppBlocked(false);
+      }
+    });
+  };
+
+  const unblockApp = () => {
+    setAppBlocked(false);
+  };
+
+  const getOnboardingValue = async () => {
+    await getMyStringStuff("@onboardingBooleanKey").then((returnedValue) => {
+      if (returnedValue !== null && returnedValue == "false") {
+        setOpenOnboarding(false);
+      } else {
+        setOpenOnboarding(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const _handleAppStateChange = AppState.addEventListener(
+      "change",
+      (nextAppState) => {
+        getPassword();
+        getOnboardingValue();
+        console.log("In App.js. Fetched Date.");
+        setCurrentDate(new Date().setHours(0, 0, 0, 0));
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+      }
+    );
+
+    return () => {
+      _handleAppStateChange.remove();
+    };
+  }, []);
+
+  if (appStateVisible === "active") {
+    if (openOnBoarding) {
+      return (
+        <NavigationContainer>
+          <OnBoarding updateOnBoarding={updateOnBoarding}></OnBoarding>
+        </NavigationContainer>
+      );
+    } else if (!openOnBoarding && appBlocked) {
+      return (
+        <NavigationContainer>
+          <PasswordCheck unblockApp={unblockApp}></PasswordCheck>
+        </NavigationContainer>
+      );
+    } else if (!openOnBoarding && !appBlocked)
+      return (
+        <NavigationContainer>
+          <StackNavigation
+            date={currentDate}
+            resetOnBoarding={resetOnBoarding}
+          />
+        </NavigationContainer>
+      );
+  } else {
+    return <LogoScreen />;
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.mainLG,
-    height: "100%",
-  },
-});
-
-/**
- * Just Commentary Dump to test diff Screens with their props.
- *
- *  <MensCycleScreen title= "Weiter"/>
- *  <LogoScreen title='Press Me'/>
- * <AddEntryScreen/>
- * <NotificationScreen/>
- * <AboutUsScreen header="Über uns" />
- *  <MensCycleChangeScreen header="Menstruations- und Zykluslänge ändern" title="ändern"/>
- * <InfoTextScreen header="Hallo!" title="Weiter"/>
- * <ChoosePwScreen title="Weiter"/>
- * <InfoWOButtScreen header="Did you know.." />
- *   <CalendarScreen
- title="Weiter"
- />
- * <ChangePWScreen title="ändern"/>
- */

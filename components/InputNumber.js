@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import colors from "../constants/colors";
+import { normalizeH, normalize } from "../constants/fontResponsive";
 
 /**
- * Input Component 
+ * Input Component
  * numbers only to gain information about f.e. cycle length and menstruation length
- 
- * 
+ *
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final style
+ *
  * @param {*} props
- * @returns Component
+ * @returns InputNumber
  */
 const InputNumber = (props) => {
-
-
   return (
     <View style={styles.container}>
       <TextInput
+        {...props}
         style={styles.input}
-        keyboardType = 'numeric'
-        placeholder="Menstruationslänge"
-        placeholderTextColor={colors.primBlue}
-        maxLength={2}
-      />
-      <TextInput
-        style={styles.input}
-        keyboardType = 'numeric'
-        placeholder="Zykluslänge"
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType="numeric"
+        placeholder={props.title}
         placeholderTextColor={colors.primBlue}
         maxLength={3}
       />
@@ -35,17 +32,18 @@ const InputNumber = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-   
-    width: "80%",
+    height: normalizeH(23),
+    width: "100%",
     //justifyContent: "center",
   },
 
   input: {
+    marginTop: "10%",
     borderBottomColor: colors.mainG,
     borderBottomWidth: 2,
-    width: 200,
-    height: 50,
-    fontSize: 16,
+    width: normalize(150),
+    height: normalizeH(14),
+    fontSize: normalizeH(8),
   },
 });
 

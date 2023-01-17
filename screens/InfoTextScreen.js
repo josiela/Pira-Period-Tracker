@@ -1,82 +1,71 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Alert, Pressable, Text, } from "react-native";
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
 import * as content from "../constants/texts";
+import { normalizeH } from "../constants/fontResponsive";
 
 import colors from "../constants/colors";
 /**
- * InfoTextScreen for Starters!
+ * InfoTextScreen for OnBoarding
  * takes the Navigation Component and a WoT
- * 
- *  
- * ToDo: Navigation Bar
- * Decide on a diff Font? 
- * 
- * STYLES
- * 
- * @param {*} props 
- * @returns 
+ *
+ * @author Aiden <aiden.roessler@haw-hamburg.de>
+ * @author Mona <mona.vonhein@haw-hamburg.de> for final Style
+ *
+ * @param {*} props
+ * @returns
  */
 
 const InfoTextScreen = (props) => {
   return (
     <View style={styles.container}>
-        <View>
-            <Text style={styles.title}>{props.header}</Text>
-        </View>
-        
-        <View style={styles.textBox}>
-        <Text style={styles.text}>{content.Datenschutz4}</Text>
-        </View>
+      <Text style={styles.title}>{content.Datenschutz5}</Text>
 
-      <View style={styles.buttonBox}>
-        <Pressable
-          style={styles.buttonDesign}
-          onPress={() => Alert.alert("am pressed omg")}
-        >
-          <Text style={styles.textButton}>{props.title}</Text>
-        </Pressable>
+      <View style={styles.textBox}>
+        <Text style={styles.text2}>{content.Datenschutz4}</Text>
       </View>
     </View>
   );
 };
-
+//quick reminder: Button gehört zum Navigation Component. Touchable Opacity wär noch cool.
+//Standard Button lässt sich nicht verändern. Müsste Pressable nehmen.
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: normalizeH(20),
+    paddingHorizontal: "7%",
     height: "100%",
-    paddingTop: 50,
+    width: "100%",
   },
-  title:{
-      color: colors.accBlue,
-      fontSize: 32,
-      lineHeight: 36,
-    
+  title: {
+    marginTop: "14%",
+    color: colors.accBlue,
+    fontSize: normalizeH(15),
+    lineHeight: normalizeH(22),
   },
-  
-  textBox:{
-      height: '60%',
-      width: '80%',
-      paddingTop: 20, 
-  },
-
-  text:{
-      color: colors.mainG,
-      fontSize: 20, 
-  },
-
-  //Button Styles
-  buttonBox: {
+  button: {
     margin: 50,
     elevation: 5,
   },
-
-  textButton: {
+  text: {
     color: colors.mainLG,
-    fontSize: 16,
+    fontSize: normalizeH(7.5),
     lineHeight: 21,
     letterSpacing: 0.25,
   },
-  buttonDesign: {
+  textBox: {
+    marginTop: "10%",
+    width: "100%",
+    paddingTop: normalizeH(8),
+    alignSelf: "flex-start",
+  },
+
+  text2: {
+    color: colors.mainG,
+    lineHeight: normalizeH(9),
+    fontSize: normalizeH(7.5),
+  },
+
+  button1: {
     borderRadius: 8,
     height: 40,
     elevation: 3,
@@ -84,7 +73,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  logo: {
+    width: 300,
+    height: 200,
+  },
 });
 
 export default InfoTextScreen;
